@@ -1,0 +1,291 @@
+openapi: 3.1.0
+info:
+  title: ABODE
+  version: 0.0.1
+paths:
+  /entities:
+    get:
+      summary: Get the list of entity types
+      description: Returns the IDs and descriptions of all entity types available in ABODE.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    display_name:
+                      type: string
+                    description:
+                      type: string
+  /{entity_type_id}:
+    get:
+      summary: Get a list of entities by type
+      description: Returns a (paginated) list of all the entities of the given type.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      previous:
+                        type: string
+                      next:
+                        type: string
+                      last:
+                        type: string
+                  "{entity_type_id}s":
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        display_name:
+                          type: string
+                        attributes:
+                          type: object
+        "404":
+          description: Entity type not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /{entity_type_id}/search:
+    get:
+      summary: Search for entities
+      description: Search for entities of the given type.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      previous:
+                        type: string
+                      next:
+                        type: string
+                      last:
+                        type: string
+                  result_count:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        display_name:
+                          type: string
+                        match_score:
+                          type: number
+        "204":
+          description: No Results Found
+  /{entity_type_id}/{entity_id}:
+    get:
+      summary: Get details of a single entity
+      description: Return all available data about a single entity.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entity_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  display_name:
+                    type: string
+                  attributes:
+                    type: object
+  /{entity_type_id}/related:
+    get:
+      summary: Get the relationship types for an entity type
+      description: Return all relationship types which are applicable to the given entity type.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    display_name:
+                      type: string
+                    description:
+                      type: string
+                    target_entity:
+                      type: string
+                    cardinality:
+                      type: string
+                      enum:
+                        - one
+                        - many
+        "404":
+          description: Entity type not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /{entity_type_id}/{entity_id}/related/{relationship_id}:
+    get:
+      summary: Get related entities for an entity
+      description: Return all entities related to the given entity via the given relationship type.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entity_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: relationship_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    display_name:
+                      type: string
+    put:
+      summary: Add a relationship between entities
+      description: Add one or more entities as the targets of the given relationship on the given entity.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entity_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: relationship_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: array
+                  items:
+                    type: integer
+                - type: integer
+      responses:
+        "204":
+          description: Success
+        "403":
+          description: Not authorized to edit this entity/relationship.
+        "404":
+          description: Target(s) not Found
+    delete:
+      summary: Delete relationships between entities
+      description: Remove one or more relationship targets from the given entity.
+      parameters:
+        - name: entity_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entity_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: relationship_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: array
+                  items:
+                    type: integer
+                - type: integer
+      responses:
+        "204":
+          description: Success
+        "403":
+          description: Not authorized to edit this entity/relationship.
+        "404":
+          description: Target(s) not Found
