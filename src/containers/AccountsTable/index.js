@@ -120,10 +120,10 @@ export default function CollapsibleTable() {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
             <TableCell>Client</TableCell>
             <TableCell>LOB</TableCell>
             <TableCell>Program</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
