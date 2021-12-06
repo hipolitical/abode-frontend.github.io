@@ -9,10 +9,19 @@ import { useTheme } from '@mui/material/styles';
 import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
+import { getAccounts } from '../api'
 
 function Accounts() {
   const theme = useTheme();
   const [currentTab, setCurrentTab] = React.useState(0);
+  const [rows, setRows] = React.useState([])
+  const [headers, setHeaders] = React.useState([])
+
+  React.useEffect(() => {
+    const accountsData = getAccounts()
+    setRows(accountsData.rows)
+    setHeaders(accountsData.headers)
+  }, []);
 
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
@@ -21,7 +30,7 @@ function Accounts() {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 8 }}>
-        <AutoComplete />
+        <AutoComplete suggestions={rows} />
       </Box>
       <Box sx={{ mt: 8 }}>
         <Tabs
@@ -46,10 +55,10 @@ function Accounts() {
         onChangeIndex={handleChange}
       >
         <TabPanel value={currentTab} index={0} dir={theme.direction}>
-          <AccountsTable />
+          <AccountsTable rows={rows} headers={headers} />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
-          <AccountsTable />
+          <AccountsTable rows={rows} headers={headers} />
         </TabPanel>
       </SwipeableViews>
     </Container>

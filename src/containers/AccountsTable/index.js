@@ -7,16 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CustomRow from '../../components/TableRow';
-import { getAccounts } from '../../api'
 
-export default function CollapsibleTable() {
-  const [rows, setRows] = React.useState([])
-  const [headers, setHeaders] = React.useState([])
-  React.useEffect(() => {
-    const accountsData = getAccounts()
-    setRows(accountsData.rows)
-    setHeaders(accountsData.headers)
-  }, []);
+export default function CollapsibleTable(props) {
+  const { rows, headers } = props
 
   return (
     <TableContainer component={Paper}>

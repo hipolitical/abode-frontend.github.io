@@ -5,8 +5,9 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 
-function Accounts() {
+function Accounts(props) {
   const [value, setValue] = React.useState(null);
+  const { suggestions } = props
 
   return (
     <Autocomplete
@@ -44,7 +45,7 @@ function Accounts() {
       clearOnBlur
       handleHomeEndKeys
       id="free-solo-with-text-demo"
-      options={usersData}
+      options={suggestions}
       getOptionLabel={(option) => {
         // Value selected with enter, right from the input
         if (typeof option === 'string') {
@@ -66,13 +67,5 @@ function Accounts() {
     />
   );
 }
-
-const usersData = [
-  { name: 'Jane Wilson', role: 'Admin' },
-  { name: 'Kevin Ryder', role: 'Editor' },
-  { name: 'Matthew Gas', role: 'Editor' },
-  { name: 'Erik Bahena', role: 'Admin' },
-  { name: 'John Doe', role: 'Admin' },
-]
 
 export default Accounts;
