@@ -83,7 +83,7 @@ function Accounts() {
           clearOnBlur
           handleHomeEndKeys
           id="free-solo-with-text-demo"
-          options={top100Films}
+          options={usersData}
           getOptionLabel={(option) => {
             // Value selected with enter, right from the input
             if (typeof option === 'string') {
@@ -137,7 +137,7 @@ function Accounts() {
   );
 }
 
-const top100Films = [
+const usersData = [
   { name: 'Jane Wilson', role: 'Admin' },
   { name: 'Kevin Ryder', role: 'Editor' },
   { name: 'Matthew Gas', role: 'Editor' },

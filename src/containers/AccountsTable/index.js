@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import EditIcon from '@mui/icons-material/Edit';
 
 function createData(name, lob, program) {
   return {
@@ -22,12 +23,10 @@ function createData(name, lob, program) {
     history: [
       {
         date: '2020-01-05',
-        customerId: '11091700',
         amount: 3,
       },
       {
         date: '2020-01-02',
-        customerId: 'Anonymous',
         amount: 1,
       },
     ],
@@ -50,6 +49,12 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            aria-label="expand row"
+            size="small"
             onClick={() => setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -67,7 +72,6 @@ function Row(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
                     <TableCell align="right">Amount</TableCell>
                   </TableRow>
                 </TableHead>
@@ -77,7 +81,6 @@ function Row(props) {
                       <TableCell component="th" scope="row">
                         {historyRow.date}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
                       <TableCell align="right">{historyRow.amount}</TableCell>
                     </TableRow>
                   ))}
@@ -99,7 +102,6 @@ Row.propTypes = {
     history: PropTypes.arrayOf(
       PropTypes.shape({
         amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
       }),
     ).isRequired,
