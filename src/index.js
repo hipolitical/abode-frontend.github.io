@@ -10,10 +10,10 @@ import store from './store';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#000000',
+      main: '#002C77',
     },
     secondary: {
-      main: '#009DE0',
+      main: '#000000',
     }
   },
 });
