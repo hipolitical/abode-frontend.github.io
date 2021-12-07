@@ -20,6 +20,8 @@ const AccountInfoSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('LOB is required'),
   program: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
     .required('Program is required'),
 });
 

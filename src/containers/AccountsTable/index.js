@@ -9,14 +9,14 @@ import Paper from '@mui/material/Paper';
 import CustomRow from '../../components/TableRow';
 
 export default function CollapsibleTable(props) {
-  const { rows, headers } = props
+  const { rows, headers } = props;
 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            {headers.map((row, index) => (
+            {headers && headers.map((row, index) => (
               <TableCell key={index}>
                 {row}
               </TableCell>
@@ -25,7 +25,7 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {rows && rows.map((row, index) => (
             <CustomRow key={index} row={row} />
           ))}
         </TableBody>

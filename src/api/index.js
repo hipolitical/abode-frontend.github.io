@@ -1,4 +1,4 @@
-function createData(name, lob, program) {
+function createData(id, name, lob, program) {
   return {
     name,
     lob,
@@ -17,11 +17,11 @@ function createData(name, lob, program) {
 }
 
 const rows = [
-  createData('Jane Wilson', 'Multiple', 'Multiple'),
-  createData('Kevin Ryder', 'Multiple', 'Multiple'),
-  createData('Matthew Gas', 'Casualty', 'CAT XOL'),
-  createData('Erik Bahena', 'Casualty', 'Multiple'),
-  createData('John Doe', 'Multiple', 'CAT XOL'),
+  createData('acc#1', 'Jane Wilson', 'Multiple', 'Multiple'),
+  createData('acc#2', 'Kevin Ryder', 'Multiple', 'Multiple'),
+  createData('acc#3', 'Matthew Gas', 'Casualty', 'CAT XOL'),
+  createData('acc#4', 'Erik Bahena', 'Casualty', 'Multiple'),
+  createData('acc#5', 'John Doe', 'Multiple', 'CAT XOL'),
 ];
 
 function getAccounts() {
