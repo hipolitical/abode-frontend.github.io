@@ -7,31 +7,85 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
-export default function FormDialog({ open, handleClose }) {
+const AccountInfoSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Name is required'),
+  lob: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('LOB is required'),
+  program: Yup.string()
+    .required('Program is required'),
+});
+
+export default function FormDialog({ open, handleClose, handleSubmit }) {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      lob: '',
+      program: '',
+    },
+    validationSchema: AccountInfoSchema,
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+  });
+
   return (
     <div>
       <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'sm'}>
-        <DialogTitle>Account Modal</DialogTitle>
-        <DialogContent dividers>
-          <DialogContentText>
-            Create new client account
-          </DialogContentText>
-          <Box sx={{ mb: 3 }}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              fullWidth
-              variant="standard"
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
-        </DialogActions>
+        <form onSubmit={formik.handleSubmit}>
+          <DialogTitle>Account Modal</DialogTitle>
+          <DialogContent dividers>
+            <DialogContentText>
+              Create new client account
+            </DialogContentText>
+            <Box sx={{ my: 2 }}>
+              <TextField
+                fullWidth
+                id="name"
+                name="name"
+                label="Name"
+                margin="dense"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+              <TextField
+                fullWidth
+                id="lob"
+                name="lob"
+                label="LOB"
+                margin="dense"
+                value={formik.values.lob}
+                onChange={formik.handleChange}
+                error={formik.touched.lob && Boolean(formik.errors.lob)}
+                helperText={formik.touched.lob && formik.errors.lob}
+              />
+              <TextField
+                fullWidth
+                id="program"
+                name="program"
+                label="Program"
+                margin="dense"
+                value={formik.values.program}
+                onChange={formik.handleChange}
+                error={formik.touched.program && Boolean(formik.errors.program)}
+                helperText={formik.touched.program && formik.errors.program}
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} >Cancel</Button>
+            <Button type="submit">Save</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

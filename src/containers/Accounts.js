@@ -38,6 +38,10 @@ function Accounts() {
     setOpenAccountModal(false);
   };
 
+  const handleAccountInfoSubmit = (values) => {
+    console.log(values)
+  }
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 8 }}>
@@ -72,7 +76,11 @@ function Accounts() {
             </Button>
           </Box>
           <AccountsTable rows={rows} headers={headers} />
-          <AddEditModal open={openAccountModal} handleClose={handleCloseAccountModal} />
+          <AddEditModal
+            open={openAccountModal}
+            handleClose={handleCloseAccountModal}
+            handleSubmit={handleAccountInfoSubmit}
+          />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
           <AccountsTable rows={rows} headers={headers} />
