@@ -5,10 +5,12 @@ import Tab from '@mui/material/Tab';
 import SwipeableViews from 'react-swipeable-views';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
+import AddEditModal from './AccountsTable/modal';
 import { getAccounts } from '../api'
 
 function Accounts() {
@@ -16,6 +18,7 @@ function Accounts() {
   const [currentTab, setCurrentTab] = React.useState(0);
   const [rows, setRows] = React.useState([])
   const [headers, setHeaders] = React.useState([])
+  const [openAccountModal, setOpenAccountModal] = React.useState(false);
 
   React.useEffect(() => {
     const accountsData = getAccounts()
@@ -25,6 +28,14 @@ function Accounts() {
 
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
+  };
+
+  const handleClickOpenAccountModal = () => {
+    setOpenAccountModal(true);
+  };
+
+  const handleCloseAccountModal = () => {
+    setOpenAccountModal(false);
   };
 
   return (
@@ -55,7 +66,13 @@ function Accounts() {
         onChangeIndex={handleChange}
       >
         <TabPanel value={currentTab} index={0} dir={theme.direction}>
+          <Box sx={{ mb: 2 }}>
+            <Button variant="outlined" onClick={handleClickOpenAccountModal}>
+              Add a new client
+            </Button>
+          </Box>
           <AccountsTable rows={rows} headers={headers} />
+          <AddEditModal open={openAccountModal} handleClose={handleCloseAccountModal} />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
           <AccountsTable rows={rows} headers={headers} />
