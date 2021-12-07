@@ -1,10 +1,10 @@
 const getSettings = () => ({
   // Layout sidenav color
   theme: 'default',
-})
+});
 
-const initialState = getSettings()
+const initialState = getSettings();
 
 export default function theme(state = initialState, action) {
-  return state
+  return state;
 }

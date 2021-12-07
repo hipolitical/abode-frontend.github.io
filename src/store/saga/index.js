@@ -1,5 +1,8 @@
-import { all } from 'redux-saga/effects'
+import { all } from 'redux-saga/effects';
+import accounts from './accounts';
 
 export default function* Saga() {
-  yield all([])
+  yield all([
+    accounts(),
+  ]);
 }
