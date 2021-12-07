@@ -12,7 +12,7 @@ import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
 import AddEditModal from './AccountsTable/modal';
-import { getAccounts } from '../store/actions/accounts'
+import { getAccounts, addAccount } from '../store/actions/accounts'
 
 function Accounts() {
   const theme = useTheme();
@@ -39,7 +39,7 @@ function Accounts() {
   };
 
   const handleAccountInfoSubmit = (values) => {
-    console.log(values);
+    dispatch(addAccount(values));
   }
 
   return (
