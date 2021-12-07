@@ -6,6 +6,9 @@ import {
   ADD_ACCOUNT_REQUESTED,
   ADD_ACCOUNT_FAILED,
   ADD_ACCOUNT_SUCCESS,
+  UPDATE_ACCOUNT_REQUESTED,
+  UPDATE_ACCOUNT_FAILED,
+  UPDATE_ACCOUNT_SUCCESS,
 } from "../types";
 import { getAccounts } from '../../api';
 
@@ -27,8 +30,18 @@ function* addAccountRequested({ account }) {
   }
 }
 
+function* updateAccountRequested({ account }) {
+  try {
+    const payload = account;
+    yield put({ type: UPDATE_ACCOUNT_SUCCESS, payload });
+  } catch (e) {
+    yield put({ type: UPDATE_ACCOUNT_FAILED, payload: e });
+  }
+}
+
 export default function* accounts() {
   yield takeEvery(GET_ACCOUNTS_REQUESTED, getAccountsRequested);
   yield takeEvery(ADD_ACCOUNT_REQUESTED, addAccountRequested);
+  yield takeEvery(UPDATE_ACCOUNT_REQUESTED, updateAccountRequested);
 }
 

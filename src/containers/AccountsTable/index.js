@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import CustomRow from '../../components/TableRow';
 
 export default function CollapsibleTable(props) {
-  const { rows, headers } = props;
+  const { rows, headers, openEdit } = props;
 
   return (
     <TableContainer component={Paper}>
@@ -26,7 +26,12 @@ export default function CollapsibleTable(props) {
         </TableHead>
         <TableBody>
           {rows && rows.map((row, index) => (
-            <CustomRow key={index} row={row} />
+            <CustomRow
+              key={index}
+              row={row}
+              headers={headers}
+              onEdit={() => openEdit(row)}
+            />
           ))}
         </TableBody>
       </Table>

@@ -25,16 +25,16 @@ const AccountInfoSchema = Yup.object().shape({
     .required('Program is required'),
 });
 
-export default function FormDialog({ open, handleClose, handleSubmit }) {
+export default function FormDialog({ open, initData, handleClose, handleSubmit }) {
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      lob: '',
-      program: '',
-    },
+    enableReinitialize: true,
+    initialValues: initData || {},
     validationSchema: AccountInfoSchema,
     onSubmit: (values) => {
-      handleSubmit(values);
+      handleSubmit({
+        ...initData,
+        ...values,
+      });
     },
   });
 
@@ -54,7 +54,7 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
                 name="name"
                 label="Name"
                 margin="dense"
-                value={formik.values.name}
+                value={formik.values.name || ''}
                 onChange={formik.handleChange}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
@@ -65,7 +65,7 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
                 name="lob"
                 label="LOB"
                 margin="dense"
-                value={formik.values.lob}
+                value={formik.values.lob || ''}
                 onChange={formik.handleChange}
                 error={formik.touched.lob && Boolean(formik.errors.lob)}
                 helperText={formik.touched.lob && formik.errors.lob}
@@ -76,7 +76,7 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
                 name="program"
                 label="Program"
                 margin="dense"
-                value={formik.values.program}
+                value={formik.values.program || ''}
                 onChange={formik.handleChange}
                 error={formik.touched.program && Boolean(formik.errors.program)}
                 helperText={formik.touched.program && formik.errors.program}

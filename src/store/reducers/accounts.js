@@ -3,6 +3,7 @@ import {
   GET_ACCOUNTS_FAILED,
   GET_ACCOUNTS_SUCCESS,
   ADD_ACCOUNT_SUCCESS,
+  UPDATE_ACCOUNT_SUCCESS,
 } from "../types";
 
 const initialState = {
@@ -30,6 +31,11 @@ function accountReducer(state = initialState, action) {
     case ADD_ACCOUNT_SUCCESS:
       return Object.assign({}, state, {
         accounts: [...state.accounts, action.payload],
+        isLoading: false,
+      });
+    case UPDATE_ACCOUNT_SUCCESS:
+      return Object.assign({}, state, {
+        accounts: state.accounts.map(account => account.id === action.payload.id ? action.payload : account),
         isLoading: false,
       });
     default: return state;

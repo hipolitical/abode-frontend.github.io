@@ -12,12 +12,17 @@ import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
 import AddEditModal from './AccountsTable/modal';
-import { getAccounts, addAccount } from '../store/actions/accounts'
+import {
+  getAccounts,
+  addAccount,
+  updateAccount,
+} from '../store/actions/accounts'
 
 function Accounts() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentAccount, setCurrentAccount] = React.useState(null);
   const [openAccountModal, setOpenAccountModal] = React.useState(false);
 
   React.useEffect(() => {
@@ -36,10 +41,21 @@ function Accounts() {
 
   const handleCloseAccountModal = () => {
     setOpenAccountModal(false);
+    setCurrentAccount(null);
   };
 
   const handleAccountInfoSubmit = (values) => {
-    dispatch(addAccount(values));
+    if (values.id || currentAccount) {
+      dispatch(updateAccount(values));
+    } else {
+      dispatch(addAccount(values));
+    }
+    handleCloseAccountModal()
+  }
+
+  const handleOpenEdit = (rowData) => {
+    setCurrentAccount(rowData);
+    setOpenAccountModal(true);
   }
 
   return (
@@ -77,9 +93,14 @@ function Accounts() {
               Add a new client
             </Button>
           </Box>
-          <AccountsTable rows={accountsData.accounts} headers={accountsData.headers} />
+          <AccountsTable
+            rows={accountsData.accounts}
+            headers={accountsData.headers}
+            openEdit={handleOpenEdit}
+          />
           <AddEditModal
             open={openAccountModal}
+            initData={currentAccount}
             handleClose={handleCloseAccountModal}
             handleSubmit={handleAccountInfoSubmit}
           />

@@ -15,7 +15,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 
 function CustomRow(props) {
-  const { row } = props;
+  const { row, onEdit, headers } = props;
+  const availableHeaders = headers.map(header => header.toLowerCase());
+  const isAvailalbe = (rowName) => 
+    availableHeaders.includes(rowName.toLowerCase()) && rowName !== 'details';
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
   const detailsLength = row.details ? Object.keys(row.details).length : 0;
@@ -23,7 +26,7 @@ function CustomRow(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        {Object.keys(row).filter(item => item !== 'details').map((item, index) => (
+        {Object.keys(row).filter(item => isAvailalbe(item)).map((item, index) => (
           <TableCell key={index} component="th" scope="row">
             {row[item]}
           </TableCell>
@@ -32,6 +35,7 @@ function CustomRow(props) {
           <IconButton
             aria-label="expand row"
             size="small"
+            onClick={onEdit}
           >
             <EditIcon />
           </IconButton>
