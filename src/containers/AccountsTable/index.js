@@ -29,7 +29,6 @@ export default function CollapsibleTable(props) {
             <CustomRow
               key={index}
               row={row}
-              headers={headers}
               onEdit={() => openEdit(row)}
             />
           ))}

@@ -1,4 +1,4 @@
-function createData(id, name, lob, program) {
+function createAccountData(id, name, lob, program) {
   return {
     id,
     name,
@@ -17,21 +17,29 @@ function createData(id, name, lob, program) {
   };
 }
 
-const rows = [
-  createData('acc#1', 'Jane Wilson', 'Multiple', 'Multiple'),
-  createData('acc#2', 'Kevin Ryder', 'Multiple', 'Multiple'),
-  createData('acc#3', 'Matthew Gas', 'Casualty', 'CAT XOL'),
-  createData('acc#4', 'Erik Bahena', 'Casualty', 'Multiple'),
-  createData('acc#5', 'John Doe', 'Multiple', 'CAT XOL'),
+const rowsAccount = [
+  createAccountData('acc#1', 'Jane Wilson', 'Multiple', 'Multiple'),
+  createAccountData('acc#2', 'Kevin Ryder', 'Multiple', 'Multiple'),
+  createAccountData('acc#3', 'Matthew Gas', 'Casualty', 'CAT XOL'),
+  createAccountData('acc#4', 'Erik Bahena', 'Casualty', 'Multiple'),
+  createAccountData('acc#5', 'John Doe', 'Multiple', 'CAT XOL'),
 ];
 
 function getAccounts() {
   return {
     headers: ['Name', 'LOB', 'Program'],
-    rows,
+    rows: rowsAccount,
+  };
+}
+
+function getPlacements() {
+  return {
+    headers: ['Name', 'LOB', 'Program'],
+    rows: rowsAccount,
   };
 }
 
 export {
   getAccounts,
+  getPlacements,
 }

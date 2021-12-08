@@ -15,10 +15,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 
 function CustomRow(props) {
-  const { row, onEdit, headers } = props;
-  const availableHeaders = headers.map(header => header.toLowerCase());
-  const isAvailalbe = (rowName) => 
-    availableHeaders.includes(rowName.toLowerCase()) && rowName !== 'details';
+  const { row, onEdit } = props;
+  const isAvailalbe = (rowName) => rowName !== 'id' && rowName !== 'details';
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
   const detailsLength = row.details ? Object.keys(row.details).length : 0;
