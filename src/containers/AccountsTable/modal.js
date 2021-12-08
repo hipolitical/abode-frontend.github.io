@@ -45,7 +45,7 @@ export default function FormDialog({ open, initData, handleClose, handleSubmit }
           <DialogTitle>Account Modal</DialogTitle>
           <DialogContent dividers>
             <DialogContentText>
-              Create new client account
+              {initData ? 'Edit client account' : 'Create new client account'}
             </DialogContentText>
             <Box sx={{ my: 2 }}>
               <TextField
