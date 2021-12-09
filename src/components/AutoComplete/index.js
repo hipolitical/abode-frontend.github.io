@@ -62,7 +62,7 @@ function Accounts(props) {
       sx={{ width: 300 }}
       freeSolo
       renderInput={(params) => (
-        <TextField {...params} label="Search accounts" />
+        <TextField {...params} label="Search" />
       )}
     />
   );

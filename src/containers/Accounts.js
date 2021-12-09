@@ -13,9 +13,9 @@ import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
 import AddEditModal from './AccountsTable/modal';
 import {
-  getAccounts,
-  addAccount,
-  updateAccount,
+  getMyAccounts,
+  addClientAccount,
+  updateClientAccount,
 } from '../store/actions/accounts'
 
 function Accounts() {
@@ -26,7 +26,7 @@ function Accounts() {
   const [openAccountModal, setOpenAccountModal] = React.useState(false);
 
   React.useEffect(() => {
-    dispatch(getAccounts());
+    dispatch(getMyAccounts());
   }, [dispatch]);
 
   const accountsData = useSelector(state => state.accounts);
@@ -46,9 +46,9 @@ function Accounts() {
 
   const handleAccountInfoSubmit = (values) => {
     if (values.id || currentAccount) {
-      dispatch(updateAccount(values));
+      dispatch(updateClientAccount(values));
     } else {
-      dispatch(addAccount(values));
+      dispatch(addClientAccount(values));
     }
     handleCloseAccountModal()
   }

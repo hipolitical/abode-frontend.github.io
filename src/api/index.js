@@ -55,7 +55,7 @@ const rowsTreaty = [
 ];
 
 
-function getAccounts() {
+function getMyAccounts() {
   return {
     headers: ['Name', 'LOB', 'Program'],
     rows: rowsAccount,
@@ -70,6 +70,6 @@ function getPlacements() {
 }
 
 export {
-  getAccounts,
+  getMyAccounts,
   getPlacements,
 }
