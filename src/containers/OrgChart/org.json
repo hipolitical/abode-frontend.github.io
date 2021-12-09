@@ -1,0 +1,44 @@
+{
+  "tradingName": "Company X",
+  "account": [
+    {
+      "name": "Jane Wilson",
+      "position": "CEO"
+    }
+  ],
+  "organizationChildRelationship": [
+    {
+      "tradingName": "Subcompany A",
+      "account": [
+        {
+          "name": "Kevin Ryder",
+          "position": "CTO"
+        },
+        {
+          "name": "Matthew Gas",
+          "position": "COO"
+        }
+      ]
+    },
+    {
+      "tradingName": "Subcompany B",
+      "account": [
+        {
+          "name": "Erik Bahena",
+          "position": "CTO"
+        }
+      ],
+      "organizationChildRelationship": [
+        {
+          "tradingName": "Subcompany C",
+          "account": [
+            {
+              "name": "John Doe",
+              "position": "CMO"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
