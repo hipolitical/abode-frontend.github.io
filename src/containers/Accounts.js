@@ -10,8 +10,7 @@ import Button from '@mui/material/Button';
 
 import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
-import AccountsTable from './AccountsTable';
-import AllAccountsTable from './AllAccountsTable';
+import TableList from '../components/TableList';
 import AddEditModal from './AccountsTable/modal';
 import {
   getMyClients,
@@ -19,6 +18,7 @@ import {
   updateClientAccount,
 } from '../store/actions/accounts'
 import { getAllAccounts } from '../store/actions/all_accounts'
+import { getRequests } from '../store/actions/requests'
 
 function Accounts() {
   const theme = useTheme();
@@ -26,18 +26,20 @@ function Accounts() {
   const [currentTab, setCurrentTab] = React.useState(0);
   const [currentAccount, setCurrentAccount] = React.useState(null);
   const [openAccountModal, setOpenAccountModal] = React.useState(false);
+  const accountsData = useSelector(state => state.accounts);
+  const allAccountsData = useSelector(state => state.all_accounts);
+  const requestsData = useSelector(state => state.requests);
 
   React.useEffect(() => {
     dispatch(getMyClients());
   }, [dispatch]);
 
-  const accountsData = useSelector(state => state.accounts);
-  const allAccountsData = useSelector(state => state.all_accounts);
-
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
     if (newValue === 1) {
       dispatch(getAllAccounts());
+    } else if (newValue === 2) {
+      dispatch(getRequests());
     }
   };
 
@@ -86,6 +88,11 @@ function Accounts() {
             label="All Accounts"
             wrapped
           />
+          <Tab
+            value={2}
+            label="Requests"
+            wrapped
+          />
         </Tabs>
       </Box>
       <SwipeableViews
@@ -99,9 +106,10 @@ function Accounts() {
               Add a new client
             </Button>
           </Box>
-          <AccountsTable
+          <TableList
             rows={accountsData.accounts}
             headers={accountsData.headers}
+            type="editing"
             openEdit={handleOpenEdit}
           />
           <AddEditModal
@@ -112,9 +120,17 @@ function Accounts() {
           />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
-          <AllAccountsTable
+          <TableList
             rows={allAccountsData.accounts}
             headers={allAccountsData.headers}
+            type="access"
+          />
+        </TabPanel>
+        <TabPanel value={currentTab} index={2} dir={theme.direction}>
+          <TableList
+            rows={requestsData.requests}
+            headers={requestsData.headers}
+            type="requests"
           />
         </TabPanel>
       </SwipeableViews>

@@ -69,6 +69,16 @@ function CustomRow(props) {
             )}
           </TableCell>
         )}
+        {type === "requests" && (
+          <TableCell>
+            <Button sx={{ fontWeight: '700' }}>
+              Grant Access
+            </Button>
+            <Button sx={{ fontWeight: '700' }} color="grey">
+              Decline Access
+            </Button>
+          </TableCell>
+        )}
       </TableRow>
       {hasDetails && (
         <TableRow>

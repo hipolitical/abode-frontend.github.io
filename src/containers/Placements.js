@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
-import PlacementsTable from './PlacementsTable';
+import TableList from '../components/TableList';
 import AddEditModal from './PlacementsTable/modal';
 import {
   getPlacements,
@@ -93,9 +93,10 @@ function Placements() {
               Add a new treaty
             </Button>
           </Box>
-          <PlacementsTable
+          <TableList
             rows={placementsData.placements}
             headers={placementsData.headers}
+            type="editing"
             openEdit={handleOpenEdit}
           />
           <AddEditModal
@@ -106,7 +107,11 @@ function Placements() {
           />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
-          <PlacementsTable rows={placementsData.placements} headers={placementsData.headers} />
+          <TableList
+            rows={placementsData.placements}
+            headers={placementsData.headers}
+            type="editing"
+          />
         </TabPanel>
       </SwipeableViews>
     </Container>

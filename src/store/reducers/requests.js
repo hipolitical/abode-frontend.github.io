@@ -1,28 +1,28 @@
 import {
-  GET_ALL_ACCOUNTS_REQUESTED,
-  GET_ALL_ACCOUNTS_FAILED,
-  GET_ALL_ACCOUNTS_SUCCESS,
+  GET_REQUESTS_REQUESTED,
+  GET_REQUESTS_FAILED,
+  GET_REQUESTS_SUCCESS,
 } from "../types";
 
 const initialState = {
-  accounts: [],
+  requests: [],
   headers: [],
   isLoading: false,
 };
 
-function accountsAllReducer(state = initialState, action) {
+function requestsReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_ACCOUNTS_REQUESTED:
+    case GET_REQUESTS_REQUESTED:
       return Object.assign({}, state, {
         isLoading: true,
       });
-    case GET_ALL_ACCOUNTS_FAILED:
+    case GET_REQUESTS_FAILED:
       return Object.assign({}, state, {
         isLoading: false,
       });
-    case GET_ALL_ACCOUNTS_SUCCESS:
+    case GET_REQUESTS_SUCCESS:
       return Object.assign({}, state, {
-        accounts: action.payload.rows,
+        requests: action.payload.rows,
         headers: action.payload.headers,
         isLoading: false,
       });
@@ -30,4 +30,4 @@ function accountsAllReducer(state = initialState, action) {
   }
 }
 
-export default accountsAllReducer;
+export default requestsReducer;

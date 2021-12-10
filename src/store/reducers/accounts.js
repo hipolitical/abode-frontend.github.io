@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
 };
 
-function accountReducer(state = initialState, action) {
+function clientsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MY_CLIENTS_REQUESTED:
       return Object.assign({}, state, {
@@ -42,4 +42,4 @@ function accountReducer(state = initialState, action) {
   }
 }
 
-export default accountReducer;
+export default clientsReducer;

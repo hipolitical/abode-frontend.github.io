@@ -17,7 +17,7 @@ function createAccountData(id, name, lob, program) {
   };
 }
 
-const rowsAccount = [
+const rowsClient = [
   createAccountData('acc#1', 'Jane Wilson', 'Multiple', 'Multiple'),
   createAccountData('acc#2', 'Kevin Ryder', 'Multiple', 'Multiple'),
   createAccountData('acc#3', 'Matthew Gas', 'Casualty', 'CAT XOL'),
@@ -54,6 +54,68 @@ const rowsTreaty = [
   createTreatyData('treaty#5', 'acc#5', 'Property', '2020', 'Open', 'No'),
 ];
 
+const rowsAllAccounts = [
+  {
+    id: 'accc1',
+    name: 'Market',
+    companyType: 'Company',
+    entityType: 'Company',
+    role: 'Client',
+    legalStatus: 'Active',
+    status: 'approved',
+    requesterName: 'Mike Dibble',
+    requesterEmail: 'mikedibble@guycarp.com',
+    requestedDate: '10/31/2021',
+  },
+  {
+    id: 'accc2',
+    name: 'AIG',
+    companyType: 'Branch',
+    entityType: 'Other',
+    role: 'Client',
+    legalStatus: 'In Liquidation',
+    status: 'approved',
+    requesterName: 'Mike Dibble',
+    requesterEmail: 'mikedibble@guycarp.com',
+    requestedDate: '11/13/2021',
+  },
+  {
+    id: 'accc3',
+    name: 'Chubb',
+    companyType: 'Group',
+    entityType: 'Agency',
+    role: 'Client',
+    legalStatus: 'Liquidated',
+    status: 'pending',
+    requesterName: 'Mike Dibble',
+    requesterEmail: 'mikedibble@guycarp.com',
+    requestedDate: '08/22/2021',
+  },
+  {
+    id: 'accc4',
+    name: 'Swiss Re',
+    companyType: 'Business Division',
+    entityType: 'Broker',
+    role: 'Market',
+    legalStatus: 'In Runoff/Ceased',
+    status: 'pending',
+    requesterName: 'Mike Dibble',
+    requesterEmail: 'mikedibble@guycarp.com',
+    requestedDate: '10/15/2021',
+  },
+  {
+    id: 'accc5',
+    name: 'Goldman Sachs',
+    companyType: 'Insured',
+    entityType: 'Investment Manager',
+    role: 'Injured',
+    legalStatus: 'In Rehab/Supervision',
+    status: 'unapproved',
+    requesterName: 'Mike Dibble',
+    requesterEmail: 'mikedibble@guycarp.com',
+    requestedDate: '11/27/2021',
+  },
+];
 
 function getMyClients() {
   return {
@@ -62,7 +124,7 @@ function getMyClients() {
       { label: 'LOB', field: 'lob' },
       { label: 'Program', field: 'program' },
     ],
-    rows: rowsAccount,
+    rows: rowsClient,
   };
 }
 
@@ -75,53 +137,20 @@ function getAllAccounts() {
       { label: 'Role', field: 'role' },
       { label: 'Legal Status', field: 'legalStatus' },
     ],
-    rows: [
-      {
-        id: 'accc1',
-        name: 'Market',
-        companyType: 'Company',
-        entityType: 'Company',
-        role: 'Client',
-        legalStatus: 'Active',
-        status: 'approved',
-      },
-      {
-        id: 'accc2',
-        name: 'AIG',
-        companyType: 'Branch',
-        entityType: 'Other',
-        role: 'Client',
-        legalStatus: 'In Liquidation',
-        status: 'approved',
-      },
-      {
-        id: 'accc3',
-        name: 'Chubb',
-        companyType: 'Group',
-        entityType: 'Agency',
-        role: 'Client',
-        legalStatus: 'Liquidated',
-        status: 'pending',
-      },
-      {
-        id: 'accc4',
-        name: 'Swiss Re',
-        companyType: 'Business Division',
-        entityType: 'Broker',
-        role: 'Market',
-        legalStatus: 'In Runoff/Ceased',
-        status: 'unapproved',
-      },
-      {
-        id: 'accc5',
-        name: 'Goldman Sachs',
-        companyType: 'Insured',
-        entityType: 'Investment Manager',
-        role: 'Injured',
-        legalStatus: 'In Rehab/Supervision',
-        status: 'unapproved',
-      },
+    rows: rowsAllAccounts,
+  };
+}
+
+function getRequests() {
+  return {
+    headers: [
+      { label: 'Name', field: 'name', isLink: true },
+      { label: 'Role', field: 'role' },
+      { label: 'Requester', field: 'requesterName' },
+      { label: 'Email', field: 'requesterEmail' },
+      { label: 'Requested', field: 'requestedDate' },
     ],
+    rows: rowsAllAccounts.filter(row => row.status === 'pending'),
   };
 }
 
@@ -141,5 +170,6 @@ function getPlacements() {
 export {
   getMyClients,
   getAllAccounts,
+  getRequests,
   getPlacements,
 }
