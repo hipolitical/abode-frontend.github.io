@@ -8,6 +8,7 @@ import CardHeader from "@mui/material/CardHeader";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import BusinessIcon from '@mui/icons-material/Business';
+import GroupsIcon from '@mui/icons-material/Groups';
 import Avatar from "@mui/material/Avatar";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
@@ -50,9 +51,15 @@ function Organization({ org, onCollapse, collapsed }) {
     >
       <CardHeader
         avatar={
-          <Avatar className={classes.avatar}>
-            <BusinessIcon color="primary" />
-          </Avatar>
+          org?.type === "department" ? (
+            <Avatar className={classes.avatar}>
+              <GroupsIcon color="primary" />
+            </Avatar>
+          ) : (
+            <Avatar className={classes.avatar}>
+              <BusinessIcon color="primary" />
+            </Avatar>
+          )
         }
         title={
           <Typography variant="subtitle1" color="primary">
@@ -84,13 +91,12 @@ function Account({ a }) {
     >
       <CardHeader
         avatar={
-          <Avatar className={classes.avatar}>
-          </Avatar>
+          <Avatar className={classes.avatar} />
         }
         title={
           <div className={classes.cardContent}>
-            <Typography variant="overline">{a.position}</Typography>
-            <Typography variant="body2" mt="-8px" mb="8px">{a.name}</Typography>
+            <Typography variant="caption" color="secondary.light">{a.position}</Typography>
+            <Typography variant="body2" style={{ fontWeight: 600 }}>{a.name}</Typography>
           </div>}
       />
     </Card>

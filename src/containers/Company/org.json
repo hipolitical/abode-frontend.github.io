@@ -31,6 +31,7 @@
       "organizationChildRelationship": [
         {
           "tradingName": "Department A",
+          "type": "department",
           "account": [
             {
               "name": "John Doe",
