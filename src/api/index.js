@@ -55,21 +55,91 @@ const rowsTreaty = [
 ];
 
 
-function getMyAccounts() {
+function getMyClients() {
   return {
-    headers: ['Name', 'LOB', 'Program'],
+    headers: [
+      { label: 'Name', field: 'name' },
+      { label: 'LOB', field: 'lob' },
+      { label: 'Program', field: 'program' },
+    ],
     rows: rowsAccount,
+  };
+}
+
+function getAllAccounts() {
+  return {
+    headers: [
+      { label: 'Name', field: 'name', isLink: true },
+      { label: 'Company Type', field: 'companyType' },
+      { label: 'Entity Type', field: 'entityType' },
+      { label: 'Role', field: 'role' },
+      { label: 'Legal Status', field: 'legalStatus' },
+    ],
+    rows: [
+      {
+        id: 'accc1',
+        name: 'Market',
+        companyType: 'Company',
+        entityType: 'Company',
+        role: 'Client',
+        legalStatus: 'Active',
+        status: 'approved',
+      },
+      {
+        id: 'accc2',
+        name: 'AIG',
+        companyType: 'Branch',
+        entityType: 'Other',
+        role: 'Client',
+        legalStatus: 'In Liquidation',
+        status: 'approved',
+      },
+      {
+        id: 'accc3',
+        name: 'Chubb',
+        companyType: 'Group',
+        entityType: 'Agency',
+        role: 'Client',
+        legalStatus: 'Liquidated',
+        status: 'pending',
+      },
+      {
+        id: 'accc4',
+        name: 'Swiss Re',
+        companyType: 'Business Division',
+        entityType: 'Broker',
+        role: 'Market',
+        legalStatus: 'In Runoff/Ceased',
+        status: 'unapproved',
+      },
+      {
+        id: 'accc5',
+        name: 'Goldman Sachs',
+        companyType: 'Insured',
+        entityType: 'Investment Manager',
+        role: 'Injured',
+        legalStatus: 'In Rehab/Supervision',
+        status: 'unapproved',
+      },
+    ],
   };
 }
 
 function getPlacements() {
   return {
-    headers: ['Client', 'Treaty', 'Year', 'Status', 'Published'],
+    headers: [
+      { label: 'Client', field: 'accountId' },
+      { label: 'Treaty', field: 'name' },
+      { label: 'Year', field: 'year' },
+      { label: 'Status', field: 'status' },
+      { label: 'Published', field: 'published' },
+    ],
     rows: rowsTreaty,
   };
 }
 
 export {
-  getMyAccounts,
+  getMyClients,
+  getAllAccounts,
   getPlacements,
 }

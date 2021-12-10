@@ -11,12 +11,14 @@ import Button from '@mui/material/Button';
 import AutoComplete from '../components/AutoComplete';
 import TabPanel from '../components/TabPanel';
 import AccountsTable from './AccountsTable';
+import AllAccountsTable from './AllAccountsTable';
 import AddEditModal from './AccountsTable/modal';
 import {
-  getMyAccounts,
+  getMyClients,
   addClientAccount,
   updateClientAccount,
 } from '../store/actions/accounts'
+import { getAllAccounts } from '../store/actions/all_accounts'
 
 function Accounts() {
   const theme = useTheme();
@@ -26,13 +28,17 @@ function Accounts() {
   const [openAccountModal, setOpenAccountModal] = React.useState(false);
 
   React.useEffect(() => {
-    dispatch(getMyAccounts());
+    dispatch(getMyClients());
   }, [dispatch]);
 
   const accountsData = useSelector(state => state.accounts);
+  const allAccountsData = useSelector(state => state.all_accounts);
 
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
+    if (newValue === 1) {
+      dispatch(getAllAccounts());
+    }
   };
 
   const handleClickOpenAccountModal = () => {
@@ -106,7 +112,10 @@ function Accounts() {
           />
         </TabPanel>
         <TabPanel value={currentTab} index={1} dir={theme.direction}>
-          <AccountsTable rows={accountsData.accounts} headers={accountsData.headers} />
+          <AllAccountsTable
+            rows={allAccountsData.accounts}
+            headers={allAccountsData.headers}
+          />
         </TabPanel>
       </SwipeableViews>
     </Container>

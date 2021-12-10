@@ -1,7 +1,7 @@
 import {
-  GET_MY_ACCOUNTS_REQUESTED,
-  GET_MY_ACCOUNTS_FAILED,
-  GET_MY_ACCOUNTS_SUCCESS,
+  GET_MY_CLIENTS_REQUESTED,
+  GET_MY_CLIENTS_FAILED,
+  GET_MY_CLIENTS_SUCCESS,
   ADD_CLIENT_ACCOUNT_SUCCESS,
   UPDATE_CLIENT_ACCOUNT_SUCCESS,
 } from "../types";
@@ -14,15 +14,15 @@ const initialState = {
 
 function accountReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_MY_ACCOUNTS_REQUESTED:
+    case GET_MY_CLIENTS_REQUESTED:
       return Object.assign({}, state, {
         isLoading: true,
       });
-    case GET_MY_ACCOUNTS_FAILED:
+    case GET_MY_CLIENTS_FAILED:
       return Object.assign({}, state, {
         isLoading: false,
       });
-    case GET_MY_ACCOUNTS_SUCCESS:
+    case GET_MY_CLIENTS_SUCCESS:
       return Object.assign({}, state, {
         accounts: action.payload.rows,
         headers: action.payload.headers,

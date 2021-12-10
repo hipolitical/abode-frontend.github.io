@@ -18,7 +18,7 @@ export default function CollapsibleTable(props) {
           <TableRow>
             {headers && headers.map((row, index) => (
               <TableCell key={index}>
-                {row}
+                {row.label}
               </TableCell>
             ))}
             <TableCell />
@@ -30,6 +30,7 @@ export default function CollapsibleTable(props) {
               key={index}
               row={row}
               headers={headers}
+              type="editing"
               onEdit={() => openEdit(row)}
             />
           ))}

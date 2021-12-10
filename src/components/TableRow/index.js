@@ -1,8 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,8 +17,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 
 function CustomRow(props) {
-  const { row, onEdit } = props;
-  const isAvailalbe = (rowName) => rowName !== 'id' && rowName !== 'details';
+  const { row, onEdit, type, headers } = props;
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
   const detailsLength = row.details ? Object.keys(row.details).length : 0;
@@ -24,29 +25,50 @@ function CustomRow(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        {Object.keys(row).filter(item => isAvailalbe(item)).map((item, index) => (
+        {headers.map(header => header.field).map((item, index) => (
           <TableCell key={index} component="th" scope="row">
-            {row[item]}
+            {headers[index]?.isLink ?
+              <Link to="/company-profile">
+                {row[item]}
+              </Link>
+              : row[item]
+            }
           </TableCell>
         ))}
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={onEdit}
-          >
-            <EditIcon />
-          </IconButton>
-          {hasDetails && (
+        {type === "editing" && (
+          <TableCell>
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
+              onClick={onEdit}
             >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              <EditIcon />
             </IconButton>
-          )}
-        </TableCell>
+            {hasDetails && (
+              <IconButton
+                aria-label="expand row"
+                size="small"
+                onClick={() => setOpen(!open)}
+              >
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </IconButton>
+            )}
+          </TableCell>
+        )}
+        {type === "access" && (
+          <TableCell>
+            {row.status === "unapproved" && (
+              <Button sx={{ fontWeight: '700' }}>
+                Request Access
+              </Button>
+            )}
+            {row.status === "pending" && (
+              <Button sx={{ fontWeight: '700' }} color="grey">
+                Cancel Access
+              </Button>
+            )}
+          </TableCell>
+        )}
       </TableRow>
       {hasDetails && (
         <TableRow>
