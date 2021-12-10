@@ -14,6 +14,7 @@ const theme = createTheme({
     },
     secondary: {
       main: '#000000',
+      light: '#202020',
     },
     grey: {
       main: 'rgba(32, 32, 32, 0.26)',

@@ -1,12 +1,14 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function Home() {
   return (
-    <div className="Home">
-      <p>
+    <Box sx={{ mt: 8 }}>
+      <Typography variant="h4" color="primary" textAlign="center" gutterBottom>
         HOME
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 }
 

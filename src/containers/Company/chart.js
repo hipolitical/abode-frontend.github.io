@@ -60,7 +60,6 @@ function Organization({ org, onCollapse, collapsed }) {
           </Typography>
         }
       />
-      
       <IconButton
         color="primary"
         size="small"
@@ -150,7 +149,7 @@ function Node({ o, parent }) {
 
 export default function App(props) {
   return (
-      <Box bgcolor="secondary" padding={4} height="80vh">
+      <Box bgcolor="tertiary" padding={4}>
         <Node o={organization} />
       </Box>
   );
