@@ -8,15 +8,15 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-import AutoComplete from '../components/AutoComplete';
-import TabPanel from '../components/TabPanel';
-import TableList from '../components/TableList';
-import AddEditModal from './PlacementsTable/modal';
+import AutoComplete from '../../components/AutoComplete';
+import TabPanel from '../../components/TabPanel';
+import TableList from '../../components/TableList';
+import AddEditModal from './modal';
 import {
   getPlacements,
   addPlacement,
   updatePlacement,
-} from '../store/actions/placements'
+} from '../../store/actions/placements'
 
 function Placements() {
   const theme = useTheme();

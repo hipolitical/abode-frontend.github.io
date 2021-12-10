@@ -8,17 +8,17 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-import AutoComplete from '../components/AutoComplete';
-import TabPanel from '../components/TabPanel';
-import TableList from '../components/TableList';
-import AddEditModal from './AccountsTable/modal';
+import AutoComplete from '../../components/AutoComplete';
+import TabPanel from '../../components/TabPanel';
+import TableList from '../../components/TableList';
+import AddEditModal from './modal';
 import {
   getMyClients,
   addClientAccount,
   updateClientAccount,
-} from '../store/actions/accounts'
-import { getAllAccounts } from '../store/actions/all_accounts'
-import { getRequests } from '../store/actions/requests'
+} from '../../store/actions/accounts'
+import { getAllAccounts } from '../../store/actions/all_accounts'
+import { getRequests } from '../../store/actions/requests'
 
 function Accounts() {
   const theme = useTheme();
