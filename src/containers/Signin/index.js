@@ -32,10 +32,11 @@ export default function SignIn() {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'center',
+          height: 'calc(100vh - 56px)',
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>

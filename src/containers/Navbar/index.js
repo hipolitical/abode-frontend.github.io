@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,10 +24,12 @@ const pages = [
   { name: 'Users', to: '/users' },
 ];
 const settings = ['Profile', 'Logout'];
+const blockedRoutes = ['/login']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const location = useLocation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,6 +45,25 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  if (blockedRoutes.includes(location.pathname)) {
+    return (
+      <AppBar position="static" color="secondary">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters className='nav-bar'>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}
+            >
+              <img src={LogoImg} alt='logo' />
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    )
+  }
 
   return (
     <AppBar position="static" color="secondary">
