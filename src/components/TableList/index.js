@@ -17,7 +17,10 @@ export default function CollapsibleTable(props) {
         <TableHead>
           <TableRow>
             {headers && headers.map((row, index) => (
-              <TableCell key={index}>
+              <TableCell
+                key={index}
+                style={{ whiteSpace: 'nowrap' }}
+              >
                 {row.label}
               </TableCell>
             ))}

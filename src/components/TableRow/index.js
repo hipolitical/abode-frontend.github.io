@@ -58,12 +58,12 @@ function CustomRow(props) {
         {type === "access" && (
           <TableCell>
             {row.status === "unapproved" && (
-              <Button sx={{ fontWeight: '700' }}>
+              <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}>
                 Request Access
               </Button>
             )}
             {row.status === "pending" && (
-              <Button sx={{ fontWeight: '700' }} color="grey">
+              <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
                 Cancel Access
               </Button>
             )}
@@ -71,10 +71,10 @@ function CustomRow(props) {
         )}
         {type === "requests" && (
           <TableCell>
-            <Button sx={{ fontWeight: '700' }}>
+            <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}>
               Grant Access
             </Button>
-            <Button sx={{ fontWeight: '700' }} color="grey">
+            <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
               Decline Access
             </Button>
           </TableCell>

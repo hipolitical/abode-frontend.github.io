@@ -1,3 +1,7 @@
+import axios from 'axios';
+
+const BASE_URL = 'http://20.88.106.53:8080'
+
 function createAccountData(id, name, lob, program) {
   return {
     id,
@@ -129,16 +133,32 @@ function getMyClients() {
 }
 
 function getAllAccounts() {
-  return {
-    headers: [
-      { label: 'Name', field: 'name', isLink: true },
-      { label: 'Company Type', field: 'companyType' },
-      { label: 'Entity Type', field: 'entityType' },
-      { label: 'Role', field: 'role' },
-      { label: 'Legal Status', field: 'legalStatus' },
-    ],
-    rows: rowsAllAccounts,
-  };
+  return axios
+    .get(`${BASE_URL}/trading_partners`)
+    .then((res) => {
+      const responseItems = res.data?.items || []
+      const rows = responseItems.map(item => ({
+        ...item,
+        companyType: 'Insured',
+        entityType: 'Investment Manager',
+        role: 'Injured',
+        legalStatus: 'In Rehab/Supervision',
+        status: 'unapproved',
+        requesterName: 'Mike Dibble',
+        requesterEmail: 'mikedibble@guycarp.com',
+        requestedDate: '11/27/2021',
+      }))
+      return {
+        headers: [
+          { label: 'Name', field: 'display_name', isLink: true },
+          { label: 'Company Type', field: 'companyType' },
+          { label: 'Entity Type', field: 'entityType' },
+          { label: 'Role', field: 'role' },
+          { label: 'Legal Status', field: 'legalStatus' },
+        ],
+        rows,
+      };
+    })
 }
 
 function getRequests() {
