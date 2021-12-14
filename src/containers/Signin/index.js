@@ -7,17 +7,25 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+
+const SigninInfoSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Input valid email address'),
+  password: Yup.string()
+    .required('Password is required'),
+});
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {},
+    validationSchema: SigninInfoSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -30,13 +38,13 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -45,6 +53,10 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formik.values.email || ''}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
             autoFocus
           />
           <TextField
@@ -55,6 +67,10 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
+            value={formik.values.password || ''}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
             autoComplete="current-password"
           />
           <Button
