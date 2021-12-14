@@ -20,7 +20,6 @@ import './navbar.css';
 const pages = [
   { name: 'Home', to: '/' },
   { name: 'Accounts', to: '/accounts' },
-  { name: 'Placements', to: '/placements' },
   { name: 'Users', to: '/users' },
 ];
 const settings = ['Profile', 'Logout'];
