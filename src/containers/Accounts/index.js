@@ -10,9 +10,6 @@ import { useTheme } from '@mui/material/styles';
 import AutoComplete from '../../components/AutoComplete';
 import TabPanel from '../../components/TabPanel';
 import TableList from '../../components/TableList';
-import {
-  getMyClients,
-} from '../../store/actions/accounts'
 import { getAllAccounts } from '../../store/actions/all_accounts'
 import { getRequests } from '../../store/actions/requests'
 
@@ -24,14 +21,12 @@ function Accounts() {
   const requestsData = useSelector(state => state.requests);
 
   React.useEffect(() => {
-    dispatch(getMyClients());
+    dispatch(getAllAccounts());
   }, [dispatch]);
 
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
-    if (newValue === 1) {
-      dispatch(getAllAccounts());
-    } else if (newValue === 2) {
+    if (newValue === 2) {
       dispatch(getRequests());
     }
   };
