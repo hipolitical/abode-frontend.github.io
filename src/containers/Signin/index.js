@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 
 const SigninInfoSchema = Yup.object().shape({
   email: Yup.string()
@@ -18,12 +19,16 @@ const SigninInfoSchema = Yup.object().shape({
 });
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {},
     validationSchema: SigninInfoSchema,
     onSubmit: (values) => {
-      console.log(values);
+      if (values.password === 'password') {
+        localStorage.setItem('isAuthenticated', true);
+        navigate('/');
+      }
     },
   });
 
