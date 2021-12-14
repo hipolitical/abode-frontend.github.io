@@ -28,7 +28,7 @@ function CustomRow(props) {
         {headers.map(header => header.field).map((item, index) => (
           <TableCell key={index} component="th" scope="row">
             {headers[index]?.isLink ?
-              <Link to={`/account/${row.id}`}>
+              <Link to={`/accounts/${row.id}`} style={{ textDecoration: 'none' }}>
                 {row[item]}
               </Link>
               : row[item]

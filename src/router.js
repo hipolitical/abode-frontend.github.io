@@ -16,7 +16,7 @@ function Router() {
         <Route exact path="/login" element={<Signin />} />
         <Route exact path="/accounts" element={<Accounts />} />
         <Route exact path="/users" element={<Users />} />
-        <Route exact path="/account/:id" element={<AccountInfo />} />
+        <Route exact path="/accounts/:id" element={<AccountInfo />} />
       </Routes>
     </BrowserRouter>
   );

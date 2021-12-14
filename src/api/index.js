@@ -2,33 +2,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://20.88.106.53:8080'
 
-function createAccountData(id, name, lob, program) {
-  return {
-    id,
-    name,
-    lob,
-    program,
-    details: [
-      {
-        date: '2020-01-05',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        amount: 1,
-      },
-    ],
-  };
-}
-
-const rowsClient = [
-  createAccountData('acc#1', 'Jane Wilson', 'Multiple', 'Multiple'),
-  createAccountData('acc#2', 'Kevin Ryder', 'Multiple', 'Multiple'),
-  createAccountData('acc#3', 'Matthew Gas', 'Casualty', 'CAT XOL'),
-  createAccountData('acc#4', 'Erik Bahena', 'Casualty', 'Multiple'),
-  createAccountData('acc#5', 'John Doe', 'Multiple', 'CAT XOL'),
-];
-
 function createTreatyData(id, accountId, name, year, status, published) {
   return {
     id,
@@ -58,68 +31,13 @@ const rowsTreaty = [
   createTreatyData('treaty#5', 'acc#5', 'Property', '2020', 'Open', 'No'),
 ];
 
-const rowsAllAccounts = [
-  {
-    id: 'accc1',
-    name: 'Market',
-    companyType: 'AccountInfo',
-    entityType: 'AccountInfo',
-    role: 'Client',
-    legalStatus: 'Active',
-    status: 'approved',
-    requesterName: 'Mike Dibble',
-    requesterEmail: 'mikedibble@guycarp.com',
-    requestedDate: '10/31/2021',
-  },
-  {
-    id: 'accc2',
-    name: 'AIG',
-    companyType: 'Branch',
-    entityType: 'Other',
-    role: 'Client',
-    legalStatus: 'In Liquidation',
-    status: 'approved',
-    requesterName: 'Mike Dibble',
-    requesterEmail: 'mikedibble@guycarp.com',
-    requestedDate: '11/13/2021',
-  },
-  {
-    id: 'accc3',
-    name: 'Chubb',
-    companyType: 'Group',
-    entityType: 'Agency',
-    role: 'Client',
-    legalStatus: 'Liquidated',
-    status: 'pending',
-    requesterName: 'Mike Dibble',
-    requesterEmail: 'mikedibble@guycarp.com',
-    requestedDate: '08/22/2021',
-  },
-  {
-    id: 'accc4',
-    name: 'Swiss Re',
-    companyType: 'Business Division',
-    entityType: 'Broker',
-    role: 'Market',
-    legalStatus: 'In Runoff/Ceased',
-    status: 'pending',
-    requesterName: 'Mike Dibble',
-    requesterEmail: 'mikedibble@guycarp.com',
-    requestedDate: '10/15/2021',
-  },
-  {
-    id: 'accc5',
-    name: 'Goldman Sachs',
-    companyType: 'Insured',
-    entityType: 'Investment Manager',
-    role: 'Injured',
-    legalStatus: 'In Rehab/Supervision',
-    status: 'unapproved',
-    requesterName: 'Mike Dibble',
-    requesterEmail: 'mikedibble@guycarp.com',
-    requestedDate: '11/27/2021',
-  },
-];
+function getSingleAccount(id) {
+  return axios
+    .get(`${BASE_URL}/trading_partners/${id}`)
+    .then((res) => {
+      return res.data;
+    })
+}
 
 function getMyAccounts() {
   return axios
@@ -229,6 +147,7 @@ function getPlacements() {
 }
 
 export {
+  getSingleAccount,
   getMyAccounts,
   getAllAccounts,
   getRequests,
