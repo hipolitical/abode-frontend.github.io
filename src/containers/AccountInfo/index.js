@@ -1,25 +1,37 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import ChartView from './chart'
 import { getSingleAccount } from '../../store/actions/single_account';
-import {  } from '../../utils/helpers.js';
 
 function AccountInfo() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const singleAccountData = useSelector(state => state.single_account);
+  const isLoading = singleAccountData.isLoading;
   const displayName = singleAccountData.single_account?.display_name;
   const attributes = singleAccountData.single_account?.attributes;
   const roles = attributes?.role &&
-    attributes?.role.replaceAll(';', ', ')
+    attributes?.role.replaceAll(';', ', ');
 
   useEffect(() => {
     dispatch(getSingleAccount(id));
   }, [id, dispatch]);
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+        <CircularProgress />
+      </Box>
+    )
+  }
 
   return (
     <Container maxWidth="lg">
@@ -27,8 +39,15 @@ function AccountInfo() {
         <Typography variant="h4" color="primary" gutterBottom>
           {displayName}
         </Typography>
+        <Button
+          variant="outlined"
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </Button>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 4 }}>
-          <Box sx={{ pr: 8 }}>
+          <Box sx={{ pr: 8, flex: 1 }}>
             <Typography variant="body1" color="secondary.light" gutterBottom>
               <b>Last Contract Year:</b> {attributes?.last_contract_year}
             </Typography>
@@ -42,7 +61,7 @@ function AccountInfo() {
               <b>Company Type:</b> {attributes?.company_type}
             </Typography>
           </Box>
-          <Box sx={{ pr: 8 }}>
+          <Box sx={{ pr: 8, flex: 1 }}>
             <Typography variant="body1" color="secondary.light" gutterBottom>
               <b>Legal Status:</b> {attributes?.legal_status}
             </Typography>
@@ -56,7 +75,7 @@ function AccountInfo() {
               <b>AM Best:</b> {attributes?.ambest_number}
             </Typography>
           </Box>
-          <Box sx={{ pr: 8 }}>
+          <Box sx={{ pr: 8, flex: 1 }}>
             <Typography variant="body1" color="secondary.light" gutterBottom>
               <b>Standard and Poor's:</b> {attributes?.standard_poors_number}
             </Typography>
