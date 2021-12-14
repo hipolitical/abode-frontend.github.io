@@ -1,8 +1,8 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import {
-  GET_MY_CLIENTS_REQUESTED,
-  GET_MY_CLIENTS_FAILED,
-  GET_MY_CLIENTS_SUCCESS,
+  GET_MY_ACCOUNTS_REQUESTED,
+  GET_MY_ACCOUNTS_FAILED,
+  GET_MY_ACCOUNTS_SUCCESS,
   ADD_CLIENT_ACCOUNT_REQUESTED,
   ADD_CLIENT_ACCOUNT_FAILED,
   ADD_CLIENT_ACCOUNT_SUCCESS,
@@ -10,14 +10,14 @@ import {
   UPDATE_CLIENT_ACCOUNT_FAILED,
   UPDATE_CLIENT_ACCOUNT_SUCCESS,
 } from "../types";
-import { getMyClients } from '../../api';
+import { getMyAccounts } from '../../api';
 
-function* getMyClientsRequested() {
+function* getMyAccountsRequested() {
   try {
-    const payload = yield call(getMyClients);
-    yield put({ type: GET_MY_CLIENTS_SUCCESS, payload });
+    const payload = yield call(getMyAccounts);
+    yield put({ type: GET_MY_ACCOUNTS_SUCCESS, payload });
   } catch (e) {
-    yield put({ type: GET_MY_CLIENTS_FAILED, payload: e });
+    yield put({ type: GET_MY_ACCOUNTS_FAILED, payload: e });
   }
 }
 
@@ -40,7 +40,7 @@ function* updateClientAccountRequested({ account }) {
 }
 
 export default function* accounts() {
-  yield takeEvery(GET_MY_CLIENTS_REQUESTED, getMyClientsRequested);
+  yield takeEvery(GET_MY_ACCOUNTS_REQUESTED, getMyAccountsRequested);
   yield takeEvery(ADD_CLIENT_ACCOUNT_REQUESTED, addClientAccountRequested);
   yield takeEvery(UPDATE_CLIENT_ACCOUNT_REQUESTED, updateClientAccountRequested);
 }

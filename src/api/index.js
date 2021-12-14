@@ -121,15 +121,36 @@ const rowsAllAccounts = [
   },
 ];
 
-function getMyClients() {
-  return {
-    headers: [
-      { label: 'Name', field: 'name' },
-      { label: 'LOB', field: 'lob' },
-      { label: 'Program', field: 'program' },
-    ],
-    rows: rowsClient,
-  };
+function getMyAccounts() {
+  return axios
+    .get(`${BASE_URL}/trading_partners`)
+    .then((res) => {
+      const responseItems = res.data?.items || []
+      const statusList = ['approved', 'pending', 'unapproved']
+      const rows = responseItems
+      .map((item, index) => ({
+        ...item,
+        companyType: 'Insured',
+        entityType: 'Investment Manager',
+        role: 'Injured',
+        legalStatus: 'In Rehab/Supervision',
+        status: statusList[index%3],
+        requesterName: 'Mike Dibble',
+        requesterEmail: 'mikedibble@guycarp.com',
+        requestedDate: '11/27/2021',
+      }))
+      .filter(item => item.status === 'approved')
+      return {
+        headers: [
+          { label: 'Name', field: 'display_name', isLink: true },
+          { label: 'Role', field: 'role' },
+          { label: 'Requester', field: 'requesterName' },
+          { label: 'Email', field: 'requesterEmail' },
+          { label: 'Requested', field: 'requestedDate' },
+        ],
+        rows,
+      };
+    })
 }
 
 function getAllAccounts() {
@@ -137,13 +158,14 @@ function getAllAccounts() {
     .get(`${BASE_URL}/trading_partners`)
     .then((res) => {
       const responseItems = res.data?.items || []
-      const rows = responseItems.map(item => ({
+      const statusList = ['approved', 'pending', 'unapproved']
+      const rows = responseItems.map((item, index) => ({
         ...item,
         companyType: 'Insured',
         entityType: 'Investment Manager',
         role: 'Injured',
         legalStatus: 'In Rehab/Supervision',
-        status: 'unapproved',
+        status: statusList[index%3],
         requesterName: 'Mike Dibble',
         requesterEmail: 'mikedibble@guycarp.com',
         requestedDate: '11/27/2021',
@@ -162,16 +184,35 @@ function getAllAccounts() {
 }
 
 function getRequests() {
-  return {
-    headers: [
-      { label: 'Name', field: 'name', isLink: true },
-      { label: 'Role', field: 'role' },
-      { label: 'Requester', field: 'requesterName' },
-      { label: 'Email', field: 'requesterEmail' },
-      { label: 'Requested', field: 'requestedDate' },
-    ],
-    rows: rowsAllAccounts.filter(row => row.status === 'pending'),
-  };
+  return axios
+    .get(`${BASE_URL}/trading_partners`)
+    .then((res) => {
+      const responseItems = res.data?.items || []
+      const statusList = ['approved', 'pending', 'unapproved']
+      const rows = responseItems
+      .map((item, index) => ({
+        ...item,
+        companyType: 'Insured',
+        entityType: 'Investment Manager',
+        role: 'Injured',
+        legalStatus: 'In Rehab/Supervision',
+        status: statusList[index%3],
+        requesterName: 'Mike Dibble',
+        requesterEmail: 'mikedibble@guycarp.com',
+        requestedDate: '11/27/2021',
+      }))
+      .filter(item => item.status === 'pending')
+      return {
+        headers: [
+          { label: 'Name', field: 'display_name', isLink: true },
+          { label: 'Role', field: 'role' },
+          { label: 'Requester', field: 'requesterName' },
+          { label: 'Email', field: 'requesterEmail' },
+          { label: 'Requested', field: 'requestedDate' },
+        ],
+        rows,
+      };
+    })
 }
 
 function getPlacements() {
@@ -188,7 +229,7 @@ function getPlacements() {
 }
 
 export {
-  getMyClients,
+  getMyAccounts,
   getAllAccounts,
   getRequests,
   getPlacements,

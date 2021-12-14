@@ -6,10 +6,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import CustomRow from '../TableRow';
 
 export default function CollapsibleTable(props) {
-  const { rows, headers, type, openEdit } = props;
+  const { rows, headers, type, isLoading, openEdit } = props;
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+        <CircularProgress />
+      </Box>
+    )
+  }
 
   return (
     <TableContainer component={Paper}>

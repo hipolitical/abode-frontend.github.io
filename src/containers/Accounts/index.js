@@ -10,23 +10,27 @@ import { useTheme } from '@mui/material/styles';
 import AutoComplete from '../../components/AutoComplete';
 import TabPanel from '../../components/TabPanel';
 import TableList from '../../components/TableList';
-import { getAllAccounts } from '../../store/actions/all_accounts'
-import { getRequests } from '../../store/actions/requests'
+import { getMyAccounts } from '../../store/actions/my_accounts';
+import { getAllAccounts } from '../../store/actions/all_accounts';
+import { getRequests } from '../../store/actions/requests';
 
 function Accounts() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [currentTab, setCurrentTab] = React.useState(0);
+  const myAccountsData = useSelector(state => state.accounts);
   const allAccountsData = useSelector(state => state.all_accounts);
   const requestsData = useSelector(state => state.requests);
 
   React.useEffect(() => {
-    dispatch(getAllAccounts());
+    dispatch(getMyAccounts());
   }, [dispatch]);
 
   const handleChange = (event, newValue) => {
     setCurrentTab(newValue);
-    if (newValue === 2) {
+    if (newValue === 1) {
+      dispatch(getAllAccounts());
+    } else if (newValue === 2) {
       dispatch(getRequests());
     }
   };
@@ -67,8 +71,9 @@ function Accounts() {
       >
         <TabPanel value={currentTab} index={0} dir={theme.direction}>
           <TableList
-            rows={allAccountsData.accounts}
-            headers={allAccountsData.headers}
+            rows={myAccountsData.accounts}
+            headers={myAccountsData.headers}
+            isLoading={myAccountsData.isLoading}
             type="access"
           />
         </TabPanel>
@@ -76,6 +81,7 @@ function Accounts() {
           <TableList
             rows={allAccountsData.accounts}
             headers={allAccountsData.headers}
+            isLoading={allAccountsData.isLoading}
             type="access"
           />
         </TabPanel>
@@ -83,6 +89,7 @@ function Accounts() {
           <TableList
             rows={requestsData.requests}
             headers={requestsData.headers}
+            isLoading={requestsData.isLoading}
             type="requests"
           />
         </TabPanel>
