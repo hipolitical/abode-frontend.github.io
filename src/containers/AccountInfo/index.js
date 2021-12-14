@@ -4,12 +4,12 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import ChartView from './chart'
 
-function Company() {
+function AccountInfo() {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 6 }}>
         <Typography variant="h4" color="primary" gutterBottom>
-          Markel Insurance Company
+          Markel Insurance AccountInfo
         </Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 4 }}>
           <Box sx={{ pr: 8 }}>
@@ -23,7 +23,7 @@ function Company() {
               <b>Entity Type:</b> XX
             </Typography>
             <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Company Type:</b> XX
+              <b>AccountInfo Type:</b> XX
             </Typography>
           </Box>
           <Box sx={{ pr: 8 }}>
@@ -57,4 +57,4 @@ function Company() {
   );
 }
 
-export default Company;
+export default AccountInfo;

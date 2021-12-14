@@ -62,8 +62,8 @@ const rowsAllAccounts = [
   {
     id: 'accc1',
     name: 'Market',
-    companyType: 'Company',
-    entityType: 'Company',
+    companyType: 'AccountInfo',
+    entityType: 'AccountInfo',
     role: 'Client',
     legalStatus: 'Active',
     status: 'approved',
@@ -173,7 +173,7 @@ function getAllAccounts() {
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
-          { label: 'Company Type', field: 'companyType' },
+          { label: 'AccountInfo Type', field: 'companyType' },
           { label: 'Entity Type', field: 'entityType' },
           { label: 'Role', field: 'role' },
           { label: 'Legal Status', field: 'legalStatus' },
