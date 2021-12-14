@@ -4,14 +4,14 @@ import Typography from '@mui/material/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from '@mui/material/Container';
 import TableList from '../../components/TableList';
-import { getAllAccounts } from '../../store/actions/all_accounts'
+import { getMyAccounts } from '../../store/actions/my_accounts'
 
 function Users() {
   const dispatch = useDispatch();
-  const allAccountsData = useSelector(state => state.all_accounts);
+  const myAccountsData = useSelector(state => state.accounts);
 
   React.useEffect(() => {
-    dispatch(getAllAccounts());
+    dispatch(getMyAccounts());
   }, [dispatch]);
 
   return (
@@ -25,8 +25,9 @@ function Users() {
         </Typography>
         <Box sx={{ mt: 4 }}>
           <TableList
-            rows={allAccountsData.accounts}
-            headers={allAccountsData.headers}
+            rows={myAccountsData.accounts}
+            headers={myAccountsData.headers}
+            isLoading={myAccountsData.isLoading}
           />
         </Box>
       </Box>
