@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://20.88.106.53:8080'
+const BASE_URL = 'http://20.94.2.168:8080'
 
 function createTreatyData(id, accountId, name, year, status, published) {
   return {
@@ -41,7 +41,7 @@ function getSingleAccount(id) {
 
 function getMyAccounts() {
   return axios
-    .get(`${BASE_URL}/trading_partners`)
+    .get(`${BASE_URL}/trading_partners?all_fields=true`)
     .then((res) => {
       const responseItems = res.data?.items || []
       const statusList = ['approved', 'pending', 'unapproved']
@@ -91,7 +91,7 @@ function getAllAccounts() {
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
-          { label: 'AccountInfo Type', field: 'companyType' },
+          { label: 'Company Type', field: 'companyType' },
           { label: 'Entity Type', field: 'entityType' },
           { label: 'Role', field: 'role' },
           { label: 'Legal Status', field: 'legalStatus' },
