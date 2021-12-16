@@ -13,6 +13,7 @@ import TableList from '../../components/TableList';
 import { getMyAccounts } from '../../store/actions/my_accounts';
 import { getAllAccounts } from '../../store/actions/all_accounts';
 import { getRequests } from '../../store/actions/requests';
+import { getCurrentUserId } from '../../utils/functions';
 
 function Accounts() {
   const theme = useTheme();
@@ -23,7 +24,7 @@ function Accounts() {
   const requestsData = useSelector(state => state.requests);
 
   React.useEffect(() => {
-    dispatch(getMyAccounts());
+    dispatch(getMyAccounts(getCurrentUserId()));
   }, [dispatch]);
 
   const handleChange = (event, newValue) => {
@@ -31,7 +32,7 @@ function Accounts() {
     if (newValue === 1) {
       dispatch(getAllAccounts());
     } else if (newValue === 2) {
-      dispatch(getRequests());
+      dispatch(getRequests(getCurrentUserId()));
     }
   };
 

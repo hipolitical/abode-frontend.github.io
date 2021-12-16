@@ -68,9 +68,9 @@ function getAllAccounts() {
     })
 }
 
-function getMyAccounts() {
+function getMyAccounts(userId) {
   return axios
-    .get(`${BASE_URL}/users/77777/related/affiliations?status=APPROVED`)
+    .get(`${BASE_URL}/users/${userId}/related/affiliations?status=APPROVED`)
     .then((res) => {
       const responseItems = res.data || []
       const rows = responseItems
@@ -97,9 +97,9 @@ function getMyAccounts() {
     })
 }
 
-function getRequests() {
+function getRequests(userId) {
   return axios
-    .get(`${BASE_URL}/users/77777/related/affiliations?status=REQUESTED`)
+    .get(`${BASE_URL}/users/${userId}/related/affiliations?status=REQUESTED`)
     .then((res) => {
       const responseItems = res.data || []
       const rows = responseItems

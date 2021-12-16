@@ -6,9 +6,9 @@ import {
 } from "../types";
 import { getRequests } from '../../api';
 
-function* getAllRequestsRequested() {
+function* getAllRequestsRequested({ id }) {
   try {
-    const payload = yield call(getRequests);
+    const payload = yield call(getRequests, id);
     yield put({ type: GET_REQUESTS_SUCCESS, payload });
   } catch (e) {
     yield put({ type: GET_REQUESTS_FAILED, payload: e });

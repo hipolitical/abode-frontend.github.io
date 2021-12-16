@@ -27,6 +27,7 @@ export default function SignIn() {
     onSubmit: (values) => {
       if (values.password === 'password') {
         localStorage.setItem('isAuthenticated', true);
+        localStorage.setItem('userId', 77777);
         navigate('/');
       }
     },

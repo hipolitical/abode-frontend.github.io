@@ -5,13 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Container from '@mui/material/Container';
 import TableList from '../../components/TableList';
 import { getMyAccounts } from '../../store/actions/my_accounts'
+import { getCurrentUserId } from '../../utils/functions';
 
 function Users() {
   const dispatch = useDispatch();
   const myAccountsData = useSelector(state => state.accounts);
 
   React.useEffect(() => {
-    dispatch(getMyAccounts());
+    dispatch(getMyAccounts(getCurrentUserId()));
   }, [dispatch]);
 
   return (
