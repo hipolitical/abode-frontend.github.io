@@ -19,9 +19,9 @@ import AvatarImg from '../../assets/avatar.png';
 import './navbar.css';
 
 const pages = [
-  { name: 'Home', to: '/' },
-  { name: 'Accounts', to: '/accounts' },
-  { name: 'Users', to: '/users' },
+  { name: 'Search', to: '/' },
+  { name: 'My Accounts', to: '/my-accounts' },
+  { name: 'Requests', to: '/requests' },
 ];
 const blockedRoutes = ['/login']
 

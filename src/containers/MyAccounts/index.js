@@ -5,14 +5,15 @@ import Container from '@mui/material/Container';
 
 import AutoComplete from '../../components/AutoComplete';
 import TableList from '../../components/TableList';
-import { getAllAccounts } from '../../store/actions/all_accounts';
+import { getMyAccounts } from '../../store/actions/my_accounts';
+import { getCurrentUserId } from '../../utils/functions';
 
-function Accounts() {
+function MyAccounts() {
   const dispatch = useDispatch();
-  const accountsData = useSelector(state => state.all_accounts);
+  const accountsData = useSelector(state => state.accounts);
 
   React.useEffect(() => {
-    dispatch(getAllAccounts());
+    dispatch(getMyAccounts(getCurrentUserId()));
   }, [dispatch]);
 
   return (
@@ -34,4 +35,4 @@ function Accounts() {
   );
 }
 
-export default Accounts;
+export default MyAccounts;
