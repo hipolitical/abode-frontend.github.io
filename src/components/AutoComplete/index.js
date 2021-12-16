@@ -31,7 +31,7 @@ function Accounts(props) {
 
         const { inputValue } = params;
         // Suggest the creation of a new value
-        const isExisting = options.some((option) => inputValue === option.name);
+        const isExisting = options.some((option) => inputValue === option.display_name);
         if (inputValue !== '' && !isExisting) {
           filtered.push({
             inputValue,
@@ -56,9 +56,9 @@ function Accounts(props) {
           return option.inputValue;
         }
         // Regular option
-        return option.name;
+        return option.display_name;
       }}
-      renderOption={(props, option) => <li {...props}>{option.name}</li>}
+      renderOption={(props, option) => <li {...props}>{option.display_name}</li>}
       sx={{ width: 300 }}
       freeSolo
       renderInput={(params) => (
