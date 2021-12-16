@@ -39,51 +39,18 @@ function getSingleAccount(id) {
     })
 }
 
-function getMyAccounts() {
+
+function getAllAccounts() {
   return axios
     .get(`${BASE_URL}/trading_partners?all_fields=true`)
     .then((res) => {
       const responseItems = res.data?.items || []
-      const statusList = ['approved', 'pending', 'unapproved']
-      const rows = responseItems
-      .map((item, index) => ({
-        ...item,
-        companyType: 'Insured',
-        entityType: 'Investment Manager',
-        role: 'Injured',
-        legalStatus: 'In Rehab/Supervision',
-        status: statusList[index%3],
-        requesterName: 'Mike Dibble',
-        requesterEmail: 'mikedibble@guycarp.com',
-        requestedDate: '11/27/2021',
-      }))
-      .filter(item => item.status === 'approved')
-      return {
-        headers: [
-          { label: 'Name', field: 'display_name', isLink: true },
-          { label: 'Role', field: 'role' },
-          { label: 'Requester', field: 'requesterName' },
-          { label: 'Email', field: 'requesterEmail' },
-          { label: 'Requested', field: 'requestedDate' },
-        ],
-        rows,
-      };
-    })
-}
-
-function getAllAccounts() {
-  return axios
-    .get(`${BASE_URL}/trading_partners`)
-    .then((res) => {
-      const responseItems = res.data?.items || []
-      const statusList = ['approved', 'pending', 'unapproved']
       const rows = responseItems.map((item, index) => ({
         ...item,
         companyType: 'Insured',
         entityType: 'Investment Manager',
         role: 'Injured',
         legalStatus: 'In Rehab/Supervision',
-        status: statusList[index%3],
         requesterName: 'Mike Dibble',
         requesterEmail: 'mikedibble@guycarp.com',
         requestedDate: '11/27/2021',
@@ -101,12 +68,40 @@ function getAllAccounts() {
     })
 }
 
+function getMyAccounts() {
+  return axios
+    .get(`${BASE_URL}/users/77777/related/affiliations?status=APPROVED`)
+    .then((res) => {
+      const responseItems = res.data || []
+      const rows = responseItems
+      .map((item) => ({
+        ...item,
+        companyType: 'Insured',
+        entityType: 'Investment Manager',
+        role: 'Injured',
+        legalStatus: 'In Rehab/Supervision',
+        requesterName: 'Mike Dibble',
+        requesterEmail: 'mikedibble@guycarp.com',
+        requestedDate: '11/27/2021',
+      }))
+      return {
+        headers: [
+          { label: 'Name', field: 'display_name', isLink: true },
+          { label: 'Role', field: 'role' },
+          { label: 'Requester', field: 'requesterName' },
+          { label: 'Email', field: 'requesterEmail' },
+          { label: 'Requested', field: 'requestedDate' },
+        ],
+        rows,
+      };
+    })
+}
+
 function getRequests() {
   return axios
-    .get(`${BASE_URL}/trading_partners`)
+    .get(`${BASE_URL}/users/77777/related/affiliations?status=REQUESTED`)
     .then((res) => {
-      const responseItems = res.data?.items || []
-      const statusList = ['approved', 'pending', 'unapproved']
+      const responseItems = res.data || []
       const rows = responseItems
       .map((item, index) => ({
         ...item,
@@ -114,12 +109,10 @@ function getRequests() {
         entityType: 'Investment Manager',
         role: 'Injured',
         legalStatus: 'In Rehab/Supervision',
-        status: statusList[index%3],
         requesterName: 'Mike Dibble',
         requesterEmail: 'mikedibble@guycarp.com',
         requestedDate: '11/27/2021',
       }))
-      .filter(item => item.status === 'pending')
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
