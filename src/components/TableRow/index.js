@@ -15,6 +15,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
+import {
+  STATUS_DENIED,
+  STATUS_REQUESTED,
+} from '../../utils/consts'
 
 function CustomRow(props) {
   const { row, onEdit, type, headers } = props;
@@ -57,12 +61,12 @@ function CustomRow(props) {
         )}
         {type === "access" && (
           <TableCell>
-            {row.status === "unapproved" && (
+            {row.status === STATUS_DENIED && (
               <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}>
                 Request Access
               </Button>
             )}
-            {row.status === "pending" && (
+            {row.status === STATUS_REQUESTED && (
               <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
                 Cancel Access
               </Button>

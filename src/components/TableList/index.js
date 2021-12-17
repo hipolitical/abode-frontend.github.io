@@ -22,37 +22,39 @@ export default function CollapsibleTable(props) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            {headers && headers.map((row, index) => (
-              <TableCell
+    <Box sx={{ paddingBottom: 6 }}>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              {headers && headers.map((row, index) => (
+                <TableCell
+                  key={index}
+                  style={{ whiteSpace: 'nowrap' }}
+                >
+                  {row.label}
+                </TableCell>
+              ))}
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows && rows.map((row, index) => (
+              <CustomRow
                 key={index}
-                style={{ whiteSpace: 'nowrap' }}
-              >
-                {row.label}
-              </TableCell>
-            ))}
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows && rows.map((row, index) => (
-            <CustomRow
-              key={index}
-              row={row}
-              headers={headers}
-              type={type}
-              {
-                ...type === 'editing' && {
-                  onEdit: () => openEdit(row)
+                row={row}
+                headers={headers}
+                type={type}
+                {
+                  ...type === 'editing' && {
+                    onEdit: () => openEdit(row)
+                  }
                 }
-              }
-            />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

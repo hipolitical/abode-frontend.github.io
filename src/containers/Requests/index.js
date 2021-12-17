@@ -28,7 +28,7 @@ function Requests() {
           rows={accountsData.requests}
           headers={accountsData.headers}
           isLoading={accountsData.isLoading}
-          type="access"
+          type="requests"
         />
       </Box>
     </Container>
