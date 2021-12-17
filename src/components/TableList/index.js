@@ -146,24 +146,26 @@ export default function CollapsibleTable(props) {
               </TableRow>
             )}
           </TableBody>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
-              count={rows.length}
-              colSpan={headers.length + 1}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
+                count={rows.length}
+                colSpan={headers.length + 1}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    'aria-label': 'rows per page',
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
       
