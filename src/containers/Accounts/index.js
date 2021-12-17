@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import AutoComplete from '../../components/AutoComplete';
 import TableList from '../../components/TableList';
 import { getAllAccounts } from '../../store/actions/all_accounts';
 
@@ -17,11 +16,6 @@ function Accounts() {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ mt: 4 }}>
-        {accountsData.accounts && (
-          <AutoComplete suggestions={accountsData.accounts} />
-        )}
-      </Box>
       <Box sx={{ mt: 4 }}>
         <TableList
           rows={accountsData.accounts}

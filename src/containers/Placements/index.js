@@ -8,7 +8,6 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-import AutoComplete from '../../components/AutoComplete';
 import TabPanel from '../../components/TabPanel';
 import TableList from '../../components/TableList';
 import AddEditModal from './modal';
@@ -60,11 +59,6 @@ function Placements() {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ mt: 8 }}>
-        {placementsData.placements && (
-          <AutoComplete suggestions={placementsData.placements} />
-        )}
-      </Box>
       <Box sx={{ mt: 8 }}>
         <Tabs
           value={currentTab}
