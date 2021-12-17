@@ -16,6 +16,7 @@ function SearchInput({ value, placeholder, onChange }) {
         )
       }}
       onChange={(e) => onChange(e.target.value)}
+      fullWidth
     />
   );
 }
