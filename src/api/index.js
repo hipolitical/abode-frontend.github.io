@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://20.94.2.168:8080'
+const BASE_URL = 'http://20.94.2.168:8080'
 
 function createTreatyData(id, accountId, name, year, status, published) {
   return {
