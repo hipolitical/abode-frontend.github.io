@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -12,12 +12,19 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import CustomRow from '../TableRow';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.secondary.light,
+    color: theme.palette.common.white,
+  },
+}));
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -106,20 +113,20 @@ export default function CollapsibleTable(props) {
   }
 
   return (
-    <Box sx={{ paddingBottom: 6 }}>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
+    <Box>
+      <TableContainer component={Paper} sx={{ maxHeight: 'calc(100vh - 300px)' }}>
+        <Table aria-label="collapsible table" stickyHeader>
           <TableHead>
             <TableRow>
               {headers && headers.map((row, index) => (
-                <TableCell
+                <StyledTableCell
                   key={index}
                   style={{ whiteSpace: 'nowrap' }}
                 >
                   {row.label}
-                </TableCell>
+                </StyledTableCell>
               ))}
-              <TableCell />
+              <StyledTableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -146,29 +153,30 @@ export default function CollapsibleTable(props) {
               </TableRow>
             )}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
-                count={rows.length}
-                colSpan={headers.length + 1}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
         </Table>
       </TableContainer>
-      
+      <Table aria-label="collapsible table">
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
+              count={rows.length}
+              colSpan={headers.length + 1}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: {
+                  'aria-label': 'rows per page',
+                },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
+      </Table>
     </Box>
   );
 }
