@@ -14,12 +14,22 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
+import { styled } from '@mui/material/styles';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 import {
   STATUS_DENIED,
   STATUS_REQUESTED,
 } from '../../utils/consts'
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 function CustomRow(props) {
   const { row, onEdit, type, headers } = props;
   const [open, setOpen] = React.useState(false);
@@ -28,7 +38,7 @@ function CustomRow(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <StyledTableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         {headers.map(header => header.field).map((item, index) => (
           <TableCell key={index} component="th" scope="row">
             {headers[index]?.isLink ?
@@ -83,7 +93,7 @@ function CustomRow(props) {
             </Button>
           </TableCell>
         )}
-      </TableRow>
+      </StyledTableRow>
       {hasDetails && (
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
