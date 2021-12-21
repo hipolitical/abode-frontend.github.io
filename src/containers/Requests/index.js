@@ -7,11 +7,13 @@ import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getRequests } from '../../store/actions/requests';
 import { getCurrentUserId } from '../../utils/functions';
+import { filterBySearchKeyword } from '../../utils/helpers';
 
 function Requests() {
   const dispatch = useDispatch();
   const accountsData = useSelector(state => state.requests);
   const [searchKeyword, setSearchKeyword] = useState('')
+  const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
 
   React.useEffect(() => {
     dispatch(getRequests(getCurrentUserId()));
@@ -28,7 +30,7 @@ function Requests() {
       </Box>
       <Box sx={{ mt: 4 }}>
         <TableList
-          rows={accountsData.requests}
+          rows={availableData}
           headers={accountsData.headers}
           isLoading={accountsData.isLoading}
           type="requests"
