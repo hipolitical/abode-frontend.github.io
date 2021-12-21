@@ -5,7 +5,7 @@ import MyAccounts from './containers/MyAccounts';
 import Requests from './containers/Requests';
 import AccountInfo from './containers/AccountInfo';
 import AccountEdit from './containers/AccountEdit';
-import Navbar from './containers/Navbar';
+import Navbar from './shared/Navbar';
 import Signin from './containers/Signin';
 
 function Router() {
