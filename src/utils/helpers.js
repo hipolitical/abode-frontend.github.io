@@ -4,7 +4,11 @@ function capitalizeFirstLetter(string) {
 
 function filterBySearchKeyword(arr, searchKey) {
   if (Array.isArray(arr))
-    return arr.filter(obj => Object.keys(obj).some(key => String(obj[key]).includes(searchKey)));
+    return arr.filter(obj => Object.keys(obj)
+      .some(key => String(obj[key])
+        .toLowerCase()
+        .includes(searchKey.toLowerCase())
+      ));
   return arr
 }
 
