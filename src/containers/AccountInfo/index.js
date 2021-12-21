@@ -36,9 +36,21 @@ function AccountInfo() {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 6 }}>
-        <Typography variant="h4" color="primary" gutterBottom>
-          {displayName}
-        </Typography>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <Typography variant="h4" color="primary" gutterBottom>
+            {displayName}
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => navigate(`/accounts/${id}/edit`)}
+          >
+            Edit
+          </Button>
+        </Box>
         <Button
           variant="outlined"
           startIcon={<ArrowBackIcon />}
