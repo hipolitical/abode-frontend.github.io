@@ -134,6 +134,42 @@ function getRequests(userId) {
     })
 }
 
+function getAccountUsers(id) {
+  return {
+    headers: [
+      { label: 'Name', field: 'name' },
+      { label: 'Role', field: 'role' },
+      { label: 'Email', field: 'email' },
+      { label: 'Joined', field: 'joined_date' },
+      { label: 'Status', field: 'status' },
+      { label: '', field: '' },
+    ],
+    rows: [
+      {
+        name: 'Jenn Paretchan',
+        role: 'Broking Lead',
+        email: 'jenn.paretchan@guycarp.com',
+        joined_date: '8/30/2021',
+        status: 'Admin',
+      },
+      {
+        name: 'Michael Dibble',
+        role: 'Product Manager',
+        email: 'michale.dibble@guycarp.com',
+        status: 'Access Pending',
+      },
+      {
+        name: 'Shannon Nagaoka',
+        role: 'Product Manager',
+        email: 'shannon.nagaoka@guycarp.com',
+        joined_date: '9/25/2021',
+        status: 'Member',
+        canRemove: true,
+      },
+    ],
+  };
+}
+
 function getPlacements() {
   return {
     headers: [
@@ -152,5 +188,6 @@ export {
   getMyAccounts,
   getAllAccounts,
   getRequests,
+  getAccountUsers,
   getPlacements,
 }
