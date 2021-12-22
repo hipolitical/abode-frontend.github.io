@@ -88,12 +88,11 @@ TablePaginationActions.propTypes = {
 };
 
 export default function CollapsibleTable(props) {
-  const { rows, headers, type, isLoading, openEdit } = props;
+  const { rows, headers, type, isLoading, openEdit, pageSize, setRowsPerPage } = props;
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * pageSize - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -130,8 +129,8 @@ export default function CollapsibleTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {(pageSize > 0
+              ? rows.slice(page * pageSize, page * pageSize + pageSize)
               : rows
             ).map((row, index) => (
               <CustomRow
@@ -162,7 +161,7 @@ export default function CollapsibleTable(props) {
               rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
               count={rows.length}
               colSpan={headers.length + 1}
-              rowsPerPage={rowsPerPage}
+              rowsPerPage={pageSize}
               page={page}
               SelectProps={{
                 inputProps: {

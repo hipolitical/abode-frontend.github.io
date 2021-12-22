@@ -6,17 +6,19 @@ import Container from '@mui/material/Container';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getAllAccounts } from '../../store/actions/all_accounts';
-import { filterBySearchKeyword } from '../../utils/helpers';
 
 function Accounts() {
   const dispatch = useDispatch();
   const accountsData = useSelector(state => state.all_accounts);
   const [searchKeyword, setSearchKeyword] = useState('')
-  const availableData = filterBySearchKeyword(accountsData.accounts, searchKeyword)
+  const [pageSize, setPageSize] = useState(5)
 
   React.useEffect(() => {
-    dispatch(getAllAccounts());
-  }, [dispatch]);
+    dispatch(getAllAccounts({
+      query: searchKeyword,
+      limit: pageSize,
+    }));
+  }, [dispatch, searchKeyword, pageSize]);
 
   return (
     <Container maxWidth="lg">
@@ -29,9 +31,11 @@ function Accounts() {
       </Box>
       <Box sx={{ mt: 4 }}>
         <TableList
-          rows={availableData}
+          rows={accountsData.accounts}
           headers={accountsData.headers}
           isLoading={accountsData.isLoading}
+          pageSize={pageSize}
+          setRowsPerPage={setPageSize}
           type="access"
         />
       </Box>

@@ -45,9 +45,11 @@ function getSingleAccount(id) {
     })
 }
 
-function getAllAccounts() {
+function getAllAccounts(params) {
+  const query = params?.query || ''
+  const limit = params?.limit || 5
   return axios
-    .get(`${BASE_URL}/trading_partners/search?query=&all_fields=true`)
+    .get(`${BASE_URL}/trading_partners/search?query=${query}&limit=${limit}&all_fields=true`)
     .then((res) => {
       const responseItems = res.data?.items || []
       const rows = responseItems.map((item, index) => ({

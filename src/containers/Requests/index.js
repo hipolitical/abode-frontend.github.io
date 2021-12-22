@@ -13,6 +13,7 @@ function Requests() {
   const dispatch = useDispatch();
   const accountsData = useSelector(state => state.requests);
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [pageSize, setPageSize] = useState(5)
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
 
   React.useEffect(() => {
@@ -33,6 +34,8 @@ function Requests() {
           rows={availableData}
           headers={accountsData.headers}
           isLoading={accountsData.isLoading}
+          pageSize={pageSize}
+          setRowsPerPage={setPageSize}
           type="requests"
         />
       </Box>
