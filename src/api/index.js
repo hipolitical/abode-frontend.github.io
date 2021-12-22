@@ -5,7 +5,7 @@ import {
   STATUS_REQUESTED,
 } from '../utils/consts'
 
-const BASE_URL = 'http://20.94.2.168:8080'
+const BASE_URL = 'http://52.251.4.156:8080'
 const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED]
 
 function createTreatyData(id, accountId, name, year, status, published) {
@@ -47,7 +47,7 @@ function getSingleAccount(id) {
 
 function getAllAccounts() {
   return axios
-    .get(`${BASE_URL}/trading_partners?all_fields=true`)
+    .get(`${BASE_URL}/trading_partners/search?query=&all_fields=true`)
     .then((res) => {
       const responseItems = res.data?.items || []
       const rows = responseItems.map((item, index) => ({
@@ -63,7 +63,7 @@ function getAllAccounts() {
       }))
       return {
         headers: [
-          { label: 'Name', field: 'display_name', isLink: true },
+          { label: 'Name', field: 'legal_name', isLink: true },
           { label: 'Company Type', field: 'companyType' },
           { label: 'Entity Type', field: 'entityType' },
           { label: 'Role', field: 'role' },
@@ -78,7 +78,7 @@ function getMyAccounts(userId) {
   return axios
     .get(`${BASE_URL}/users/${userId}/related/affiliations?status=${STATUS_APPROVED}`)
     .then((res) => {
-      const responseItems = res.data || []
+      const responseItems = res.data?.items || []
       const rows = responseItems
       .map((item) => ({
         ...item,
@@ -107,7 +107,7 @@ function getRequests(userId) {
   return axios
     .get(`${BASE_URL}/users/${userId}/related/affiliations?status=${STATUS_REQUESTED}`)
     .then((res) => {
-      const responseItems = res.data || []
+      const responseItems = res.data?.items || []
       const rows = responseItems
       .map((item, index) => ({
         ...item,
