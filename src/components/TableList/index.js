@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
+import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -119,6 +120,16 @@ export default function CollapsibleTable(props) {
         <CircularProgress />
       </Box>
     )
+  }
+
+  if (totalCount === 0) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+        <Typography variant="h6" color="primary" gutterBottom>
+          No data available
+        </Typography>
+      </Box>
+    ) 
   }
 
   return (
