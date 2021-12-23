@@ -112,16 +112,16 @@ function getRequests(userId) {
     .then((res) => {
       const responseItems = res.data?.items || []
       const rows = responseItems
-      .map((item, index) => ({
-        ...item,
-        companyType: 'Insured',
-        entityType: 'Investment Manager',
-        role: 'Injured',
-        legalStatus: 'In Rehab/Supervision',
-        requesterName: 'Mike Dibble',
-        requesterEmail: 'mikedibble@guycarp.com',
-        requestedDate: '11/27/2021',
-      }))
+        .map((item, index) => ({
+          ...item,
+          companyType: 'Insured',
+          entityType: 'Investment Manager',
+          role: 'Injured',
+          legalStatus: 'In Rehab/Supervision',
+          requesterName: 'Mike Dibble',
+          requesterEmail: 'mikedibble@guycarp.com',
+          requestedDate: '11/27/2021',
+        }))
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
@@ -136,39 +136,29 @@ function getRequests(userId) {
 }
 
 function getAccountUsers(id) {
-  return {
-    headers: [
-      { label: 'Name', field: 'name' },
-      { label: 'Role', field: 'role' },
-      { label: 'Email', field: 'email' },
-      { label: 'Joined', field: 'joined_date' },
-      { label: 'Status', field: 'status' },
-      { label: '', field: '' },
-    ],
-    rows: [
-      {
-        name: 'Jenn Paretchan',
-        role: 'Broking Lead',
-        email: 'jenn.paretchan@guycarp.com',
-        joined_date: '8/30/2021',
-        status: 'Admin',
-      },
-      {
-        name: 'Michael Dibble',
-        role: 'Product Manager',
-        email: 'michale.dibble@guycarp.com',
-        status: 'Access Pending',
-      },
-      {
-        name: 'Shannon Nagaoka',
-        role: 'Product Manager',
-        email: 'shannon.nagaoka@guycarp.com',
-        joined_date: '9/25/2021',
-        status: 'Member',
-        canRemove: true,
-      },
-    ],
-  };
+  return axios
+    .get(`${BASE_URL}/trading_partners/${id}/inverse/affiliations`)
+    .then((res) => {
+      const responseItems = res.data?.items || []
+      const rows = responseItems
+        .map((item, index) => ({
+          ...item,
+          role: 'Broking Lead',
+          joined_date: '8/30/2021',
+          canRemove: item.status === STATUS_REQUESTED
+        }))
+      return {
+        headers: [
+          { label: 'Name', field: 'display_name' },
+          { label: 'Role', field: 'role' },
+          { label: 'Email', field: 'email' },
+          { label: 'Joined', field: 'joined_date' },
+          { label: 'Status', field: 'status' },
+          { label: '', field: '' },
+        ],
+        rows,
+      };
+    })
 }
 
 function getPlacements() {
