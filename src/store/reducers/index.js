@@ -4,6 +4,7 @@ import single_account from './single_account';
 import accounts from './accounts';
 import all_accounts from './all_accounts';
 import requests from './requests';
+import account_users from './account_users';
 import placements from './placements';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   accounts,
   all_accounts,
   requests,
+  account_users,
   placements,
 });
