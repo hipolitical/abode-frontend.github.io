@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
@@ -91,6 +92,18 @@ function CustomRow(props) {
             <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
               Decline Access
             </Button>
+          </TableCell>
+        )}
+        {type === "users" && (
+          <TableCell>
+            {row?.canRemove && (
+              <IconButton
+                aria-label="expand row"
+                size="small"
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
           </TableCell>
         )}
       </StyledTableRow>
