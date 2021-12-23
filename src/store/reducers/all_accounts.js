@@ -7,6 +7,7 @@ import {
 const initialState = {
   accounts: [],
   headers: [],
+  count: 0,
   isLoading: false,
 };
 
@@ -24,6 +25,7 @@ function accountsAllReducer(state = initialState, action) {
       return Object.assign({}, state, {
         accounts: action.payload.rows,
         headers: action.payload.headers,
+        count: action.payload.count,
         isLoading: false,
       });
     default: return state;

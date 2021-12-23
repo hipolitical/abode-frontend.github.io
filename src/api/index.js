@@ -5,7 +5,7 @@ import {
   STATUS_REQUESTED,
 } from '../utils/consts'
 
-const BASE_URL = 'http://52.251.4.156:8080'
+const BASE_URL = 'http://20.41.44.16:8080'
 const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED]
 
 function createTreatyData(id, accountId, name, year, status, published) {
@@ -71,6 +71,7 @@ function getAllAccounts(params) {
           { label: 'Role', field: 'role' },
           { label: 'Legal Status', field: 'legalStatus' },
         ],
+        count: res.data?.count || 0,
         rows,
       };
     })
