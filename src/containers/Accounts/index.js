@@ -12,13 +12,15 @@ function Accounts() {
   const accountsData = useSelector(state => state.all_accounts);
   const [searchKeyword, setSearchKeyword] = useState('')
   const [pageSize, setPageSize] = useState(5)
+  const [pageNumber, setPageNumber] = useState(0)
 
   React.useEffect(() => {
     dispatch(getAllAccounts({
       query: searchKeyword,
       limit: pageSize,
+      page: pageNumber,
     }));
-  }, [dispatch, searchKeyword, pageSize]);
+  }, [dispatch, searchKeyword, pageSize, pageNumber]);
 
   return (
     <Container maxWidth="lg">
@@ -33,9 +35,12 @@ function Accounts() {
         <TableList
           rows={accountsData.accounts}
           headers={accountsData.headers}
+          totalCount={accountsData.count}
           isLoading={accountsData.isLoading}
           pageSize={pageSize}
+          page={pageNumber}
           setRowsPerPage={setPageSize}
+          setPageNumber={setPageNumber}
           type="access"
         />
       </Box>

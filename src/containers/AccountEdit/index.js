@@ -16,6 +16,7 @@ function AccountEdit() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState(5)
+  const [pageNumber, setPageNumber] = useState(0)
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
   const displayName = singleAccountData.single_account?.display_name;
@@ -52,9 +53,12 @@ function AccountEdit() {
         <TableList
           rows={accountUsersData.account_users}
           headers={accountUsersData.headers}
+          totalCount={accountUsersData.account_users.length}
           isLoading={accountUsersData.isLoading}
           pageSize={pageSize}
+          page={pageNumber}
           setRowsPerPage={setPageSize}
+          setPageNumber={setPageNumber}
           type="users"
         />
       </Box>

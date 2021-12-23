@@ -14,6 +14,7 @@ function MyAccounts() {
   const accountsData = useSelector(state => state.accounts);
   const [searchKeyword, setSearchKeyword] = useState('')
   const [pageSize, setPageSize] = useState(5)
+  const [pageNumber, setPageNumber] = useState(0)
   const availableData = filterBySearchKeyword(accountsData.accounts, searchKeyword)
 
   React.useEffect(() => {
@@ -33,9 +34,12 @@ function MyAccounts() {
         <TableList
           rows={availableData}
           headers={accountsData.headers}
+          totalCount={availableData.length}
           isLoading={accountsData.isLoading}
           pageSize={pageSize}
+          page={pageNumber}
           setRowsPerPage={setPageSize}
+          setPageNumber={setPageNumber}
           type="access"
         />
       </Box>
