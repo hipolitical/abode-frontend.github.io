@@ -5,6 +5,7 @@ import accounts from './accounts';
 import all_accounts from './all_accounts';
 import requests from './requests';
 import account_users from './account_users';
+import notifications from './notifications';
 import placements from './placements';
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   all_accounts,
   requests,
   account_users,
+  notifications,
   placements,
 });
