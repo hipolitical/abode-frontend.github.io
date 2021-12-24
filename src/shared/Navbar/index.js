@@ -15,6 +15,9 @@ import { NavLink } from 'react-router-dom';
 import LogoImg from '../../assets/logo.svg';
 import NotesIcon from '../../assets/notes.svg';
 import AlertsIcon from '../../assets/alerts.svg';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 import './navbar.css';
 
 const pages = [
@@ -62,13 +65,15 @@ const Navbar = () => {
       }}
       open={isNotificationOpen}
       onClose={handleNotificationMenuClose}
-      sx={{ marginTop: 6, maxHeight: '200px' }}
+      sx={{ marginTop: 6, maxHeight: '300px', padding: 1 }}
     >
-      {notificationsData.notifications.map((notification, index) => (
-        <MenuItem key={index} onClick={handleNotificationMenuClose}>
-          {notification.message}
-        </MenuItem>
-      ))}
+      <Stack sx={{ width: '100%', maxWidth: '300px' }} spacing={1}>
+        {notificationsData.notifications.map((notification, index) => (
+          <Alert key={index}>
+            <AlertTitle>{notification.message}</AlertTitle>
+          </Alert>
+        ))}
+      </Stack>
     </Menu>
   );
 
