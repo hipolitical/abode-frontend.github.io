@@ -10,7 +10,7 @@ function SearchInput({ value, placeholder, onChange }) {
       label={placeholder}
       InputProps={{
         endAdornment: (
-          <InputAdornment>
+          <InputAdornment position="end">
             <SearchIcon />
           </InputAdornment>
         )
