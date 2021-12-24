@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getAllAccounts } from '../../store/actions/all_accounts';
+import { addNotification } from '../../store/actions/notifications';
 
 function Accounts() {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ function Accounts() {
       limit: pageSize,
       page: pageNumber,
     }));
+    dispatch(addNotification({
+      message: 'Getting all the accounts',
+      isRead: false,
+    }))
   }, [dispatch, searchKeyword, pageSize, pageNumber]);
 
   return (

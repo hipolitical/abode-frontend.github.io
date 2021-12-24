@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
+import Badge from '@mui/material/Badge';
 import { NavLink } from 'react-router-dom';
 import LogoImg from '../../assets/logo.svg';
 import NotesIcon from '../../assets/notes.svg';
@@ -24,7 +26,10 @@ const blockedRoutes = ['/login']
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
   const location = useLocation();
+  const isNotificationOpen = Boolean(anchorElNotification);
+  const notificationsData = useSelector(state => state.notifications);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,6 +38,39 @@ const Navbar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleNotificationMenuOpen = (event) => {
+    setAnchorElNotification(event.currentTarget);
+  };
+
+  const handleNotificationMenuClose = () => {
+    setAnchorElNotification(null);
+  };
+
+  const renderNotificationMenu = (
+    <Menu
+      anchorEl={anchorElNotification}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id="notification-menu"
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isNotificationOpen}
+      onClose={handleNotificationMenuClose}
+      sx={{ marginTop: 6, maxHeight: '200px' }}
+    >
+      {notificationsData.notifications.map((notification, index) => (
+        <MenuItem key={index} onClick={handleNotificationMenuClose}>
+          {notification.message}
+        </MenuItem>
+      ))}
+    </Menu>
+  );
 
   if (blockedRoutes.includes(location.pathname)) {
     return (
@@ -125,12 +163,22 @@ const Navbar = () => {
             <MenuItem className="nav-icon">
               <img src={NotesIcon} alt="notes" />
             </MenuItem>
-            <MenuItem className="nav-icon">
-              <img src={AlertsIcon} alt="alerts" />
+            <MenuItem className="nav-icon" onClick={handleNotificationMenuOpen}>
+              <Badge
+                badgeContent={
+                  notificationsData.notifications
+                    .filter(notification => !notification.isRead)
+                    .length
+                }
+                color="info"
+              >
+                <img src={AlertsIcon} alt="alerts" />
+              </Badge>
             </MenuItem>
           </Box>
           
         </Toolbar>
+        {renderNotificationMenu}
       </Container>
     </AppBar>
   );
