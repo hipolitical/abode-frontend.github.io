@@ -25,7 +25,7 @@ export default function SignIn() {
     initialValues: {},
     validationSchema: SigninInfoSchema,
     onSubmit: (values) => {
-      if (values.password === 'password') {
+      if (values.password) {
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('userId', values.email);
         navigate('/');
