@@ -17,7 +17,6 @@ import NotesIcon from '../../assets/notes.svg';
 import AlertsIcon from '../../assets/alerts.svg';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Stack from '@mui/material/Stack';
 import './navbar.css';
 
 const pages = [
@@ -69,7 +68,7 @@ const Navbar = () => {
     >
       <div sx={{ width: '100%', maxWidth: '300px' }} spacing={1}>
         {notificationsData.notifications.map((notification, index) => (
-          <Alert key={index} sx={{ border: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}>
+          <Alert key={index} sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}>
             <AlertTitle>
               <Typography variant="caption">{notification.date}</Typography> 
               <Typography>{notification.message}</Typography> 
