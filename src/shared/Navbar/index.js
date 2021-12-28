@@ -65,15 +65,18 @@ const Navbar = () => {
       }}
       open={isNotificationOpen}
       onClose={handleNotificationMenuClose}
-      sx={{ marginTop: 6, maxHeight: '300px', padding: 1 }}
+      sx={{ marginTop: 6, maxHeight: '300px', padding: 0 }}
     >
-      <Stack sx={{ width: '100%', maxWidth: '300px' }} spacing={1}>
+      <div sx={{ width: '100%', maxWidth: '300px' }} spacing={1}>
         {notificationsData.notifications.map((notification, index) => (
-          <Alert key={index}>
-            <AlertTitle>{notification.message}</AlertTitle>
+          <Alert key={index} sx={{ border: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}>
+            <AlertTitle>
+              <Typography variant="caption">{notification.date}</Typography> 
+              <Typography>{notification.message}</Typography> 
+            </AlertTitle>
           </Alert>
         ))}
-      </Stack>
+      </div>
     </Menu>
   );
 

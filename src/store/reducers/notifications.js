@@ -22,8 +22,8 @@ function notificationsAllReducer(state = initialState, action) {
     case ADD_NOTIFICATION_SUCCESS:
       return Object.assign({}, state, {
         notifications: [
-          ...state.notifications,
           action.payload,
+          ...state.notifications,
         ],
         isLoading: false,
       });
