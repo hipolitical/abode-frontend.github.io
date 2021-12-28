@@ -12,8 +12,8 @@ import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 
 const SigninInfoSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Input valid email address'),
+  email: Yup.string(),
+    // .email('Input valid email address'),
   password: Yup.string()
     .required('Password is required'),
 });
@@ -27,7 +27,7 @@ export default function SignIn() {
     onSubmit: (values) => {
       if (values.password === 'password') {
         localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('userId', 77777);
+        localStorage.setItem('userId', values.email);
         navigate('/');
       }
     },
@@ -57,7 +57,7 @@ export default function SignIn() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Address or User ID"
             name="email"
             autoComplete="email"
             value={formik.values.email || ''}
