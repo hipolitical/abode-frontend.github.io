@@ -157,8 +157,9 @@ function CustomRow(props) {
               <IconButton
                 aria-label="expand row"
                 size="small"
+                onClick={handleDeleteRequest}
               >
-                <DeleteIcon onClick={handleDeleteRequest} />
+                <DeleteIcon />
               </IconButton>
             )}
           </TableCell>
