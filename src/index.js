@@ -18,6 +18,8 @@ const theme = createTheme({
     },
     grey: {
       main: 'rgba(32, 32, 32, 0.26)',
+      light: 'rgba(224, 224, 224, 1)',
+      lighter: 'rgba(246, 246, 246, 1)',
     }
   },
 });

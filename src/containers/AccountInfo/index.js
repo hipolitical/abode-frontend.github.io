@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import { styled } from '@mui/material/styles';
+import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -9,6 +15,26 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import ChartView from './chart'
 import { getSingleAccount } from '../../store/actions/single_account';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  borderRight: `1px solid ${theme.palette.grey.light}`,
+  backgroundColor: theme.palette.grey.lighter,
+}));
+
+const StyledContainer = styled(TableContainer)(({ theme }) => ({
+  border: '1px solid rgb(224, 224, 224)',
+  margin: theme.spacing(2),
+  maxWidth: '480px',
+}));
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'space-evenly',
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+}));
 
 function AccountInfo() {
   const { id } = useParams();
@@ -58,44 +84,60 @@ function AccountInfo() {
         >
           Back
         </Button>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 4 }}>
-          <Box sx={{ pr: 8, flex: 1 }}>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Last Contract Year:</b> {attributes?.last_contract_year}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>First Contract Year:</b> {attributes?.first_contract_year}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Entity Type:</b> {attributes?.entity_type}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Company Type:</b> {attributes?.company_type}
-            </Typography>
-          </Box>
-          <Box sx={{ pr: 8, flex: 1 }}>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Legal Status:</b> {attributes?.legal_status}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Role:</b> {roles}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>DUNS:</b> {attributes?.duns_number}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>AM Best:</b> {attributes?.ambest_number}
-            </Typography>
-          </Box>
-          <Box sx={{ pr: 8, flex: 1 }}>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Standard and Poor's:</b> {attributes?.standard_poors_number}
-            </Typography>
-            <Typography variant="body1" color="secondary.light" gutterBottom>
-              <b>Address:</b> {attributes?.default_address}
-            </Typography>
-          </Box>
-        </Box>
+        <StyledBox>
+          <StyledContainer aria-label="a dense table">
+            <Table aria-label="collapsible table" stickyHeader>
+              <TableBody>
+                <TableRow>
+                  <StyledTableCell>Last Contract Year:</StyledTableCell>
+                  <TableCell>{attributes?.last_contract_year}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>First Contract Year:</StyledTableCell>
+                  <TableCell>{attributes?.first_contract_year}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>Entity Type:</StyledTableCell>
+                  <TableCell>{attributes?.entity_type}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>Company Type:</StyledTableCell>
+                  <TableCell>{attributes?.company_type}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>Role:</StyledTableCell>
+                  <TableCell>{roles}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </StyledContainer>
+          <StyledContainer size="small" aria-label="a dense table">
+            <Table aria-label="collapsible table" stickyHeader>
+              <TableBody>
+                <TableRow>
+                  <StyledTableCell>Legal Status:</StyledTableCell>
+                  <TableCell>{attributes?.legal_status}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>DUNS:</StyledTableCell>
+                  <TableCell>{attributes?.duns_number}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>AM Best:</StyledTableCell>
+                  <TableCell>{attributes?.ambest_number}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>Standard and Poor's:</StyledTableCell>
+                  <TableCell>{attributes?.standard_poors_number}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <StyledTableCell>Address:</StyledTableCell>
+                  <TableCell>{attributes?.default_address}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </StyledContainer>
+        </StyledBox>
         <Box>
           <ChartView />
         </Box>
