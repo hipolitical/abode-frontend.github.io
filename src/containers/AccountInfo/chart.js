@@ -155,8 +155,8 @@ function Node({ o, parent }) {
 
 export default function App(props) {
   return (
-      <Box bgcolor="tertiary" padding={4}>
-        <Node o={organization} />
-      </Box>
+    <Box padding={4} sx={{ overflow: 'scroll' }}>
+      <Node o={organization} />
+    </Box>
   );
 }
