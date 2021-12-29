@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { format } from 'date-fns'
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getAllAccounts } from '../../store/actions/all_accounts';
-import { addNotification } from '../../store/actions/notifications';
 
 function Accounts() {
   const dispatch = useDispatch();
@@ -21,11 +19,6 @@ function Accounts() {
       limit: pageSize,
       page: pageNumber,
     }));
-    dispatch(addNotification({
-      message: 'Getting the list of all the accounts',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }))
   }, [dispatch, searchKeyword, pageSize, pageNumber]);
 
   return (
