@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -16,6 +17,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
+import { format } from 'date-fns'
+import { addNotification } from '../../store/actions/notifications';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 import {
   STATUS_DENIED,
@@ -32,10 +35,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 function CustomRow(props) {
+  const dispatch = useDispatch();
   const { row, onEdit, type, headers } = props;
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
   const detailsLength = row.details ? Object.keys(row.details).length : 0;
+
+  const handleDeleteRequest = () => {
+    dispatch(addNotification({
+      message: 'Delete the request',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }))
+  }
+
+  const handleCancelRequest = () => {
+    dispatch(addNotification({
+      message: 'Cancel the request',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }))
+  }
 
   return (
     <React.Fragment>
@@ -78,7 +98,11 @@ function CustomRow(props) {
               </Button>
             )}
             {row.status === STATUS_REQUESTED && (
-              <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
+              <Button
+                sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}
+                color="grey"
+                onClick={handleCancelRequest}
+              >
                 Cancel Access
               </Button>
             )}
@@ -101,7 +125,7 @@ function CustomRow(props) {
                 aria-label="expand row"
                 size="small"
               >
-                <DeleteIcon />
+                <DeleteIcon onClick={handleDeleteRequest} />
               </IconButton>
             )}
           </TableCell>
