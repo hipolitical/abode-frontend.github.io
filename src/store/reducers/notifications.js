@@ -36,6 +36,7 @@ function notificationsAllReducer(state = initialState, action) {
       return Object.assign({}, state, {
         notifications: state.notifications.map(notification => ({
           ...notification,
+          isRead: true,
         })),
         isLoading: false,
       });

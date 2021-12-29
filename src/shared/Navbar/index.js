@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,6 +17,7 @@ import NotesIcon from '../../assets/notes.svg';
 import AlertsIcon from '../../assets/alerts.svg';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { setAllNotificationsRead } from '../../store/actions/notifications';
 import './navbar.css';
 
 const pages = [
@@ -27,6 +28,7 @@ const pages = [
 const blockedRoutes = ['/login']
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElNotification, setAnchorElNotification] = React.useState(null);
   const location = useLocation();
@@ -53,6 +55,7 @@ const Navbar = () => {
 
   const handleNotificationMenuClose = () => {
     setAnchorElNotification(null);
+    dispatch(setAllNotificationsRead());
   };
 
   const renderNotificationMenu = (
@@ -77,6 +80,11 @@ const Navbar = () => {
           <Alert
             key={index}
             severity={notification.isRead ? 'success' : 'info'}
+            {
+              ...notification.isRead && {
+                icon: false
+              }
+            }
             sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}
           >
             <AlertTitle>
