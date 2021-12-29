@@ -42,7 +42,13 @@ const Navbar = () => {
   };
 
   const handleNotificationMenuOpen = (event) => {
-    setAnchorElNotification(event.currentTarget);
+    if (
+      notificationsData &&
+      notificationsData.notifications &&
+      notificationsData.notifications.length > 0
+    ) {
+      setAnchorElNotification(event.currentTarget);
+    }
   };
 
   const handleNotificationMenuClose = () => {
@@ -68,7 +74,11 @@ const Navbar = () => {
     >
       <div sx={{ width: '100%', maxWidth: '300px' }} spacing={1}>
         {notificationsData.notifications.map((notification, index) => (
-          <Alert key={index} sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}>
+          <Alert
+            key={index}
+            severity={notification.isRead ? 'success' : 'info'}
+            sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}
+          >
             <AlertTitle>
               <Typography variant="caption">{notification.date}</Typography> 
               <Typography>{notification.message}</Typography> 
