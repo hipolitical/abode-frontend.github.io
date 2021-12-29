@@ -43,7 +43,7 @@ function CustomRow(props) {
 
   const handleDeleteRequest = () => {
     dispatch(addNotification({
-      message: 'Delete the request',
+      message: 'Deleting the request',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -51,7 +51,31 @@ function CustomRow(props) {
 
   const handleCancelRequest = () => {
     dispatch(addNotification({
-      message: 'Cancel the request',
+      message: 'Canceling the request',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }))
+  }
+
+  const handleRequestAccess = () => {
+    dispatch(addNotification({
+      message: 'Requesting the access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }))
+  }
+
+  const handleGrantAccess = () => {
+    dispatch(addNotification({
+      message: 'Granting the access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }))
+  }
+
+  const handleDeclineAccess = () => {
+    dispatch(addNotification({
+      message: 'Declining the access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -93,7 +117,10 @@ function CustomRow(props) {
         {type === "access" && (
           <TableCell>
             {row.status === STATUS_DENIED && (
-              <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}>
+              <Button
+                sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}
+                onClick={handleRequestAccess}
+              >
                 Request Access
               </Button>
             )}
@@ -110,10 +137,16 @@ function CustomRow(props) {
         )}
         {type === "requests" && (
           <TableCell>
-            <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}>
+            <Button
+              sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}
+              onClick={handleGrantAccess}
+            >
               Grant Access
             </Button>
-            <Button sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey">
+            <Button
+              sx={{ fontWeight: '700', whiteSpace: 'nowrap' }} color="grey"
+              onClick={handleDeclineAccess}
+            >
               Decline Access
             </Button>
           </TableCell>
