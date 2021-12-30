@@ -97,13 +97,11 @@ export default function CollapsibleTable(props) {
     openEdit,
     pageSize,
     page,
+    paginatedByServer,
     setRowsPerPage,
     setPageNumber,
     totalCount,
   } = props;
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * pageSize - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
@@ -150,7 +148,7 @@ export default function CollapsibleTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(pageSize > 0
+            {(pageSize > 0 && !paginatedByServer
               ? rows.slice(page * pageSize, page * pageSize + pageSize)
               : rows
             ).map((row, index) => (
@@ -166,12 +164,6 @@ export default function CollapsibleTable(props) {
                 }
               />
             ))}
-
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 72 * emptyRows }}>
-                <TableCell colSpan={headers.length + 1} />
-              </TableRow>
-            )}
           </TableBody>
         </Table>
       </TableContainer>

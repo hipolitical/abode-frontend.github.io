@@ -38,6 +38,7 @@ function Accounts() {
           isLoading={accountsData.isLoading}
           pageSize={pageSize}
           page={pageNumber}
+          paginatedByServer
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
           type="access"

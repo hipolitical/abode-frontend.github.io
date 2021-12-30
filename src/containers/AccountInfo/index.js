@@ -31,7 +31,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
-  justifyContent: 'space-evenly',
+  justifyContent: 'center',
   marginTop: theme.spacing(2),
   marginBottom: theme.spacing(2),
 }));
