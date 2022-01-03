@@ -18,8 +18,12 @@ function MyAccounts() {
   const availableData = filterBySearchKeyword(accountsData.accounts, searchKeyword)
 
   React.useEffect(() => {
-    dispatch(getMyAccounts(getCurrentUserId()));
-  }, [dispatch]);
+    dispatch(getMyAccounts({
+      userId: getCurrentUserId(),
+      limit: pageSize,
+      page: pageNumber,
+    }));
+  }, [dispatch, pageSize, pageNumber]);
 
   return (
     <Container maxWidth="lg">
@@ -38,6 +42,7 @@ function MyAccounts() {
           isLoading={accountsData.isLoading}
           pageSize={pageSize}
           page={pageNumber}
+          paginatedByServer
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
           type="access"

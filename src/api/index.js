@@ -3,10 +3,10 @@ import {
   STATUS_APPROVED,
   STATUS_DENIED,
   STATUS_REQUESTED,
-} from '../utils/consts'
+} from '../utils/consts';
 
-const BASE_URL = 'http://20.41.44.16:8080'
-const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED]
+const BASE_URL = 'http://20.41.44.16:8080';
+const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED];
 
 function createTreatyData(id, accountId, name, year, status, published) {
   return {
@@ -46,13 +46,13 @@ function getSingleAccount(id) {
 }
 
 function getAllAccounts(params) {
-  const query = params?.query || ''
-  const limit = params?.limit || 5
-  const page = params?.page || 0
+  const query = params?.query || '';
+  const limit = params?.limit || 5;
+  const page = params?.page || 0;
   return axios
     .get(`${BASE_URL}/trading_partners/search?query=${query}&page=${page + 1}&limit=${limit}&all_fields=true`)
     .then((res) => {
-      const responseItems = res.data?.items || []
+      const responseItems = res.data?.items || [];
       const rows = responseItems.map((item, index) => ({
         ...item,
         companyType: 'Insured',
@@ -63,7 +63,7 @@ function getAllAccounts(params) {
         requesterEmail: 'mikedibble@guycarp.com',
         requestedDate: '11/27/2021',
         status: STATUS_LIST[index%3]
-      }))
+      }));
       return {
         headers: [
           { label: 'Name', field: 'legal_name', isLink: true },
@@ -75,14 +75,18 @@ function getAllAccounts(params) {
         count: res.data?.count || 0,
         rows,
       };
-    })
+    });
 }
 
-function getMyAccounts(userId) {
+function getMyAccounts(params) {
+  const userId = params.userId;
+  const query = params?.query || '';
+  const limit = params?.limit || 5;
+  const page = params?.page || 0;
   return axios
-    .get(`${BASE_URL}/users/${userId}/related/affiliations?status=${STATUS_APPROVED}`)
+    .get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`)
     .then((res) => {
-      const responseItems = res.data?.items || []
+      const responseItems = res.data?.items || [];
       const rows = responseItems
       .map((item) => ({
         ...item,
@@ -93,7 +97,7 @@ function getMyAccounts(userId) {
         requesterName: 'Mike Dibble',
         requesterEmail: 'mikedibble@guycarp.com',
         requestedDate: '11/27/2021',
-      }))
+      }));
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
@@ -104,14 +108,18 @@ function getMyAccounts(userId) {
         ],
         rows,
       };
-    })
+    });
 }
 
-function getRequests(userId) {
+function getRequests(params) {
+  const userId = params.userId;
+  const query = params?.query || '';
+  const limit = params?.limit || 5;
+  const page = params?.page || 0;
   return axios
-    .get(`${BASE_URL}/users/${userId}/related/affiliations?status=${STATUS_REQUESTED}`)
+    .get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`)
     .then((res) => {
-      const responseItems = res.data?.items || []
+      const responseItems = res.data?.items || [];
       const rows = responseItems
         .map((item, index) => ({
           ...item,
@@ -122,7 +130,7 @@ function getRequests(userId) {
           requesterName: 'Mike Dibble',
           requesterEmail: 'mikedibble@guycarp.com',
           requestedDate: '11/27/2021',
-        }))
+        }));
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
@@ -133,21 +141,21 @@ function getRequests(userId) {
         ],
         rows,
       };
-    })
+    });
 }
 
 function getAccountUsers(id) {
   return axios
     .get(`${BASE_URL}/trading_partners/${id}/inverse/affiliations`)
     .then((res) => {
-      const responseItems = res.data?.items || []
+      const responseItems = res.data?.items || [];
       const rows = responseItems
         .map((item, index) => ({
           ...item,
           role: 'Broking Lead',
           joined_date: '8/30/2021',
           canRemove: item.status === STATUS_REQUESTED
-        }))
+        }));
       return {
         headers: [
           { label: 'Name', field: 'display_name' },
@@ -159,7 +167,7 @@ function getAccountUsers(id) {
         ],
         rows,
       };
-    })
+    });
 }
 
 function getPlacements() {

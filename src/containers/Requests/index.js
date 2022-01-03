@@ -18,8 +18,12 @@ function Requests() {
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
 
   React.useEffect(() => {
-    dispatch(getRequests(getCurrentUserId()));
-  }, [dispatch]);
+    dispatch(getRequests({
+      userId: getCurrentUserId(),
+      limit: pageSize,
+      page: pageNumber,
+    }));
+  }, [dispatch, pageSize, pageNumber]);
 
   return (
     <Container maxWidth="lg">
