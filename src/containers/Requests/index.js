@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getRequests } from '../../store/actions/requests';
@@ -16,6 +21,7 @@ function Requests() {
   const [pageSize, setPageSize] = useState(5)
   const [pageNumber, setPageNumber] = useState(0)
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
+  const [openDeclineModal, setOpenDeclineModal] = useState(false)
 
   React.useEffect(() => {
     dispatch(getRequests({
@@ -24,6 +30,14 @@ function Requests() {
       page: pageNumber,
     }));
   }, [dispatch, pageSize, pageNumber]);
+
+  const handleCloseDeclineModal = () => {
+    setOpenDeclineModal(false);
+  };
+
+  const handleOpenDeclineModal = () => {
+    setOpenDeclineModal(true);
+  }
 
   return (
     <Container maxWidth="lg">
@@ -44,9 +58,22 @@ function Requests() {
           page={pageNumber}
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
+          onOpenDeclineModal={handleOpenDeclineModal}
           type="requests"
         />
       </Box>
+      <Dialog open={openDeclineModal} onClose={handleCloseDeclineModal} fullWidth={true} maxWidth={'sm'}>
+          <DialogTitle>Request Modal</DialogTitle>
+          <DialogContent dividers>
+            <DialogContentText>
+              Are you sure to decline access?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDeclineModal} >Cancel</Button>
+            <Button type="submit">Save</Button>
+          </DialogActions>
+      </Dialog>
     </Container>
   );
 }

@@ -36,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 function CustomRow(props) {
   const dispatch = useDispatch();
-  const { row, onEdit, type, headers } = props;
+  const { row, onEdit, type, headers, onOpenDeclineModal } = props;
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
   const detailsLength = row.details ? Object.keys(row.details).length : 0;
@@ -79,6 +79,7 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
+    onOpenDeclineModal()
   }
 
   return (

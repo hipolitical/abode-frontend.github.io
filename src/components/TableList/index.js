@@ -101,6 +101,7 @@ export default function CollapsibleTable(props) {
     setRowsPerPage,
     setPageNumber,
     totalCount,
+    onOpenDeclineModal,
   } = props;
 
   const handleChangePage = (event, newPage) => {
@@ -162,6 +163,7 @@ export default function CollapsibleTable(props) {
                     onEdit: () => openEdit(row)
                   }
                 }
+                onOpenDeclineModal={onOpenDeclineModal}
               />
             ))}
           </TableBody>
