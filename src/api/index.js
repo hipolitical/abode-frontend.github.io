@@ -16,6 +16,22 @@ function getSingleAccount(id) {
     })
 }
 
+function grantAccess(info) {
+  const { requestedById, requesterId, targetId } = info
+
+  return axios
+    .put(
+      `${BASE_URL}/users/${requestedById}/related/affiliations`,
+      {
+        "requester_id": requesterId,
+        "target_id": targetId,
+      }
+    )
+    .then((res) => {
+      return res.data;
+    })
+}
+
 function getAllAccounts(params) {
   const query = params?.query || '';
   const limit = params?.limit || 5;
@@ -98,6 +114,7 @@ function getRequests(params) {
           entityType: 'Investment Manager',
           role: 'Injured',
           legalStatus: 'In Rehab/Supervision',
+          requesterId: 77777,
           requesterName: 'Mike Dibble',
           requesterEmail: 'mikedibble@guycarp.com',
           requestedDate: '11/27/2021',
@@ -187,6 +204,7 @@ function getPlacements() {
 
 export {
   getSingleAccount,
+  grantAccess,
   getMyAccounts,
   getAllAccounts,
   getRequests,
