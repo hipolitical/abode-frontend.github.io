@@ -8,35 +8,6 @@ import {
 const BASE_URL = 'http://20.41.44.16:8080';
 const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED];
 
-function createTreatyData(id, accountId, name, year, status, published) {
-  return {
-    id,
-    accountId,
-    name,
-    year,
-    status,
-    published,
-    details: [
-      {
-        date: '2020-01-05',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        amount: 1,
-      },
-    ],
-  };
-}
-
-const rowsTreaty = [
-  createTreatyData('treaty#1', 'acc#1', 'Casualty XOL 2021', '2021', 'Open', 'No'),
-  createTreatyData('treaty#2', 'acc#2', 'Financial Lines XOL', '2020', 'Closed', 'Yes'),
-  createTreatyData('treaty#3', 'acc#3', 'Workers Comp Cat 2021', '2021', 'Closed', 'Yes'),
-  createTreatyData('treaty#4', 'acc#4', 'Property', '2021', 'Open', 'Yes'),
-  createTreatyData('treaty#5', 'acc#5', 'Property', '2020', 'Open', 'No'),
-];
-
 function getSingleAccount(id) {
   return axios
     .get(`${BASE_URL}/trading_partners/${id}`)
@@ -169,6 +140,37 @@ function getAccountUsers(id) {
       };
     });
 }
+
+// Placements MOCK
+
+function createTreatyData(id, accountId, name, year, status, published) {
+  return {
+    id,
+    accountId,
+    name,
+    year,
+    status,
+    published,
+    details: [
+      {
+        date: '2020-01-05',
+        amount: 3,
+      },
+      {
+        date: '2020-01-02',
+        amount: 1,
+      },
+    ],
+  };
+}
+
+const rowsTreaty = [
+  createTreatyData('treaty#1', 'acc#1', 'Casualty XOL 2021', '2021', 'Open', 'No'),
+  createTreatyData('treaty#2', 'acc#2', 'Financial Lines XOL', '2020', 'Closed', 'Yes'),
+  createTreatyData('treaty#3', 'acc#3', 'Workers Comp Cat 2021', '2021', 'Closed', 'Yes'),
+  createTreatyData('treaty#4', 'acc#4', 'Property', '2021', 'Open', 'Yes'),
+  createTreatyData('treaty#5', 'acc#5', 'Property', '2020', 'Open', 'No'),
+];
 
 function getPlacements() {
   return {
