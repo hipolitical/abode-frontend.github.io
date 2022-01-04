@@ -102,6 +102,7 @@ export default function CollapsibleTable(props) {
     setPageNumber,
     totalCount,
     onOpenDeclineModal,
+    onOpenGrantModal,
   } = props;
 
   const handleChangePage = (event, newPage) => {
@@ -164,6 +165,7 @@ export default function CollapsibleTable(props) {
                   }
                 }
                 onOpenDeclineModal={onOpenDeclineModal}
+                onOpenGrantModal={onOpenGrantModal}
               />
             ))}
           </TableBody>

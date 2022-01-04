@@ -22,6 +22,7 @@ function Requests() {
   const [pageNumber, setPageNumber] = useState(0)
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
   const [openDeclineModal, setOpenDeclineModal] = useState(false)
+  const [openGrantModal, setOpenGrantModal] = useState(false)
 
   React.useEffect(() => {
     dispatch(getRequests({
@@ -37,6 +38,14 @@ function Requests() {
 
   const handleOpenDeclineModal = () => {
     setOpenDeclineModal(true);
+  }
+
+  const handleCloseGrantModal = () => {
+    setOpenGrantModal(false);
+  };
+
+  const handleOpenGrantModal = () => {
+    setOpenGrantModal(true);
   }
 
   return (
@@ -59,20 +68,33 @@ function Requests() {
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
           onOpenDeclineModal={handleOpenDeclineModal}
+          onOpenGrantModal={handleOpenGrantModal}
           type="requests"
         />
       </Box>
       <Dialog open={openDeclineModal} onClose={handleCloseDeclineModal} fullWidth={true} maxWidth={'sm'}>
-          <DialogTitle>Request Modal</DialogTitle>
-          <DialogContent dividers>
-            <DialogContentText>
-              Are you sure to decline access?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDeclineModal} >Cancel</Button>
-            <Button type="submit">Save</Button>
-          </DialogActions>
+        <DialogTitle>Declining Request Modal</DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>
+            Are you sure to decline access?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeclineModal}>Cancel</Button>
+          <Button type="submit">Ok</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openGrantModal} onClose={handleCloseGrantModal} fullWidth={true} maxWidth={'sm'}>
+        <DialogTitle>Granting Request Modal</DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>
+            Are you sure to grant access?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseGrantModal}>Cancel</Button>
+          <Button type="submit">Ok</Button>
+        </DialogActions>
       </Dialog>
     </Container>
   );
