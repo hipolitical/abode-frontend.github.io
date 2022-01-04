@@ -3,8 +3,14 @@ import {
   GET_REQUESTS_REQUESTED,
   GET_REQUESTS_FAILED,
   GET_REQUESTS_SUCCESS,
+  GRANT_ACCESS_REQUESTED,
+  GRANT_ACCESS_SUCCESS,
+  GRANT_ACCESS_FAILED,
 } from "../types";
-import { getRequests } from '../../api';
+import {
+  getRequests,
+  grantAccess
+} from '../../api';
 
 function* getAllRequestsRequested({ params }) {
   try {
@@ -15,7 +21,17 @@ function* getAllRequestsRequested({ params }) {
   }
 }
 
-export default function* accounts() {
+function* grantAccessRequested({ params }) {
+  try {
+    const payload = yield call(grantAccess, params);
+    yield put({ type: GRANT_ACCESS_SUCCESS, payload });
+  } catch (e) {
+    yield put({ type: GRANT_ACCESS_FAILED, payload: e });
+  }
+}
+
+export default function* requests() {
   yield takeEvery(GET_REQUESTS_REQUESTED, getAllRequestsRequested);
+  yield takeEvery(GRANT_ACCESS_REQUESTED, grantAccessRequested);
 }
 
