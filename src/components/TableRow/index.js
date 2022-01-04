@@ -43,7 +43,7 @@ function CustomRow(props) {
 
   const handleDeleteRequest = () => {
     dispatch(addNotification({
-      message: 'Deleting the request',
+      message: 'Deleting request',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -51,7 +51,7 @@ function CustomRow(props) {
 
   const handleCancelRequest = () => {
     dispatch(addNotification({
-      message: 'Canceling the request',
+      message: 'Canceling request',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -59,7 +59,7 @@ function CustomRow(props) {
 
   const handleRequestAccess = () => {
     dispatch(addNotification({
-      message: 'Requesting the access',
+      message: 'Requesting access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -67,7 +67,7 @@ function CustomRow(props) {
 
   const handleGrantAccess = () => {
     dispatch(addNotification({
-      message: 'Granting the access',
+      message: 'Granting access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
@@ -75,7 +75,7 @@ function CustomRow(props) {
 
   const handleDeclineAccess = () => {
     dispatch(addNotification({
-      message: 'Declining the access',
+      message: 'Declining access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
