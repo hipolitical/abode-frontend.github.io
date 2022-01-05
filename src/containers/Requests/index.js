@@ -11,7 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getRequests, grantAccess } from '../../store/actions/requests';
-import { getCurrentUserId } from '../../utils/functions';
+import { getCurrentUserId, getCurrentUserType } from '../../utils/functions';
 import { filterBySearchKeyword } from '../../utils/helpers';
 
 function Requests() {
@@ -28,6 +28,7 @@ function Requests() {
   React.useEffect(() => {
     dispatch(getRequests({
       userId: getCurrentUserId(),
+      userType: getCurrentUserType(),
       limit: pageSize,
       page: pageNumber,
     }));

@@ -28,6 +28,9 @@ export default function SignIn() {
       if (values.password) {
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('userId', values.email);
+        if (values.email === '1213311') {
+          localStorage.setItem('userType', 'admin');
+        }
         navigate('/');
       }
     },

@@ -5,7 +5,7 @@ import {
   STATUS_REQUESTED,
 } from '../utils/consts';
 
-const BASE_URL = 'http://20.41.44.16:8080';
+const BASE_URL = 'http://20.97.151.40:8080';
 const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED];
 
 function getSingleAccount(id) {
@@ -103,8 +103,13 @@ function getRequests(params) {
   const query = params?.query || '';
   const limit = params?.limit || 5;
   const page = params?.page || 0;
-  return axios
-    .get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`)
+  const userType = params.userType;
+  const endpointUrl = userType === 'admin' ?
+    `${BASE_URL}/users/admin/affiliations?status=${STATUS_REQUESTED}`
+    : `${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`;
+  
+    return axios
+    .get(endpointUrl)
     .then((res) => {
       const responseItems = res.data?.items || [];
       const rows = responseItems
