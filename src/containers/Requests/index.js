@@ -10,7 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
-import { getRequests } from '../../store/actions/requests';
+import { getRequests, grantAccess } from '../../store/actions/requests';
 import { getCurrentUserId } from '../../utils/functions';
 import { filterBySearchKeyword } from '../../utils/helpers';
 
@@ -23,6 +23,7 @@ function Requests() {
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
   const [openDeclineModal, setOpenDeclineModal] = useState(false)
   const [openGrantModal, setOpenGrantModal] = useState(false)
+  const [currentParams, setCurrentParams] = useState({})
 
   React.useEffect(() => {
     dispatch(getRequests({
@@ -44,8 +45,18 @@ function Requests() {
     setOpenGrantModal(false);
   };
 
-  const handleOpenGrantModal = () => {
+  const handleOpenGrantModal = (params) => {
     setOpenGrantModal(true);
+    setCurrentParams(params);
+  }
+
+  const handleGrantAction = () => {
+    if (currentParams) {
+      dispatch(grantAccess({
+        requesterId: 1213311,
+        ...currentParams,
+      }));
+    }
   }
 
   return (
@@ -93,7 +104,7 @@ function Requests() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseGrantModal}>Cancel</Button>
-          <Button type="submit">Ok</Button>
+          <Button type="submit" onClick={handleGrantAction}>Ok</Button>
         </DialogActions>
       </Dialog>
     </Container>

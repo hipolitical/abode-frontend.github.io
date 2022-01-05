@@ -71,7 +71,10 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }))
-    onOpenGrantModal()
+    onOpenGrantModal({
+      targetId: row?.id,
+      requestedById: row?.requesterId,
+    })
   }
 
   const handleDeclineAccess = () => {
