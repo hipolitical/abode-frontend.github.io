@@ -10,10 +10,11 @@ import Container from '@mui/material/Container';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
+import { getUserInfo } from '../../api'
 
 const SigninInfoSchema = Yup.object().shape({
-  email: Yup.string(),
-    // .email('Input valid email address'),
+  userId: Yup.string(),
+    // .userId('Input valid userId address'),
   password: Yup.string()
     .required('Password is required'),
 });
@@ -27,10 +28,9 @@ export default function SignIn() {
     onSubmit: (values) => {
       if (values.password) {
         localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('userId', values.email);
-        if (values.email === '1213311') {
-          localStorage.setItem('userType', 'admin');
-        }
+        localStorage.setItem('userId', values.userId);
+        localStorage.setItem('userType', values.userId === '1213311' ? 'admin' : 'user');
+        getUserInfo(values.userId);
         navigate('/');
       }
     },
@@ -59,14 +59,14 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
+            id="userId"
             label="Email Address or User ID"
-            name="email"
-            autoComplete="email"
-            value={formik.values.email || ''}
+            name="userId"
+            autoComplete="userId"
+            value={formik.values.userId || ''}
             onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
+            error={formik.touched.userId && Boolean(formik.errors.userId)}
+            helperText={formik.touched.userId && formik.errors.userId}
             autoFocus
           />
           <TextField
