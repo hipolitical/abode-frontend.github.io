@@ -107,9 +107,12 @@ function getRequests(params) {
   const endpointUrl = userType === 'admin' ?
     `${BASE_URL}/users/admin/affiliations?status=${STATUS_REQUESTED}`
     : `${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`;
-  
-    return axios
-    .get(endpointUrl)
+  const headers = userType === 'admin' ? {
+    "user-id": userId,
+  } : {}
+
+  return axios
+    .get(endpointUrl, { headers })
     .then((res) => {
       const responseItems = res.data?.items || [];
       const rows = responseItems
