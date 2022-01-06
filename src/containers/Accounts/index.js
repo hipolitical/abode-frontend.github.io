@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
 import { getAllAccounts } from '../../store/actions/all_accounts';
+import { getCurrentUserId } from '../../utils/functions';
 
 function Accounts() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function Accounts() {
 
   React.useEffect(() => {
     dispatch(getAllAccounts({
+      userId: getCurrentUserId(),
       query: searchKeyword,
       limit: pageSize,
       page: pageNumber,

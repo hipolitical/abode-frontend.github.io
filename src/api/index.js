@@ -6,7 +6,6 @@ import {
 } from '../utils/consts';
 
 const BASE_URL = 'http://20.97.151.40:8080';
-const STATUS_LIST = [STATUS_APPROVED, STATUS_DENIED, STATUS_REQUESTED];
 
 function getSingleAccount(id) {
   return axios
@@ -36,33 +35,40 @@ function getAllAccounts(params) {
   const query = params?.query || '';
   const limit = params?.limit || 5;
   const page = params?.page || 0;
-  return axios
-    .get(`${BASE_URL}/trading_partners/search?query=${query}&page=${page + 1}&limit=${limit}&all_fields=true`)
-    .then((res) => {
-      const responseItems = res.data?.items || [];
-      const rows = responseItems.map((item, index) => ({
-        ...item,
-        companyType: 'Insured',
-        entityType: 'Investment Manager',
-        role: 'Injured',
-        legalStatus: 'In Rehab/Supervision',
-        requesterName: 'Mike Dibble',
-        requesterEmail: 'mikedibble@guycarp.com',
-        requestedDate: '11/27/2021',
-        status: STATUS_LIST[index%3]
-      }));
-      return {
-        headers: [
-          { label: 'Name', field: 'legal_name', isLink: true },
-          { label: 'Company Type', field: 'companyType' },
-          { label: 'Entity Type', field: 'entityType' },
-          { label: 'Role', field: 'role' },
-          { label: 'Legal Status', field: 'legalStatus' },
-        ],
-        count: res.data?.count || 0,
-        rows,
-      };
-    });
+  const userId = params.userId;
+
+  return Promise.all([
+    axios.get(`${BASE_URL}/trading_partners/search?query=${query}&page=${page + 1}&limit=${limit}&all_fields=true`),
+    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`),
+    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`),
+  ]).then((res) => {
+    const responseItems = res[0].data?.items || [];
+    const approvedIds = (res[1].data?.items || []).map(item => item.id);
+    const requestIds = (res[2].data?.items || []).map(item => item.id);
+    const rows = responseItems.map((item, index) => ({
+      ...item,
+      companyType: 'Insured',
+      entityType: 'Investment Manager',
+      role: 'Injured',
+      legalStatus: 'In Rehab/Supervision',
+      requesterName: 'Mike Dibble',
+      requesterEmail: 'mikedibble@guycarp.com',
+      requestedDate: '11/27/2021',
+      status: approvedIds.includes(item.id) ? STATUS_APPROVED
+        : requestIds.includes(item.id) ? STATUS_REQUESTED : STATUS_DENIED,
+    }));
+    return {
+      headers: [
+        { label: 'Name', field: 'legal_name', isLink: true },
+        { label: 'Company Type', field: 'companyType' },
+        { label: 'Entity Type', field: 'entityType' },
+        { label: 'Role', field: 'role' },
+        { label: 'Legal Status', field: 'legalStatus' },
+      ],
+      count: res[0].data?.count || 0,
+      rows,
+    };
+  });
 }
 
 function getMyAccounts(params) {
