@@ -15,6 +15,14 @@ function getSingleAccount(id) {
     })
 }
 
+function getUserInfo(id) {
+  return axios
+  .get(`${BASE_URL}/users/${id}`)
+  .then((res) => {
+    return res.data;
+  })
+}
+
 function grantAccess(info) {
   const { requestedById, requesterId, targetId } = info
 
@@ -218,6 +226,7 @@ function getPlacements() {
 
 export {
   getSingleAccount,
+  getUserInfo,
   grantAccess,
   getMyAccounts,
   getAllAccounts,
