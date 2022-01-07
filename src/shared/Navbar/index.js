@@ -20,7 +20,6 @@ import AlertsIcon from '../../assets/alerts.svg';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { setAllNotificationsRead } from '../../store/actions/notifications';
-import AvatarImg from '../../assets/avatar.png';
 import './navbar.css';
 
 const pages = [
@@ -129,6 +128,8 @@ const Navbar = () => {
     )
   }
 
+  const currentUserName = localStorage.getItem('userName')
+
   return (
     <AppBar position="static" color="secondary">
       <Container maxWidth="xl">
@@ -218,7 +219,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={AvatarImg} />
+                <Avatar alt="Remy Sharp" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -237,6 +238,9 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <MenuItem onClick={handleCloseUserMenu} disabled>
+                <Typography textAlign="center">{currentUserName}</Typography>
+              </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>

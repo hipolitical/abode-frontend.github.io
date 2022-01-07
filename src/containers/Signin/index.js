@@ -30,7 +30,11 @@ export default function SignIn() {
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('userId', values.userId);
         localStorage.setItem('userType', values.userId === '1213311' ? 'admin' : 'user');
-        getUserInfo(values.userId);
+        getUserInfo(values.userId).then(res => {
+          if (res.display_name) {
+            localStorage.setItem('userName', res.display_name);
+          }
+        });
         navigate('/');
       }
     },
