@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import { NavLink } from 'react-router-dom';
@@ -18,6 +20,7 @@ import AlertsIcon from '../../assets/alerts.svg';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { setAllNotificationsRead } from '../../store/actions/notifications';
+import AvatarImg from '../../assets/avatar.png';
 import './navbar.css';
 
 const pages = [
@@ -34,9 +37,14 @@ const Navbar = () => {
   const location = useLocation();
   const isNotificationOpen = Boolean(anchorElNotification);
   const notificationsData = useSelector(state => state.notifications);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -91,6 +99,16 @@ const Navbar = () => {
       </div>
     </Menu>
   );
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    localStorage.clear();
+    navigate('/login');
+  };
 
   if (blockedRoutes.includes(location.pathname)) {
     return (
@@ -179,7 +197,7 @@ const Navbar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 , display: { xs: 'none', md: 'flex' }}}>
+          <Box sx={{ flexGrow: 0 , display: { xs: 'none', md: 'flex', marginRight: 60 }}}>
             <MenuItem className="nav-icon">
               <img src={NotesIcon} alt="notes" />
             </MenuItem>
@@ -196,7 +214,34 @@ const Navbar = () => {
               </Badge>
             </MenuItem>
           </Box>
-          
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src={AvatarImg} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
         </Toolbar>
         {renderNotificationMenu}
       </Container>
