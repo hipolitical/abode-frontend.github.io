@@ -18,7 +18,7 @@ function Requests() {
   const dispatch = useDispatch();
   const accountsData = useSelector(state => state.requests);
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(10)
   const [pageNumber, setPageNumber] = useState(0)
   const availableData = filterBySearchKeyword(accountsData.requests, searchKeyword)
   const [openDeclineModal, setOpenDeclineModal] = useState(false)

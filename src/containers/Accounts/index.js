@@ -11,7 +11,7 @@ function Accounts() {
   const dispatch = useDispatch();
   const accountsData = useSelector(state => state.all_accounts);
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(10)
   const [pageNumber, setPageNumber] = useState(0)
 
   React.useEffect(() => {

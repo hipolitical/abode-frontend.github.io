@@ -41,7 +41,7 @@ function grantAccess(info) {
 
 function getAllAccounts(params) {
   const query = params?.query || '';
-  const limit = params?.limit || 5;
+  const limit = params?.limit || 10;
   const page = params?.page || 0;
   const userId = params.userId;
 
@@ -82,7 +82,7 @@ function getAllAccounts(params) {
 function getMyAccounts(params) {
   const userId = params.userId;
   const query = params?.query || '';
-  const limit = params?.limit || 5;
+  const limit = params?.limit || 10;
   const page = params?.page || 0;
   return axios
     .get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`)
@@ -115,7 +115,7 @@ function getMyAccounts(params) {
 function getRequests(params) {
   const userId = params.userId;
   const query = params?.query || '';
-  const limit = params?.limit || 5;
+  const limit = params?.limit || 10;
   const page = params?.page || 0;
   const userType = params.userType;
   const endpointUrl = userType === 'admin' ?
