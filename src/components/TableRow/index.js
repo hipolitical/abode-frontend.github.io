@@ -18,6 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
 import { format } from 'date-fns'
+import HourglassIcon from '@mui/icons-material/HourglassTop';
 import { addNotification } from '../../store/actions/notifications';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';
 import {
@@ -119,7 +120,7 @@ function CustomRow(props) {
             )}
           </TableCell>
         )}
-        {type === "access" && (
+        {type === "search" && (
           <TableCell>
             {row.status === STATUS_DENIED && (
               <Button
@@ -137,6 +138,18 @@ function CustomRow(props) {
               >
                 Cancel Access
               </Button>
+            )}
+          </TableCell>
+        )}
+        {type === "mine" && (
+          <TableCell>
+            {row.status === STATUS_REQUESTED && (
+              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                <HourglassIcon color="grey" />
+                <Typography variant="body" sx={{ px: 1 }}>
+                  Pending
+                </Typography>
+              </Box>
             )}
           </TableCell>
         )}

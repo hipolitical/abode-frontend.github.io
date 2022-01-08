@@ -45,7 +45,7 @@ function MyAccounts() {
           paginatedByServer
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
-          type="access"
+          type="mine"
         />
       </Box>
     </Container>

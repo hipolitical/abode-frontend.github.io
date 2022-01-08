@@ -84,10 +84,11 @@ function getMyAccounts(params) {
   const query = params?.query || '';
   const limit = params?.limit || 10;
   const page = params?.page || 0;
-  return axios
-    .get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`)
-    .then((res) => {
-      const responseItems = res.data?.items || [];
+  return Promise.all([
+      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`),
+      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`),
+    ]).then((res) => {
+      const responseItems = [...res[0].data?.items, ...res[1].data?.items] || [];
       const rows = responseItems
       .map((item) => ({
         ...item,

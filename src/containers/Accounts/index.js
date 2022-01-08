@@ -43,7 +43,7 @@ function Accounts() {
           paginatedByServer
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
-          type="access"
+          type="search"
         />
       </Box>
     </Container>
