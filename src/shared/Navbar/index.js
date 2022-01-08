@@ -238,9 +238,11 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu} disabled>
-                <Typography textAlign="center">{currentUserName}</Typography>
-              </MenuItem>
+              {currentUserName && (
+                <MenuItem onClick={handleCloseUserMenu} disabled>
+                  <Typography textAlign="center">{currentUserName}</Typography>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
