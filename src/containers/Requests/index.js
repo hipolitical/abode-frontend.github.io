@@ -88,7 +88,7 @@ function Requests() {
         <DialogTitle>Declining Request Modal</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Are you sure to decline access?
+            <div dangerouslySetInnerHTML={{ __html: `Are you sure you want to decline access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?` }} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
