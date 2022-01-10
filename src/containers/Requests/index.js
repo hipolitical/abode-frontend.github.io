@@ -100,7 +100,7 @@ function Requests() {
         <DialogTitle>Granting Request Modal</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Are you sure to grant access?
+            <div dangerouslySetInnerHTML={{ __html: `Are you sure you want to grant access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?` }} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

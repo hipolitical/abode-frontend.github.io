@@ -47,7 +47,7 @@ function CustomRow(props) {
       message: 'Deleting request',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
-    }))
+    }));
   }
 
   const handleCancelRequest = () => {
@@ -55,7 +55,7 @@ function CustomRow(props) {
       message: 'Canceling request',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
-    }))
+    }));
   }
 
   const handleRequestAccess = () => {
@@ -63,7 +63,7 @@ function CustomRow(props) {
       message: 'Requesting access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
-    }))
+    }));
   }
 
   const handleGrantAccess = () => {
@@ -71,11 +71,13 @@ function CustomRow(props) {
       message: 'Granting access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
-    }))
+    }));
     onOpenGrantModal({
       targetId: row?.id,
       requestedById: row?.requesterId,
-    })
+      targetName: row?.display_name,
+      requesterName: row?.requesterName,
+    });
   }
 
   const handleDeclineAccess = () => {
@@ -83,8 +85,8 @@ function CustomRow(props) {
       message: 'Declining access',
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
-    }))
-    onOpenDeclineModal()
+    }));
+    onOpenDeclineModal();
   }
 
   return (
