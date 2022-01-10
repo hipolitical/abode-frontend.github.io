@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -62,28 +63,29 @@ function AccountInfo() {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 6 }}>
+        <Typography variant="h4" color="primary" gutterBottom>
+          {displayName}
+        </Typography>
         <Box sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
         }}>
-          <Typography variant="h4" color="primary" gutterBottom>
-            {displayName}
-          </Typography>
           <Button
             variant="outlined"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate(-1)}
+            sx={{ mr: 2 }}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<EditIcon />}
             onClick={() => navigate(`/accounts/${id}/edit`)}
           >
             Edit
           </Button>
         </Box>
-        <Button
-          variant="outlined"
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate(-1)}
-        >
-          Back
-        </Button>
         <StyledBox>
           <StyledContainer aria-label="a dense table">
             <Table aria-label="collapsible table" stickyHeader>
