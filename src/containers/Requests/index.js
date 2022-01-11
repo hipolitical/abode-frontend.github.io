@@ -6,13 +6,12 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import TableList from '../../components/TableList';
 import SearchInput from '../../components/SearchInput';
-import { getRequests, grantAccess } from '../../store/actions/requests';
+import { getRequests, grantAccess, declineAccess } from '../../store/actions/requests';
 import { getCurrentUserId, getCurrentUserType } from '../../utils/functions';
 import { filterBySearchKeyword } from '../../utils/helpers';
 import './style.css';
@@ -28,6 +27,7 @@ function Requests() {
   const [openGrantModal, setOpenGrantModal] = useState(false);
   const [currentParams, setCurrentParams] = useState({});
   const [grantingStatus, setGrantingStatus] = useState(0);
+  const [decliningStatus, setDecliningStatus] = useState(0);
   const UNDO_LIMIT = 10;
 
   React.useEffect(() => {
@@ -41,10 +41,12 @@ function Requests() {
 
   const handleCloseDeclineModal = () => {
     setOpenDeclineModal(false);
+    setDecliningStatus(0);
   };
 
-  const handleOpenDeclineModal = () => {
+  const handleOpenDeclineModal = (params) => {
     setOpenDeclineModal(true);
+    setCurrentParams(params);
   }
 
   const handleCloseGrantModal = () => {
@@ -67,8 +69,22 @@ function Requests() {
     }
   }
 
+  const handleDeclineAction = () => {
+    setDecliningStatus(decliningStatus + 1);
+    if (decliningStatus === 1 && currentParams) {
+      dispatch(declineAccess({
+        requesterId: 1213311,
+        ...currentParams,
+      }));
+    }
+  }
+
   const handleUndoGrantAction = () => {
     setGrantingStatus(0);
+  }
+
+  const handleUndoDeclineAction = () => {
+    setDecliningStatus(0);
   }
 
   const renderTime = ({ remainingTime }) => {
@@ -110,18 +126,47 @@ function Requests() {
       <Dialog open={openDeclineModal} onClose={handleCloseDeclineModal} fullWidth={true} maxWidth={'sm'}>
         <DialogTitle>Declining Request Modal</DialogTitle>
         <DialogContent dividers>
-          <DialogContentText>
+          {decliningStatus === 0 &&
             <div
               dangerouslySetInnerHTML={{
-                __html:
-                  `Are you sure you want to decline access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`
+              __html:
+                `Are you sure you want to decline access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`
               }}
+              style={{ lineHeight: '1.5rem' }}
             />
-          </DialogContentText>
+          }
+          {decliningStatus === 1 &&
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <CountdownCircleTimer
+                size={60}
+                strokeWidth={6}
+                isPlaying={decliningStatus === 1}
+                duration={UNDO_LIMIT}
+                colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+                onComplete={handleDeclineAction}
+              >
+                {renderTime}
+              </CountdownCircleTimer>
+              <Typography variant="body" sx={{ ml: 3 }}>
+                You can undo this request in the remaining time.
+              </Typography>
+            </Box>
+          }
+          {decliningStatus === 2 &&
+            <div dangerouslySetInnerHTML={{
+              __html:
+                `The decline request has been sent.<br/><b>${currentParams.requesterName}</b> to <b>${currentParams.targetName}</b>`
+              }}
+              style={{ lineHeight: '1.5rem' }}
+            />
+          }
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeclineModal}>Cancel</Button>
-          <Button type="submit">Ok</Button>
+          <Button variant="contained" type="submit" onClick={handleDeclineAction} disabled={decliningStatus === 2}>
+            {decliningStatus === 1 ? 'Proceed' : 'Ok'}
+          </Button>
+          <Button variant="contained" type="submit" onClick={handleUndoDeclineAction} disabled={decliningStatus !== 1}>Undo</Button>
         </DialogActions>
       </Dialog>
       <Dialog open={openGrantModal} onClose={handleCloseGrantModal} fullWidth={true} maxWidth={'sm'}>
@@ -156,7 +201,7 @@ function Requests() {
           {grantingStatus === 2 &&
             <div dangerouslySetInnerHTML={{
               __html:
-                `The request has been sent.<br/><b>${currentParams.requesterName}</b> to <b>${currentParams.targetName}</b>`
+                `The grant request has been sent.<br/><b>${currentParams.requesterName}</b> to <b>${currentParams.targetName}</b>`
               }}
               style={{ lineHeight: '1.5rem' }}
             />

@@ -86,7 +86,12 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }));
-    onOpenDeclineModal();
+    onOpenDeclineModal({
+      targetId: row?.id,
+      requestedById: row?.requesterId,
+      targetName: row?.display_name,
+      requesterName: row?.requesterName,
+    });
   }
 
   return (
