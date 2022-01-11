@@ -39,6 +39,22 @@ function grantAccess(info) {
     })
 }
 
+function declineAccess(info) {
+  const { requestedById, requesterId, targetId } = info
+
+  return axios
+    .delete(
+      `${BASE_URL}/users/${requestedById}/related/affiliations`,
+      {
+        "requester_id": requesterId,
+        "target_id": targetId,
+      }
+    )
+    .then((res) => {
+      return res.data;
+    })
+}
+
 function getAllAccounts(params) {
   const query = params?.query || '';
   const limit = params?.limit || 10;
@@ -229,6 +245,7 @@ export {
   getSingleAccount,
   getUserInfo,
   grantAccess,
+  declineAccess,
   getMyAccounts,
   getAllAccounts,
   getRequests,
