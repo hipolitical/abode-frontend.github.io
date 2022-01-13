@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import TableList from '../../components/TableList';
 import { getSingleAccount } from '../../store/actions/single_account';
-import { getAccountUsers } from '../../store/actions/account_users';
+import { getAccountUsers, getAllUsers } from '../../store/actions/account_users';
 import AddNewUserModal from './NewUserModal';
 
 function AccountEdit() {
@@ -29,6 +29,7 @@ function AccountEdit() {
   React.useEffect(() => {
     dispatch(getAccountUsers(id));
     dispatch(getSingleAccount(id));
+    dispatch(getAllUsers());
   }, [dispatch, id]);
 
   const handleOpenNewUserModal = () => {

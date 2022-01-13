@@ -23,6 +23,14 @@ function getUserInfo(id) {
   })
 }
 
+function getAllUsers() {
+  return axios
+  .get(`${BASE_URL}/users?limit=-1`)
+  .then((res) => {
+    return res.data.items || [];
+  })
+}
+
 function grantAccess(info) {
   const { requestedById, requesterId, targetId } = info
 
@@ -243,6 +251,7 @@ function getPlacements() {
 
 export {
   getSingleAccount,
+  getAllUsers,
   getUserInfo,
   grantAccess,
   declineAccess,
