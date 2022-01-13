@@ -14,6 +14,7 @@ import SearchInput from '../../components/SearchInput';
 import { getRequests, grantAccess, declineAccess } from '../../store/actions/requests';
 import { getCurrentUserId, getCurrentUserType } from '../../utils/functions';
 import { filterBySearchKeyword } from '../../utils/helpers';
+import { isAdmin } from '../../utils/functions';
 import './style.css';
 
 function Requests() {
@@ -98,6 +99,23 @@ function Requests() {
       </div>
     );
   };
+
+  if (!isAdmin()) {
+    return (
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}>
+        <Typography variant="body">
+          Only admins can see this page.
+        </Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg">
