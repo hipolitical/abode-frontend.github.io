@@ -176,6 +176,9 @@ function CustomRow(props) {
             </Button>
           </TableCell>
         )}
+        {type === "my_requests" && (
+          <TableCell />
+        )}
         {type === "users" && (
           <TableCell>
             {row?.canRemove && (

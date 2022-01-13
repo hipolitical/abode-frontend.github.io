@@ -100,23 +100,6 @@ function Requests() {
     );
   };
 
-  if (!isAdmin()) {
-    return (
-      <Container
-        maxWidth="lg"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
-        <Typography variant="body">
-          Only admins can see this page.
-        </Typography>
-      </Container>
-    );
-  }
-
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 6 }}>
@@ -138,7 +121,7 @@ function Requests() {
           setPageNumber={setPageNumber}
           onOpenDeclineModal={handleOpenDeclineModal}
           onOpenGrantModal={handleOpenGrantModal}
-          type="requests"
+          type={isAdmin() ? "requests" : "my_requests"}
         />
       </Box>
       <Dialog open={openDeclineModal} onClose={handleCloseDeclineModal} fullWidth={true} maxWidth={'sm'}>
