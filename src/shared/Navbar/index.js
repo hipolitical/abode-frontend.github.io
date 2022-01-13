@@ -20,16 +20,17 @@ import AlertsIcon from '../../assets/alerts.svg';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { setAllNotificationsRead } from '../../store/actions/notifications';
+import { isAdmin } from '../../utils/functions';
 import './navbar.css';
 
-const pages = [
-  { name: 'Search', to: '/' },
-  { name: 'My Accounts', to: '/my-accounts' },
-  { name: 'Requests', to: '/requests' },
-];
 const blockedRoutes = ['/login']
 
 const Navbar = () => {
+  const pages = [
+    { name: 'Search', to: '/' },
+    { name: 'My Accounts', to: '/my-accounts' },
+    ...isAdmin() ? [{ name: 'Requests', to: '/requests' }] : [],
+  ];
   const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElNotification, setAnchorElNotification] = React.useState(null);
