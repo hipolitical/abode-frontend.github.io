@@ -13,10 +13,14 @@ import AccountInfo from './containers/AccountInfo';
 import AccountEdit from './containers/AccountEdit';
 import Navbar from './shared/Navbar';
 import Signin from './containers/Signin';
+import { isAdmin } from './utils/functions';
 
-function RequireAuth({ children }) {
+function RequireAuth({ children, hasAdmin }) {
   let auth = localStorage.getItem('userId');
   let location = useLocation();
+  if (hasAdmin) {
+    auth = auth && isAdmin();
+  }
   if (!auth) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
@@ -35,10 +39,26 @@ function Router() {
           </RequireAuth>
         } />
         <Route exact path="/login" element={<Signin />} />
-        <Route exact path="/my-accounts" element={<MyAccounts />} />
-        <Route exact path="/requests" element={<Requests />} />
-        <Route exact path="/accounts/:id" element={<AccountInfo />} />
-        <Route exact path="/accounts/:id/edit" element={<AccountEdit />} />
+        <Route exact path="/my-accounts" element={
+          <RequireAuth>
+            <MyAccounts />
+          </RequireAuth>
+        } />
+        <Route exact path="/requests" element={
+          <RequireAuth>
+            <Requests />
+          </RequireAuth>
+        } />
+        <Route exact path="/accounts/:id" element={
+          <RequireAuth>
+            <AccountInfo />
+          </RequireAuth>
+        } />
+        <Route exact path="/accounts/:id/edit" element={
+          <RequireAuth hasAdmin>
+            <AccountEdit />
+          </RequireAuth>
+        } />
       </Routes>
     </BrowserRouter>
   );

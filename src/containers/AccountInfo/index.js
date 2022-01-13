@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import ChartView from './chart'
 import { getSingleAccount } from '../../store/actions/single_account';
+import { isAdmin } from '../../utils/functions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   borderRight: `1px solid ${theme.palette.grey.light}`,
@@ -78,13 +79,15 @@ function AccountInfo() {
           >
             Back
           </Button>
-          <Button
-            variant="contained"
-            startIcon={<EditIcon />}
-            onClick={() => navigate(`/accounts/${id}/edit`)}
-          >
-            Edit
-          </Button>
+          {isAdmin() && (
+            <Button
+              variant="contained"
+              startIcon={<EditIcon />}
+              onClick={() => navigate(`/accounts/${id}/edit`)}
+            >
+              Edit
+            </Button>
+          )}
         </Box>
         <StyledBox>
           <StyledContainer aria-label="a dense table">
