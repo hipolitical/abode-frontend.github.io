@@ -6,10 +6,12 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import TableList from '../../components/TableList';
 import { getSingleAccount } from '../../store/actions/single_account';
 import { getAccountUsers } from '../../store/actions/account_users';
+import AddNewUserModal from './NewUserModal';
 
 function AccountEdit() {
   const { id } = useParams();
@@ -17,6 +19,8 @@ function AccountEdit() {
   const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState(10)
   const [pageNumber, setPageNumber] = useState(0)
+  const [openNewUserModal, setOpenNewUserModal] = React.useState(false);
+
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
   const displayName = singleAccountData.single_account?.display_name;
@@ -26,6 +30,14 @@ function AccountEdit() {
     dispatch(getAccountUsers(id));
     dispatch(getSingleAccount(id));
   }, [dispatch, id]);
+
+  const handleOpenNewUserModal = () => {
+    setOpenNewUserModal(true);
+  }
+
+  const handleCloseNewUserModal = () => {
+    setOpenNewUserModal(false);
+  }
 
   if (isLoading) {
     return (
@@ -37,7 +49,7 @@ function AccountEdit() {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ mt: 6 }}>
+      <Box sx={{ mt: 6, mb: 4 }}>
         <Typography variant="h4" color="primary" gutterBottom>
           {displayName}
         </Typography>
@@ -49,7 +61,24 @@ function AccountEdit() {
           Back
         </Button>
       </Box>
-      <Box sx={{ mt: 4 }}>
+      <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h6" gutterBottom>
+          Membership List
+        </Typography>
+        <Button
+          variant="outlined"
+          startIcon={<AddIcon />}
+          onClick={handleOpenNewUserModal}
+        >
+          Add New User
+        </Button>
+      </Box>
+      <AddNewUserModal
+        open={openNewUserModal}
+        displayName={displayName}
+        handleClose={handleCloseNewUserModal}
+      />
+      <Box>
         <TableList
           rows={accountUsersData.account_users}
           headers={accountUsersData.headers}
