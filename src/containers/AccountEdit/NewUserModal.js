@@ -16,6 +16,8 @@ export default function FormDialog({ open, displayName, data, property, handleCl
             <Autocomplete
               data={data}
               property={property}
+              label="Available Users"
+              placeholder="Search by keyword"
             />
           </DialogContent>
           <DialogActions>
