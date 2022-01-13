@@ -24,6 +24,12 @@ function AccountEdit() {
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
   const displayName = singleAccountData.single_account?.display_name;
+  const allUsersData = accountUsersData.all_users;
+  const availableUsers = allUsersData.filter(user =>
+    !accountUsersData.account_users
+      .map(item => item.id)
+      .includes(user.id)
+  );
   const isLoading = singleAccountData.isLoading;
 
   React.useEffect(() => {
@@ -78,6 +84,8 @@ function AccountEdit() {
         open={openNewUserModal}
         displayName={displayName}
         handleClose={handleCloseNewUserModal}
+        data={availableUsers}
+        property="display_name"
       />
       <Box>
         <TableList
