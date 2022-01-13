@@ -64,7 +64,7 @@ function Requests() {
     setGrantingStatus(grantingStatus + 1);
     if (grantingStatus === 1 && currentParams) {
       dispatch(grantAccess({
-        requesterId: 1213311,
+        requesterId: getCurrentUserId(),
         ...currentParams,
       }));
     }
@@ -74,7 +74,7 @@ function Requests() {
     setDecliningStatus(decliningStatus + 1);
     if (decliningStatus === 1 && currentParams) {
       dispatch(declineAccess({
-        requesterId: 1213311,
+        requesterId: getCurrentUserId(),
         ...currentParams,
       }));
     }
