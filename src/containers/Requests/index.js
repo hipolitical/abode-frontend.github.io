@@ -29,7 +29,7 @@ function Requests() {
   const [currentParams, setCurrentParams] = useState({});
   const [grantingStatus, setGrantingStatus] = useState(0);
   const [decliningStatus, setDecliningStatus] = useState(0);
-  const UNDO_LIMIT = 10;
+  const UNDO_LIMIT = 5;
 
   React.useEffect(() => {
     dispatch(getRequests({
@@ -223,11 +223,25 @@ function Requests() {
           }
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseGrantModal}>Cancel</Button>
-          <Button variant="contained" type="submit" onClick={handleGrantAction} disabled={grantingStatus === 2}>
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={handleGrantAction}
+            disabled={grantingStatus === 2}
+          >
             {grantingStatus === 1 ? 'Proceed' : 'Ok'}
           </Button>
-          <Button variant="contained" type="submit" onClick={handleUndoGrantAction} disabled={grantingStatus !== 1}>Undo</Button>
+          {grantingStatus === 1 && (
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={handleUndoGrantAction}
+              disabled={grantingStatus !== 1}
+            >
+              Cancel
+            </Button>
+          )}
+          <Button onClick={handleCloseGrantModal}>Close</Button>
         </DialogActions>
       </Dialog>
     </Container>
