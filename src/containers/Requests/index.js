@@ -163,11 +163,25 @@ function Requests() {
           }
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDeclineModal}>Cancel</Button>
-          <Button variant="contained" type="submit" onClick={handleDeclineAction} disabled={decliningStatus === 2}>
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={handleDeclineAction}
+            disabled={decliningStatus === 2}
+          >
             {decliningStatus === 1 ? 'Proceed' : 'Ok'}
           </Button>
-          <Button variant="contained" type="submit" onClick={handleUndoDeclineAction} disabled={decliningStatus !== 1}>Undo</Button>
+          {decliningStatus === 1 && (
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={handleUndoDeclineAction}
+              disabled={decliningStatus !== 1}
+            >
+              Cancel
+            </Button>
+          )}
+          <Button onClick={handleCloseDeclineModal}>Close</Button>
         </DialogActions>
       </Dialog>
       <Dialog open={openGrantModal} onClose={handleCloseGrantModal} fullWidth={true} maxWidth={'sm'}>
