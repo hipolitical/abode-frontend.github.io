@@ -44,7 +44,9 @@ function AccountEdit() {
   }
 
   const handleCloseNewUserModal = () => {
-    setOpenNewUserModal(false);
+    if (usersToAdd.length === 0) {
+      setOpenNewUserModal(false);
+    }
   }
 
   const handleChangeValue = (e, value) => {
