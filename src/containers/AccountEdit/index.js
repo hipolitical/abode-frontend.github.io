@@ -49,6 +49,10 @@ function AccountEdit() {
     }
   }
 
+  const handleForceCloseModal = () => {
+    setOpenNewUserModal(false);
+  }
+
   const handleChangeValue = (e, value) => {
     setUsersToAdd(value);
   }
@@ -92,7 +96,9 @@ function AccountEdit() {
       <AddNewUserModal
         open={openNewUserModal}
         displayName={displayName}
+        value={usersToAdd}
         handleClose={handleCloseNewUserModal}
+        handleForceClose={handleForceCloseModal}
         data={availableUsers}
         onChange={handleChangeValue}
         property="display_name"

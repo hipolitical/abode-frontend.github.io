@@ -8,12 +8,13 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxesTags({ data, property, label, placeholder, onChange }) {
+export default function CheckboxesTags({ data, value, property, label, placeholder, onChange }) {
   return (
     <Autocomplete
       multiple
       id="checkboxes-tags-demo"
       options={data}
+      value={value}
       disableCloseOnSelect
       getOptionLabel={(option) => option[property] || ''}
       renderOption={(props, option, { selected }) => (
