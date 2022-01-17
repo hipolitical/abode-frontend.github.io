@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxesTags({ data, property, label, placeholder }) {
+export default function CheckboxesTags({ data, property, label, placeholder, onChange }) {
   return (
     <Autocomplete
       multiple
@@ -27,6 +27,7 @@ export default function CheckboxesTags({ data, property, label, placeholder }) {
           {option[property] || ''}
         </li>
       )}
+      onChange={onChange}
       style={{ width: 500 }}
       renderInput={(params) => (
         <TextField {...params} label={label} placeholder={placeholder} />

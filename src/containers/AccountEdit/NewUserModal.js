@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '../../components/Autocomplete';
 
-export default function FormDialog({ open, displayName, data, property, handleClose }) {
+export default function FormDialog({ open, displayName, data, property, handleClose, onChange }) {
 
   return (
     <div>
@@ -18,6 +18,7 @@ export default function FormDialog({ open, displayName, data, property, handleCl
               property={property}
               label="Available Users"
               placeholder="Search by keyword"
+              onChange={onChange}
             />
           </DialogContent>
           <DialogActions>

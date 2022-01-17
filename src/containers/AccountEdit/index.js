@@ -17,9 +17,10 @@ function AccountEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [pageSize, setPageSize] = useState(10)
-  const [pageNumber, setPageNumber] = useState(0)
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(0);
   const [openNewUserModal, setOpenNewUserModal] = React.useState(false);
+  const [usersToAdd, setUsersToAdd] = useState([])
 
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
@@ -46,6 +47,10 @@ function AccountEdit() {
     setOpenNewUserModal(false);
   }
 
+  const handleChangeValue = (e, value) => {
+    setUsersToAdd(value);
+  }
+
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
@@ -53,6 +58,8 @@ function AccountEdit() {
       </Box>
     )
   }
+
+  console.log(usersToAdd)
 
   return (
     <Container maxWidth="lg">
@@ -85,6 +92,7 @@ function AccountEdit() {
         displayName={displayName}
         handleClose={handleCloseNewUserModal}
         data={availableUsers}
+        onChange={handleChangeValue}
         property="display_name"
       />
       <Box>
