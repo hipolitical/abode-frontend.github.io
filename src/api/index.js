@@ -31,6 +31,22 @@ function getAllUsers() {
   })
 }
 
+function createRequest(info) {
+  const { requesterId, targetId } = info
+
+  return axios
+    .put(
+      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      {
+        "requester_id": requesterId,
+        "target_id": targetId,
+      }
+    )
+    .then((res) => {
+      return res.data;
+    })
+}
+
 function grantAccess(info) {
   const { requestedById, requesterId, targetId } = info
 
@@ -253,6 +269,7 @@ export {
   getSingleAccount,
   getAllUsers,
   getUserInfo,
+  createRequest,
   grantAccess,
   declineAccess,
   getMyAccounts,
