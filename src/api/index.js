@@ -5,7 +5,7 @@ import {
   STATUS_REQUESTED,
 } from '../utils/consts';
 
-const BASE_URL = 'http://20.97.147.229:8080';
+const BASE_URL = 'http://20.96.65.143:8080';
 
 function getSingleAccount(id) {
   return axios
