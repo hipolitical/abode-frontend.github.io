@@ -6,8 +6,15 @@ import {
   CREATE_REQUEST_REQUESTED,
   CREATE_REQUEST_FAILED,
   CREATE_REQUEST_SUCCESS,
+  CANCEL_REQUEST_REQUESTED,
+  CANCEL_REQUEST_FAILED,
+  CANCEL_REQUEST_SUCCESS,
 } from "../types";
-import { getAllAccounts, createRequest } from '../../api';
+import {
+  getAllAccounts,
+  createRequest,
+  cancelRequest,
+} from '../../api';
 
 function* getAllAccountsRequested({ params }) {
   try {
@@ -27,9 +34,18 @@ function* createRequestHandler({ params }) {
   }
 }
 
+function* cancelRequestHandler({ params }) {
+  try {
+    const payload = yield call(cancelRequest, params);
+    yield put({ type: CANCEL_REQUEST_SUCCESS, payload });
+  } catch (e) {
+    yield put({ type: CANCEL_REQUEST_FAILED, payload: e });
+  }
+}
 
 export default function* accounts() {
   yield takeEvery(GET_ALL_ACCOUNTS_REQUESTED, getAllAccountsRequested);
   yield takeEvery(CREATE_REQUEST_REQUESTED, createRequestHandler);
+  yield takeEvery(CANCEL_REQUEST_REQUESTED, cancelRequestHandler);
 }
 
