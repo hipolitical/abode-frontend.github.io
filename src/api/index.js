@@ -47,6 +47,23 @@ function createRequest(info) {
     })
 }
 
+
+function cancelRequest(info) {
+  const { requesterId, targetId } = info
+
+  return axios
+    .delete(
+      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      {
+        "requester_id": requesterId,
+        "target_id": targetId,
+      }
+    )
+    .then((res) => {
+      return res.data;
+    })
+}
+
 function grantAccess(info) {
   const { requestedById, requesterId, targetId } = info
 
@@ -270,6 +287,7 @@ export {
   getAllUsers,
   getUserInfo,
   createRequest,
+  cancelRequest,
   grantAccess,
   declineAccess,
   getMyAccounts,
