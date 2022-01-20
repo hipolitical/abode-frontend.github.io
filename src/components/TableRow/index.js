@@ -45,6 +45,7 @@ function CustomRow(props) {
     onOpenDeclineModal,
     onOpenGrantModal,
     onOpenCreateRequestModal,
+    onOpenCancelRequestModal,
   } = props;
   const [open, setOpen] = React.useState(false);
   const hasDetails = Array.isArray(row.details) && row.details.length > 0;
@@ -64,6 +65,10 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }));
+    onOpenCancelRequestModal({
+      targetId: row?.id,
+      targetName: row?.legal_name,
+    });
   }
 
   const handleRequestAccess = () => {
@@ -84,6 +89,7 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }));
+    console.log(row)
     onOpenGrantModal({
       targetId: row?.id,
       requestedById: row?.requesterId,

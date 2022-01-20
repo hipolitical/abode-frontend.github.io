@@ -7,7 +7,7 @@ import SearchInput from '../../components/SearchInput';
 import ActionModal from '../../components/ActionModal';
 import { getAllAccounts } from '../../store/actions/all_accounts';
 import { getCurrentUserId } from '../../utils/functions';
-import { createRequest } from '../../store/actions/all_accounts';
+import { createRequest, cancelRequest } from '../../store/actions/all_accounts';
 
 function Accounts() {
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ function Accounts() {
   const [pageSize, setPageSize] = useState(10);
   const [pageNumber, setPageNumber] = useState(0);
   const [openCreateRequestModal, setOpenCreateRequestModal] = useState(false);
+  const [openCancelRequestModal, setOpenCancelRequestModal] = useState(false);
   const [currentParams, setCurrentParams] = useState({});
 
   React.useEffect(() => {
@@ -32,6 +33,11 @@ function Accounts() {
     setCurrentParams(params);
   }
 
+  const handleOpenCancelRequestModal = (params) => {
+    setOpenCancelRequestModal(true);
+    setCurrentParams(params);
+  }
+
   const handleCreateAction = () => {
     if (currentParams) {
       dispatch(createRequest({
@@ -41,8 +47,21 @@ function Accounts() {
     }
   }
 
+  const handleCancelAction = () => {
+    if (currentParams) {
+      dispatch(cancelRequest({
+        requesterId: getCurrentUserId(),
+        ...currentParams,
+      }));
+    }
+  }
+
   const handleCloseCreateModal = () => {
     setOpenCreateRequestModal(false);
+  };
+
+  const handleCloseCancelModal = () => {
+    setOpenCancelRequestModal(false);
   };
 
   return (
@@ -66,6 +85,7 @@ function Accounts() {
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
           onOpenCreateRequestModal={handleOpenCreateRequestModal}
+          onOpenCancelRequestModal={handleOpenCancelRequestModal}
           type="search"
         />
       </Box>
@@ -76,6 +96,14 @@ function Accounts() {
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
         handleDispatch={handleCreateAction}
         onCloseModal={handleCloseCreateModal}
+      />
+      <ActionModal
+        isOpenModal={openCancelRequestModal}
+        modalTitle="Canceling Request"
+        questionMessage={`Are you sure you want to cancel request to <b>${currentParams.targetName}</b>?`}
+        successMessage={`<b>${currentParams.targetName}</b><br />The cancel request has been sent.`}
+        handleDispatch={handleCancelAction}
+        onCloseModal={handleCloseCancelModal}
       />
     </Container>
   );
