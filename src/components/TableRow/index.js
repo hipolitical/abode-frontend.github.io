@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from "lodash";
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -91,8 +92,8 @@ function CustomRow(props) {
     }));
     console.log(row)
     onOpenGrantModal({
-      targetId: row?.id,
-      requestedById: row?.requesterId,
+      targetId: row?.target_id,
+      requestedById: row?.admin_id,
       targetName: row?.display_name,
       requesterName: row?.requesterName,
     });
@@ -119,9 +120,9 @@ function CustomRow(props) {
           <TableCell key={index} component="th" scope="row">
             {headers[index]?.isLink ?
               <Link to={`/accounts/${row.id}`} style={{ textDecoration: 'none' }}>
-                {row[item]}
+                {_.get(row, item)}
               </Link>
-              : row[item]
+              : _.get(row, item)
             }
           </TableCell>
         ))}

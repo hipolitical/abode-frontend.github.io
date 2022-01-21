@@ -73,9 +73,9 @@ function grantAccess(info) {
 
   return axios
     .put(
-      `${BASE_URL}/users/${requestedById}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations`,
       {
-        "requester_id": requesterId,
+        "requester_id": requestedById,
         "target_id": targetId,
       }
     )
@@ -181,7 +181,7 @@ function getRequests(params) {
   const page = params?.page || 0;
   const userType = params.userType;
   const endpointUrl = userType === 'admin' ?
-    `${BASE_URL}/users/admin/affiliations?status=${STATUS_REQUESTED}`
+    `${BASE_URL}/users/admin/affiliations?status=${STATUS_REQUESTED}&all_fields=true`
     : `${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`;
   const headers = userType === 'admin' ? {
     "user-id": userId,
@@ -190,26 +190,13 @@ function getRequests(params) {
   return axios
     .get(endpointUrl, { headers })
     .then((res) => {
-      const responseItems = res.data?.items || [];
-      const rows = responseItems
-        .map((item, index) => ({
-          ...item,
-          companyType: 'Insured',
-          entityType: 'Investment Manager',
-          role: 'Injured',
-          legalStatus: 'In Rehab/Supervision',
-          requesterId: 77777,
-          requesterName: 'Mike Dibble',
-          requesterEmail: 'mikedibble@guycarp.com',
-          requestedDate: '11/27/2021',
-        }));
+      const rows = res.data?.items || [];
       return {
         headers: [
-          { label: 'Name', field: 'display_name', isLink: true },
-          { label: 'Role', field: 'role' },
-          { label: 'Requester', field: 'requesterName' },
-          { label: 'Email', field: 'requesterEmail' },
-          { label: 'Requested', field: 'requestedDate' },
+          { label: 'Name', field: 'target.legal_name', isLink: true },
+          { label: 'Requester', field: 'source.displayName' },
+          { label: 'Email', field: 'source.mail' },
+          { label: 'Requested', field: 'source.createdDateTime' },
         ],
         rows,
       };
