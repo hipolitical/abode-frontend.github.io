@@ -71,9 +71,9 @@ function grantAccess(info) {
 
   return axios
     .put(
-      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
+      `${BASE_URL}/users/${requestedById}/related/affiliations/${targetId}`,
       {
-        "user-id": requestedById,
+        "user-id": requesterId,
       }
     )
     .then((res) => {
@@ -87,11 +87,11 @@ function declineAccess(info) {
     "Content-Type": "application/json",
   }
   const data = {
-    "user-id": requestedById,
+    "user-id": requesterId,
   }
   return axios
     .delete(
-      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
+      `${BASE_URL}/users/${requestedById}/related/affiliations/${targetId}`,
       { headers, data }
     )
     .then((res) => {
