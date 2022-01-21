@@ -108,31 +108,31 @@ function getAllAccounts(params) {
 
   return Promise.all([
     axios.get(`${BASE_URL}/trading_partners/search?query=${query}&page=${page + 1}&limit=${limit}&all_fields=true`),
-    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`),
-    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`),
+    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}&all_fields=true`),
+    axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}&all_fields=true`),
   ]).then((res) => {
     const responseItems = res[0].data?.items || [];
     const approvedIds = (res[1].data?.items || []).map(item => item.id);
     const requestIds = (res[2].data?.items || []).map(item => item.id);
-    const rows = responseItems.map((item, index) => ({
-      ...item,
-      companyType: 'Insured',
-      entityType: 'Investment Manager',
-      role: 'Injured',
-      legalStatus: 'In Rehab/Supervision',
-      requesterName: 'Mike Dibble',
-      requesterEmail: 'mikedibble@guycarp.com',
-      requestedDate: '11/27/2021',
-      status: approvedIds.includes(item.id) ? STATUS_APPROVED
-        : requestIds.includes(item.id) ? STATUS_REQUESTED : STATUS_DENIED,
-    }));
+    const rows = responseItems
+      .map((item, index) => ({
+        ...item,
+        ...res[1].data.items[index],
+        ...res[2].data.items[index],
+        status: approvedIds.includes(item.id) ? STATUS_APPROVED
+          : requestIds.includes(item.id) ? STATUS_REQUESTED : STATUS_DENIED,
+      }))
+      .map((item) => ({
+        ...item,
+        role: String(item.role).replaceAll(';', ', '),
+      }));
     return {
       headers: [
         { label: 'Name', field: 'legal_name', isLink: true },
-        { label: 'Company Type', field: 'companyType' },
-        { label: 'Entity Type', field: 'entityType' },
+        { label: 'Company Type', field: 'company_type' },
+        { label: 'Entity Type', field: 'entity_type' },
         { label: 'Role', field: 'role' },
-        { label: 'Legal Status', field: 'legalStatus' },
+        { label: 'Legal Status', field: 'legal_status' },
       ],
       count: res[0].data?.count || 0,
       rows,
@@ -146,28 +146,19 @@ function getMyAccounts(params) {
   const limit = params?.limit || 10;
   const page = params?.page || 0;
   return Promise.all([
-      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}`),
-      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`),
+      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_APPROVED}&all_fields=true`),
+      axios.get(`${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}&all_fields=true`),
     ]).then((res) => {
       const responseItems = [...res[0].data?.items, ...res[1].data?.items] || [];
       const rows = responseItems
       .map((item) => ({
         ...item,
-        companyType: 'Insured',
-        entityType: 'Investment Manager',
-        role: 'Injured',
-        legalStatus: 'In Rehab/Supervision',
-        requesterName: 'Mike Dibble',
-        requesterEmail: 'mikedibble@guycarp.com',
-        requestedDate: '11/27/2021',
+        role: item.role.replaceAll(';', ', '),
       }));
       return {
         headers: [
           { label: 'Name', field: 'display_name', isLink: true },
           { label: 'Role', field: 'role' },
-          { label: 'Requester', field: 'requesterName' },
-          { label: 'Email', field: 'requesterEmail' },
-          { label: 'Requested', field: 'requestedDate' },
         ],
         rows,
       };
