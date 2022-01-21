@@ -86,14 +86,17 @@ function grantAccess(info) {
 
 function declineAccess(info) {
   const { requestedById, requesterId, targetId } = info
-
+  const headers = {
+    "Content-Type": "application/json",
+  }
+  const data = {
+    "requester_id": requesterId,
+    "target_id": targetId,
+  }
   return axios
     .delete(
       `${BASE_URL}/users/${requestedById}/related/affiliations`,
-      {
-        "requester_id": requesterId,
-        "target_id": targetId,
-      }
+      { headers, data }
     )
     .then((res) => {
       return res.data;
