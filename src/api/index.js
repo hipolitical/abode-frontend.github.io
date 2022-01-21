@@ -90,12 +90,12 @@ function declineAccess(info) {
     "Content-Type": "application/json",
   }
   const data = {
-    "requester_id": requesterId,
+    "requester_id": requestedById,
     "target_id": targetId,
   }
   return axios
     .delete(
-      `${BASE_URL}/users/${requestedById}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations`,
       { headers, data }
     )
     .then((res) => {

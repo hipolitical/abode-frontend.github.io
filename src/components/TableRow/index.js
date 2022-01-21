@@ -106,8 +106,8 @@ function CustomRow(props) {
       isRead: false,
     }));
     onOpenDeclineModal({
-      targetId: row?.id,
-      requestedById: row?.requesterId,
+      targetId: row?.target_id,
+      requestedById: row?.admin_id,
       targetName: row?.display_name,
       requesterName: row?.requesterName,
     });
