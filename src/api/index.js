@@ -5,7 +5,7 @@ import {
   STATUS_REQUESTED,
 } from '../utils/consts';
 
-const BASE_URL = 'http://20.96.65.143:8080';
+const BASE_URL = 'http://20.96.97.68:8080';
 
 function getSingleAccount(id) {
   return axios
@@ -36,10 +36,9 @@ function createRequest(info) {
 
   return axios
     .put(
-      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
       {
-        "requester_id": requesterId,
-        "target_id": targetId,
+        "user-id": requesterId,
       }
     )
     .then((res) => {
@@ -54,13 +53,12 @@ function cancelRequest(info) {
     "Content-Type": "application/json",
   }
   const data = {
-    "requester_id": requesterId,
-    "target_id": targetId,
+    "user-id": requesterId,
   }
 
   return axios
     .delete(
-      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
       { headers, data }
     )
     .then((res) => {
@@ -73,10 +71,9 @@ function grantAccess(info) {
 
   return axios
     .put(
-      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
       {
-        "requester_id": requestedById,
-        "target_id": targetId,
+        "user-id": requestedById,
       }
     )
     .then((res) => {
@@ -90,12 +87,11 @@ function declineAccess(info) {
     "Content-Type": "application/json",
   }
   const data = {
-    "requester_id": requestedById,
-    "target_id": targetId,
+    "user-id": requestedById,
   }
   return axios
     .delete(
-      `${BASE_URL}/users/${requesterId}/related/affiliations`,
+      `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
       { headers, data }
     )
     .then((res) => {
