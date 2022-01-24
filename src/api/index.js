@@ -51,15 +51,13 @@ function cancelRequest(info) {
   const { requesterId, targetId } = info
   const headers = {
     "Content-Type": "application/json",
-  }
-  const data = {
     "user-id": requesterId,
   }
 
   return axios
     .delete(
       `${BASE_URL}/users/${requesterId}/related/affiliations/${targetId}`,
-      { headers, data }
+      { headers }
     )
     .then((res) => {
       return res.data;
