@@ -116,8 +116,6 @@ function getAllAccounts(params) {
     const rows = responseItems
       .map((item, index) => ({
         ...item,
-        ...res[1].data.items[index],
-        ...res[2].data.items[index],
         status: approvedIds.includes(item.id) ? STATUS_APPROVED
           : requestIds.includes(item.id) ? STATUS_REQUESTED : STATUS_DENIED,
       }))
