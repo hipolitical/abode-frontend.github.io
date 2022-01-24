@@ -88,7 +88,7 @@ const Navbar = () => {
           <Alert
             key={index}
             severity={notification.isRead ? 'success' : 'info'}
-            sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0 }}
+            sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0, alignItems: 'center' }}
           >
             <AlertTitle>
               <Typography variant="caption">{notification.date}</Typography> 

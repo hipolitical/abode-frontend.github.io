@@ -90,7 +90,6 @@ function CustomRow(props) {
       date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
       isRead: false,
     }));
-    console.log(row)
     onOpenGrantModal({
       targetId: row?.target_id,
       requestedById: row?.admin_id,
