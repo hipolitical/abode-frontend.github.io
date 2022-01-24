@@ -1,4 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
+import { format } from 'date-fns';
 import {
   GET_REQUESTS_REQUESTED,
   GET_REQUESTS_FAILED,
@@ -9,6 +10,7 @@ import {
   DECLINE_ACCESS_REQUESTED,
   DECLINE_ACCESS_SUCCESS,
   DECLINE_ACCESS_FAILED,
+  ADD_NOTIFICATION_REQUESTED,
 } from "../types";
 import {
   getRequests,
@@ -40,6 +42,15 @@ function* declineAccessRequested({ params }) {
     yield put({ type: DECLINE_ACCESS_SUCCESS, payload });
   } catch (e) {
     yield put({ type: DECLINE_ACCESS_FAILED, payload: e });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Decline access failed',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'error',
+      }
+    });
   }
 }
 

@@ -18,7 +18,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 import HourglassIcon from '@mui/icons-material/HourglassTop';
 import { addNotification } from '../../store/actions/notifications';
 import { capitalizeFirstLetter } from '../../utils/helpers.js';

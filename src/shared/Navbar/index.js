@@ -87,7 +87,12 @@ const Navbar = () => {
         {notificationsData.notifications.map((notification, index) => (
           <Alert
             key={index}
-            severity={notification.isRead ? 'success' : 'info'}
+            severity={notification?.isRead ?
+              'success'
+              : notification?.type === 'error' ? 
+                'warning'
+                : 'info'
+            }
             sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0, alignItems: 'center' }}
           >
             <AlertTitle>
