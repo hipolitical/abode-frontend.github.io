@@ -93,8 +93,8 @@ function CustomRow(props) {
     onOpenGrantModal({
       targetId: row?.target_id,
       requestedById: row?.admin_id,
-      targetName: row?.display_name,
-      requesterName: row?.requesterName,
+      targetName: row?.target.legal_name,
+      requesterName: row?.source.displayName,
     });
   }
 
@@ -107,8 +107,8 @@ function CustomRow(props) {
     onOpenDeclineModal({
       targetId: row?.target_id,
       requestedById: row?.admin_id,
-      targetName: row?.display_name,
-      requesterName: row?.requesterName,
+      targetName: row?.target.legal_name,
+      requesterName: row?.source.displayName,
     });
   }
 
