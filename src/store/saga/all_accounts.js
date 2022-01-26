@@ -28,7 +28,7 @@ function* getAllAccountsRequested({ params }) {
 function* createRequestHandler({ params }) {
   try {
     const payload = yield call(createRequest, params);
-    yield put({ type: CREATE_REQUEST_SUCCESS, payload });
+    yield put({ type: CREATE_REQUEST_SUCCESS, payload, params });
   } catch (e) {
     yield put({ type: CREATE_REQUEST_FAILED, payload: e });
   }
