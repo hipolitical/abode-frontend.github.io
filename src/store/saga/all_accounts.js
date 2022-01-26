@@ -1,4 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
+import { format } from 'date-fns';
 import {
   GET_ALL_ACCOUNTS_REQUESTED,
   GET_ALL_ACCOUNTS_FAILED,
@@ -9,6 +10,7 @@ import {
   CANCEL_REQUEST_REQUESTED,
   CANCEL_REQUEST_FAILED,
   CANCEL_REQUEST_SUCCESS,
+  ADD_NOTIFICATION_REQUESTED,
 } from "../types";
 import {
   getAllAccounts,
@@ -26,20 +28,72 @@ function* getAllAccountsRequested({ params }) {
 }
 
 function* createRequestHandler({ params }) {
+  yield put({
+    type: ADD_NOTIFICATION_REQUESTED,
+    data: {
+      message: 'Creating access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }
+  });
   try {
     const payload = yield call(createRequest, params);
     yield put({ type: CREATE_REQUEST_SUCCESS, payload, params });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Create access success',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'info',
+      }
+    });
   } catch (e) {
     yield put({ type: CREATE_REQUEST_FAILED, payload: e });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Create access failed',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'error',
+      }
+    });
   }
 }
 
 function* cancelRequestHandler({ params }) {
+  yield put({
+    type: ADD_NOTIFICATION_REQUESTED,
+    data: {
+      message: 'Canceling access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }
+  });
   try {
     const payload = yield call(cancelRequest, params);
     yield put({ type: CANCEL_REQUEST_SUCCESS, payload, params });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Cancel access success',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'info',
+      }
+    });
   } catch (e) {
     yield put({ type: CANCEL_REQUEST_FAILED, payload: e });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Cancel access failed',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'error',
+      }
+    });
   }
 }
 

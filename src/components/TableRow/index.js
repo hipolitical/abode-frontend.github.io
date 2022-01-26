@@ -61,11 +61,6 @@ function CustomRow(props) {
   }
 
   const handleCancelRequest = () => {
-    dispatch(addNotification({
-      message: 'Canceling request',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }));
     onOpenCancelRequestModal({
       targetId: row?.id,
       targetName: row?.legal_name,
@@ -73,11 +68,6 @@ function CustomRow(props) {
   }
 
   const handleRequestAccess = () => {
-    dispatch(addNotification({
-      message: 'Requesting access',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }));
     onOpenCreateRequestModal({
       targetId: row?.id,
       targetName: row?.legal_name,
