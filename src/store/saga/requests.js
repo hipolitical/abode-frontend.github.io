@@ -31,8 +31,26 @@ function* grantAccessRequested({ params }) {
   try {
     const payload = yield call(grantAccess, params);
     yield put({ type: GRANT_ACCESS_SUCCESS, payload });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Grant access success',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'info',
+      }
+    });
   } catch (e) {
     yield put({ type: GRANT_ACCESS_FAILED, payload: e });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Grant access failed',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'error',
+      }
+    });
   }
 }
 
@@ -40,6 +58,15 @@ function* declineAccessRequested({ params }) {
   try {
     const payload = yield call(declineAccess, params);
     yield put({ type: DECLINE_ACCESS_SUCCESS, payload });
+    yield put({
+      type: ADD_NOTIFICATION_REQUESTED,
+      data: {
+        message: 'Decline access success',
+        date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+        isRead: false,
+        type: 'info',
+      }
+    });
   } catch (e) {
     yield put({ type: DECLINE_ACCESS_FAILED, payload: e });
     yield put({
