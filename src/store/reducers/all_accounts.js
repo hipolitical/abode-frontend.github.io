@@ -3,6 +3,7 @@ import {
   GET_ALL_ACCOUNTS_FAILED,
   GET_ALL_ACCOUNTS_SUCCESS,
   CREATE_REQUEST_SUCCESS,
+  CANCEL_REQUEST_SUCCESS,
 } from "../types";
 import {
   STATUS_DENIED,
@@ -33,7 +34,7 @@ function accountsAllReducer(state = initialState, action) {
         count: action.payload.count,
         isLoading: false,
       });
-    case CREATE_REQUEST_SUCCESS: {
+    case CREATE_REQUEST_SUCCESS:
       return Object.assign({}, state, {
         accounts: state.accounts.map((account) => ({
           ...account,
@@ -41,7 +42,14 @@ function accountsAllReducer(state = initialState, action) {
             STATUS_REQUESTED : account.status
         })),
       });
-    }
+    case CANCEL_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        accounts: state.accounts.map((account) => ({
+          ...account,
+          status: action.params.targetId === account.id ?
+          STATUS_DENIED : account.status
+        })),
+      });
     default: return state;
   }
 }

@@ -37,7 +37,7 @@ function* createRequestHandler({ params }) {
 function* cancelRequestHandler({ params }) {
   try {
     const payload = yield call(cancelRequest, params);
-    yield put({ type: CANCEL_REQUEST_SUCCESS, payload });
+    yield put({ type: CANCEL_REQUEST_SUCCESS, payload, params });
   } catch (e) {
     yield put({ type: CANCEL_REQUEST_FAILED, payload: e });
   }
