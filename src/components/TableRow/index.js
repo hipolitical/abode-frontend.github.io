@@ -85,11 +85,6 @@ function CustomRow(props) {
   }
 
   const handleGrantAccess = () => {
-    dispatch(addNotification({
-      message: 'Granting access',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }));
     onOpenGrantModal({
       targetId: row?.target_id,
       requestedById: row?.admin_id,
@@ -99,11 +94,6 @@ function CustomRow(props) {
   }
 
   const handleDeclineAccess = () => {
-    dispatch(addNotification({
-      message: 'Declining access',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }));
     onOpenDeclineModal({
       targetId: row?.target_id,
       requestedById: row?.admin_id,

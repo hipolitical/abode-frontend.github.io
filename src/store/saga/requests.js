@@ -28,6 +28,14 @@ function* getAllRequestsRequested({ params }) {
 }
 
 function* grantAccessRequested({ params }) {
+  yield put({
+    type: ADD_NOTIFICATION_REQUESTED,
+    data: {
+      message: 'Granting access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }
+  });
   try {
     const payload = yield call(grantAccess, params);
     yield put({ type: GRANT_ACCESS_SUCCESS, payload });
@@ -55,6 +63,14 @@ function* grantAccessRequested({ params }) {
 }
 
 function* declineAccessRequested({ params }) {
+  yield put({
+    type: ADD_NOTIFICATION_REQUESTED,
+    data: {
+      message: 'Declining access',
+      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
+      isRead: false,
+    }
+  });
   try {
     const payload = yield call(declineAccess, params);
     yield put({ type: DECLINE_ACCESS_SUCCESS, payload });
