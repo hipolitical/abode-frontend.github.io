@@ -20,7 +20,7 @@ function AccountEdit() {
   const [pageSize, setPageSize] = useState(10);
   const [pageNumber, setPageNumber] = useState(0);
   const [openNewUserModal, setOpenNewUserModal] = React.useState(false);
-  const [usersToAdd, setUsersToAdd] = useState([])
+  const [usersToAdd, setUsersToAdd] = useState(null)
 
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
@@ -44,7 +44,7 @@ function AccountEdit() {
   }
 
   const handleCloseNewUserModal = () => {
-    if (usersToAdd.length === 0) {
+    if (!usersToAdd) {
       setOpenNewUserModal(false);
     }
   }
