@@ -12,7 +12,7 @@ import TableList from '../../components/TableList';
 import { getSingleAccount } from '../../store/actions/single_account';
 import { grantAccess } from '../../store/actions/requests';
 import { getAccountUsers, getAllUsers } from '../../store/actions/account_users';
-import { getCurrentUserId } from '../../utils/functions';
+import { getCurrentUserId, isAdmin } from '../../utils/functions';
 import AddNewUserModal from './NewUserModal';
 
 function AccountEdit() {
@@ -124,7 +124,7 @@ function AccountEdit() {
           page={pageNumber}
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
-          type="users"
+          type={isAdmin() ? "requests" : "my_requests"}
         />
       </Box>
     </Container>
