@@ -10,7 +10,9 @@ import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import TableList from '../../components/TableList';
 import { getSingleAccount } from '../../store/actions/single_account';
+import { grantAccess } from '../../store/actions/requests';
 import { getAccountUsers, getAllUsers } from '../../store/actions/account_users';
+import { getCurrentUserId } from '../../utils/functions';
 import AddNewUserModal from './NewUserModal';
 
 function AccountEdit() {
@@ -65,7 +67,15 @@ function AccountEdit() {
     )
   }
 
-  console.log(usersToAdd)
+  const handleGrantAction = () => {
+    if (usersToAdd) {
+      dispatch(grantAccess({
+        requesterId: getCurrentUserId(),
+        requestedById: usersToAdd?.id,
+        targetId: id,
+      }));
+    }
+  }
 
   return (
     <Container maxWidth="lg">
@@ -101,6 +111,7 @@ function AccountEdit() {
         handleForceClose={handleForceCloseModal}
         data={availableUsers}
         onChange={handleChangeValue}
+        handleAdd={handleGrantAction}
         property="display_name"
       />
       <Box>

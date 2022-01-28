@@ -6,7 +6,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '../../components/Autocomplete';
 
-export default function FormDialog({ open, displayName, data, value, property, handleClose, handleForceClose, onChange }) {
+export default function FormDialog({
+  open,
+  displayName,
+  data,
+  value,
+  property,
+  handleClose,
+  handleForceClose,
+  onChange,
+  handleAdd,
+}) {
 
   return (
     <div>
@@ -24,7 +34,7 @@ export default function FormDialog({ open, displayName, data, value, property, h
         </DialogContent>
         <DialogActions>
           <Button onClick={handleForceClose}>Cancel</Button>
-          <Button type="submit">Add</Button>
+          <Button type="submit" onClick={handleAdd}>Add</Button>
         </DialogActions>
       </Dialog>
     </div>
