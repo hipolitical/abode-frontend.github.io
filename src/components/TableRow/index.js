@@ -92,13 +92,15 @@ function CustomRow(props) {
     });
   }
 
+  const idField = type === 'search' ? 'id' : 'target_id';
+
   return (
     <React.Fragment>
       <StyledTableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         {headers.map(header => header.field).map((item, index) => (
           <TableCell key={index} component="th" scope="row">
             {headers[index]?.isLink ?
-              <Link to={`/accounts/${row.id}`} style={{ textDecoration: 'none' }}>
+              <Link to={`/accounts/${row[idField]}`} style={{ textDecoration: 'none' }}>
                 {_.get(row, item)}
               </Link>
               : _.get(row, item)
