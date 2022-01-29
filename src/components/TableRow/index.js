@@ -161,6 +161,7 @@ function CustomRow(props) {
           </TableCell>
         )}
         {type === "requests" && (
+          row.status === STATUS_REQUESTED ? (
           <TableCell>
             <Button
               sx={{ fontWeight: '700', whiteSpace: 'nowrap' }}
@@ -175,7 +176,7 @@ function CustomRow(props) {
               Decline Access
             </Button>
           </TableCell>
-        )}
+        ) : <TableCell />)}
         {type === "my_requests" && (
           <TableCell />
         )}
