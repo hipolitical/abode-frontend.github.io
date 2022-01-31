@@ -8,9 +8,10 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
+import ActionModal from '../../components/ActionModal';
 import TableList from '../../components/TableList';
 import { getSingleAccount } from '../../store/actions/single_account';
-import { grantAccess } from '../../store/actions/requests';
+import { grantAccess, declineAccess } from '../../store/actions/requests';
 import { getAccountUsers, getAllUsers } from '../../store/actions/account_users';
 import { getCurrentUserId, isAdmin } from '../../utils/functions';
 import AddNewUserModal from './NewUserModal';
@@ -22,7 +23,10 @@ function AccountEdit() {
   const [pageSize, setPageSize] = useState(10);
   const [pageNumber, setPageNumber] = useState(0);
   const [openNewUserModal, setOpenNewUserModal] = React.useState(false);
-  const [usersToAdd, setUsersToAdd] = useState(null)
+  const [usersToAdd, setUsersToAdd] = useState(null);
+  const [openDeclineModal, setOpenDeclineModal] = useState(false);
+  const [openGrantModal, setOpenGrantModal] = useState(false);
+  const [currentParams, setCurrentParams] = useState({});
 
   const accountUsersData = useSelector(state => state.account_users);
   const singleAccountData = useSelector(state => state.single_account);
@@ -59,6 +63,42 @@ function AccountEdit() {
     setUsersToAdd(value);
   }
 
+  const handleCloseDeclineModal = () => {
+    setOpenDeclineModal(false);
+  };
+
+  const handleOpenDeclineModal = (params) => {
+    setOpenDeclineModal(true);
+    setCurrentParams(params);
+  }
+
+  const handleCloseGrantModal = () => {
+    setOpenGrantModal(false);
+  };
+
+  const handleOpenGrantModal = (params) => {
+    setOpenGrantModal(true);
+    setCurrentParams(params);
+  }
+
+  const handleGrantAction = () => {
+    if (currentParams) {
+      dispatch(grantAccess({
+        requesterId: getCurrentUserId(),
+        ...currentParams,
+      }));
+    }
+  }
+
+  const handleDeclineAction = () => {
+    if (currentParams) {
+      dispatch(declineAccess({
+        requesterId: getCurrentUserId(),
+        ...currentParams,
+      }));
+    }
+  }
+
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
@@ -67,7 +107,7 @@ function AccountEdit() {
     )
   }
 
-  const handleGrantAction = () => {
+  const handleAddAction = () => {
     if (usersToAdd) {
       dispatch(grantAccess({
         requesterId: getCurrentUserId(),
@@ -111,7 +151,7 @@ function AccountEdit() {
         handleForceClose={handleForceCloseModal}
         data={availableUsers}
         onChange={handleChangeValue}
-        handleAdd={handleGrantAction}
+        handleAdd={handleAddAction}
         property="display_name"
       />
       <Box>
@@ -124,9 +164,27 @@ function AccountEdit() {
           page={pageNumber}
           setRowsPerPage={setPageSize}
           setPageNumber={setPageNumber}
+          onOpenDeclineModal={handleOpenDeclineModal}
+          onOpenGrantModal={handleOpenGrantModal}
           type={isAdmin() ? "requests" : "my_requests"}
         />
       </Box>
+      <ActionModal
+        isOpenModal={openDeclineModal}
+        modalTitle="Declining Request"
+        questionMessage={`Are you sure you want to decline access to <b>${currentParams.targetName}</b> to <br/><b>${currentParams.targetName}</b>?`}
+        successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
+        handleDispatch={handleDeclineAction}
+        onCloseModal={handleCloseDeclineModal}
+      />
+      <ActionModal
+        isOpenModal={openGrantModal}
+        modalTitle="Granting Request"
+        questionMessage={`Are you sure you want to grant access to <b>${currentParams.targetName}</b> to <br/><b>${currentParams.targetName}</b>?`}
+        successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
+        handleDispatch={handleGrantAction}
+        onCloseModal={handleCloseGrantModal}
+      />
     </Container>
   );
 }
