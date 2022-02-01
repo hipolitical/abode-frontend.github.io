@@ -75,12 +75,21 @@ function CustomRow(props) {
   }
 
   const handleGrantAccess = () => {
-    onOpenGrantModal({
-      targetId: row?.target_id,
-      requestedById: row?.admin_id,
-      targetName: row?.target.legal_name,
-      requesterName: row?.source.displayName,
-    });
+    if (type === 'requests') {
+      onOpenGrantModal({
+        targetId: row?.target_id,
+        requestedById: row?.admin_id,
+        targetName: row?.target.legal_name,
+        requesterName: row?.source.displayName,
+      });
+    } else if (type === 'account_requests') {
+      onOpenGrantModal({
+        targetId: row?.target_id,
+        requestedById: row?.admin_id,
+        targetName: row?.legal_name,
+        requesterName: row?.display_name,
+      });
+    }
   }
 
   const handleDeclineAccess = () => {

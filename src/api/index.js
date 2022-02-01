@@ -195,9 +195,7 @@ function getAccountUsers(id) {
       const rows = responseItems
         .map((item, index) => ({
           ...item,
-          role: 'Broking Lead',
-          joined_date: '8/30/2021',
-          canRemove: item.status === STATUS_REQUESTED
+          target_id: id,
         }));
       return {
         headers: [
