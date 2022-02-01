@@ -172,7 +172,7 @@ function AccountEdit() {
       <ActionModal
         isOpenModal={openDeclineModal}
         modalTitle="Declining Request"
-        questionMessage={`Are you sure you want to decline access to <b>${currentParams.targetName}</b> to <br/><b>${currentParams.targetName}</b>?`}
+        questionMessage={`Are you sure you want to decline access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
         handleDispatch={handleDeclineAction}
         onCloseModal={handleCloseDeclineModal}
@@ -180,7 +180,7 @@ function AccountEdit() {
       <ActionModal
         isOpenModal={openGrantModal}
         modalTitle="Granting Request"
-        questionMessage={`Are you sure you want to grant access to <b>${currentParams.targetName}</b> to <br/><b>${currentParams.targetName}</b>?`}
+        questionMessage={`Are you sure you want to grant access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
         handleDispatch={handleGrantAction}
         onCloseModal={handleCloseGrantModal}
