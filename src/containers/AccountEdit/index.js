@@ -166,7 +166,7 @@ function AccountEdit() {
           setPageNumber={setPageNumber}
           onOpenDeclineModal={handleOpenDeclineModal}
           onOpenGrantModal={handleOpenGrantModal}
-          type={isAdmin() ? "requests" : "my_requests"}
+          type={isAdmin() ? "account_requests" : "my_requests"}
         />
       </Box>
       <ActionModal

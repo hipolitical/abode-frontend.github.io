@@ -160,7 +160,7 @@ function CustomRow(props) {
             )}
           </TableCell>
         )}
-        {type === "requests" && (
+        {(type === "requests" || type === "account_requests") && (
           row.status === STATUS_REQUESTED ? (
           <TableCell>
             <Button
