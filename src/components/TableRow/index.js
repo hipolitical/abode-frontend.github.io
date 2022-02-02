@@ -93,12 +93,21 @@ function CustomRow(props) {
   }
 
   const handleDeclineAccess = () => {
-    onOpenDeclineModal({
-      targetId: row?.target_id,
-      requestedById: row?.admin_id,
-      targetName: row?.target.legal_name,
-      requesterName: row?.source.displayName,
-    });
+    if (type === 'requests') {
+      onOpenDeclineModal({
+        targetId: row?.target_id,
+        requestedById: row?.admin_id,
+        targetName: row?.target.legal_name,
+        requesterName: row?.source.displayName,
+      });
+    } else if (type === 'account_requests') {
+      onOpenDeclineModal({
+        targetId: row?.target_id,
+        requestedById: row?.admin_id,
+        targetName: row?.legal_name,
+        requesterName: row?.display_name,
+      });
+    }
   }
 
   const idField = type === 'search' ? 'id' : 'target_id';
