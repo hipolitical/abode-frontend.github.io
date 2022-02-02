@@ -188,14 +188,16 @@ function getRequests(params) {
 }
 
 function getAccountUsers(id) {
-  return axios
-    .get(`${BASE_URL}/trading_partners/${id}/inverse/affiliations`)
-    .then((res) => {
-      const responseItems = res.data?.items || [];
+  return Promise.all([
+    axios.get(`${BASE_URL}/trading_partners/${id}/inverse/affiliations`),
+    getSingleAccount(id),
+  ]).then((res) => {
+      const responseItems = res[0].data?.items || [];
       const rows = responseItems
         .map((item, index) => ({
           ...item,
           target_id: id,
+          legal_name: res[1].display_name,
         }));
       return {
         headers: [
