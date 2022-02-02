@@ -6,7 +6,6 @@ import all_accounts from './all_accounts';
 import requests from './requests';
 import account_users from './account_users';
 import notifications from './notifications';
-import placements from './placements';
 
 export default combineReducers({
   theme,
@@ -16,5 +15,4 @@ export default combineReducers({
   requests,
   account_users,
   notifications,
-  placements,
 });

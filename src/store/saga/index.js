@@ -5,7 +5,6 @@ import all_accounts from './all_accounts';
 import requests from './requests';
 import account_users from './account_users';
 import notifications from './notifications';
-import placements from './placements';
 
 export default function* Saga() {
   yield all([
@@ -15,6 +14,5 @@ export default function* Saga() {
     requests(),
     account_users(),
     notifications(),
-    placements(),
   ]);
 }
