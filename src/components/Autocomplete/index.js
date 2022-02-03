@@ -9,7 +9,6 @@ export default function CheckboxesTags({ data, value, property, label, placehold
       id="checkboxes-tags-demo"
       options={data}
       value={value}
-      disableCloseOnSelect
       getOptionLabel={(option) => option[property] || ''}
       onChange={onChange}
       style={{ width: 500 }}
