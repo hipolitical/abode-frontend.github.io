@@ -7,9 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import Cancel from '@mui/icons-material/Cancel';
 
 function ActionModal({
   isOpenModal,
+  isPositive,
   modalTitle,
   questionMessage,
   successMessage,
@@ -47,9 +50,18 @@ function ActionModal({
     );
   };
 
+  const ModalIcon = (
+    <Box sx={{ marginRight: 1, marginTop: '3px', marginBottom: '-6px' }}>
+      {isPositive ? <CheckCircle color="success" /> : <Cancel color="warning" />}
+    </Box>
+  );
+
   return (
     <Dialog open={isOpenModal} onClose={handleCloseModal} fullWidth={true} maxWidth={'sm'}>
-      <DialogTitle>{modalTitle}</DialogTitle>
+      <DialogTitle sx={{ display: 'flex' }}>
+        {ModalIcon}
+        {modalTitle}
+      </DialogTitle>
       <DialogContent dividers>
         {processStatus === 0 &&
           <div
