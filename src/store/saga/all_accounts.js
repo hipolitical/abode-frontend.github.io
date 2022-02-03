@@ -28,14 +28,6 @@ function* getAllAccountsRequested({ params }) {
 }
 
 function* createRequestHandler({ params }) {
-  yield put({
-    type: ADD_NOTIFICATION_REQUESTED,
-    data: {
-      message: 'Creating access',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }
-  });
   try {
     const payload = yield call(createRequest, params);
     yield put({ type: CREATE_REQUEST_SUCCESS, payload, params });
@@ -63,14 +55,6 @@ function* createRequestHandler({ params }) {
 }
 
 function* cancelRequestHandler({ params }) {
-  yield put({
-    type: ADD_NOTIFICATION_REQUESTED,
-    data: {
-      message: 'Canceling access',
-      date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
-      isRead: false,
-    }
-  });
   try {
     const payload = yield call(cancelRequest, params);
     yield put({ type: CANCEL_REQUEST_SUCCESS, payload, params });
