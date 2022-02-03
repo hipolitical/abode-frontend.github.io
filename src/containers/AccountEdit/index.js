@@ -114,6 +114,9 @@ function AccountEdit() {
         requestedById: usersToAdd?.id,
         targetId: id,
       }));
+      dispatch(getAccountUsers(id));
+      setUsersToAdd(null);
+      setOpenNewUserModal(false);
     }
   }
 
