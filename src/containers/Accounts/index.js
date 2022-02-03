@@ -91,6 +91,7 @@ function Accounts() {
       </Box>
       <ActionModal
         isOpenModal={openCreateRequestModal}
+        isPositive={true}
         modalTitle="Creating Request"
         questionMessage={`Are you sure you want to create request to <b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
@@ -99,6 +100,7 @@ function Accounts() {
       />
       <ActionModal
         isOpenModal={openCancelRequestModal}
+        isPositive={false}
         modalTitle="Canceling Request"
         questionMessage={`Are you sure you want to cancel request to <b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The cancel request has been sent.`}

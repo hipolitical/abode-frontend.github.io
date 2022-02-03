@@ -93,6 +93,7 @@ function Requests() {
       </Box>
       <ActionModal
         isOpenModal={openDeclineModal}
+        isPositive={false}
         modalTitle="Declining Request"
         questionMessage={`Are you sure you want to decline access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
@@ -101,6 +102,7 @@ function Requests() {
       />
       <ActionModal
         isOpenModal={openGrantModal}
+        isPositive={true}
         modalTitle="Granting Request"
         questionMessage={`Are you sure you want to grant access to <b>${currentParams.requesterName}</b> to <br/><b>${currentParams.targetName}</b>?`}
         successMessage={`<b>${currentParams.targetName}</b><br />The create request has been sent.`}
