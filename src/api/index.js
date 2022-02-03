@@ -12,23 +12,23 @@ function getSingleAccount(id) {
     .get(`${BASE_URL}/trading_partners/${id}`)
     .then((res) => {
       return res.data;
-    })
+    });
 }
 
 function getUserInfo(id) {
   return axios
-  .get(`${BASE_URL}/users/${id}`)
-  .then((res) => {
-    return res.data;
-  })
+    .get(`${BASE_URL}/users/${id}`)
+    .then((res) => {
+      return res.data;
+    });
 }
 
 function getAllUsers() {
   return axios
-  .get(`${BASE_URL}/users?limit=-1`)
-  .then((res) => {
-    return res.data.items || [];
-  })
+    .get(`${BASE_URL}/users?limit=-1`)
+    .then((res) => {
+      return res.data.items || [];
+    });
 }
 
 function createRequest(info) {
@@ -52,7 +52,7 @@ function cancelRequest(info) {
   const headers = {
     "Content-Type": "application/json",
     "user-id": requesterId,
-  }
+  };
 
   return axios
     .delete(
@@ -61,7 +61,7 @@ function cancelRequest(info) {
     )
     .then((res) => {
       return res.data;
-    })
+    });
 }
 
 function grantAccess(info) {
@@ -76,7 +76,7 @@ function grantAccess(info) {
     )
     .then((res) => {
       return res.data;
-    })
+    });
 }
 
 function declineAccess(info) {
@@ -84,7 +84,8 @@ function declineAccess(info) {
   const headers = {
     "Content-Type": "application/json",
     "user-id": requesterId,
-  }
+  };
+
   return axios
     .delete(
       `${BASE_URL}/users/${requestedById}/related/affiliations/${targetId}`,
@@ -92,7 +93,7 @@ function declineAccess(info) {
     )
     .then((res) => {
       return res.data;
-    })
+    });
 }
 
 function getAllAccounts(params) {
@@ -169,7 +170,7 @@ function getRequests(params) {
     : `${BASE_URL}/users/${userId}/related/affiliations?query=${query}&page=${page + 1}&limit=${limit}&status=${STATUS_REQUESTED}`;
   const headers = userType === 'admin' ? {
     "user-id": userId,
-  } : {}
+  } : {};
 
   return axios
     .get(endpointUrl, { headers })
@@ -192,25 +193,25 @@ function getAccountUsers(id) {
     axios.get(`${BASE_URL}/trading_partners/${id}/inverse/affiliations`),
     getSingleAccount(id),
   ]).then((res) => {
-      const responseItems = res[0].data?.items || [];
-      const rows = responseItems
-        .map((item, index) => ({
-          ...item,
-          target_id: id,
-          legal_name: res[1].display_name,
-        }));
-      return {
-        headers: [
-          { label: 'Name', field: 'display_name' },
-          { label: 'Role', field: 'role' },
-          { label: 'Email', field: 'email' },
-          { label: 'Joined', field: 'joined_date' },
-          { label: 'Status', field: 'status' },
-          { label: '', field: '' },
-        ],
-        rows,
-      };
-    });
+    const responseItems = res[0].data?.items || [];
+    const rows = responseItems
+      .map((item, index) => ({
+        ...item,
+        target_id: id,
+        legal_name: res[1].display_name,
+      }));
+    return {
+      headers: [
+        { label: 'Name', field: 'display_name' },
+        { label: 'Role', field: 'role' },
+        { label: 'Email', field: 'email' },
+        { label: 'Joined', field: 'joined_date' },
+        { label: 'Status', field: 'status' },
+        { label: '', field: '' },
+      ],
+      rows,
+    };
+  });
 }
 
 export {
