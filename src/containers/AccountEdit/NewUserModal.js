@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import Box from '@mui/material/Box';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Autocomplete from '../../components/Autocomplete';
+import GroupIcon from '@mui/icons-material/Group';
 
 export default function FormDialog({
   open,
@@ -21,7 +23,12 @@ export default function FormDialog({
   return (
     <div>
       <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'sm'}>
-        <DialogTitle>{displayName}</DialogTitle>
+        <DialogTitle sx={{ display: 'flex' }}>
+          <Box sx={{ marginRight: 1, marginTop: '3px', marginBottom: '-6px' }}>
+            <GroupIcon color="primary" />
+          </Box>
+          {displayName}
+        </DialogTitle>
         <DialogContent dividers>
           <Autocomplete
             data={data}
