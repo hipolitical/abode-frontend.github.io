@@ -113,6 +113,7 @@ function AccountEdit() {
         requesterId: getCurrentUserId(),
         requestedById: usersToAdd?.id,
         targetId: id,
+        requesterName: usersToAdd?.display_name,
       }));
       setUsersToAdd(null);
       setOpenNewUserModal(false);

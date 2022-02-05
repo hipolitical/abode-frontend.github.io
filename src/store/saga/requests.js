@@ -30,7 +30,7 @@ function* getAllRequestsRequested({ params }) {
 function* grantAccessRequested({ params }) {
   try {
     const payload = yield call(grantAccess, params);
-    yield put({ type: GRANT_ACCESS_SUCCESS, payload });
+    yield put({ type: GRANT_ACCESS_SUCCESS, payload, params });
     yield put({
       type: ADD_NOTIFICATION_REQUESTED,
       data: {

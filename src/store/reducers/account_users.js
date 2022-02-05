@@ -5,7 +5,12 @@ import {
   GET_ALL_USERS_REQUESTED,
   GET_ALL_USERS_FAILED,
   GET_ALL_USERS_SUCCESS,
+  GRANT_ACCESS_SUCCESS,
 } from "../types";
+import {
+  STATUS_DENIED,
+  STATUS_REQUESTED,
+} from '../../utils/consts';
 
 const initialState = {
   account_users: [],
@@ -16,6 +21,14 @@ const initialState = {
 
 function accountUsersReducer(state = initialState, action) {
   switch (action.type) {
+    case GRANT_ACCESS_SUCCESS:
+      return Object.assign({}, state, {
+        account_users: [...state.account_users, {
+          id: action.params.requeaccount_usersstedById,
+          display_name: action.params.requesterName,
+          status: STATUS_REQUESTED,
+        }],
+      });
     case GET_ALL_USERS_REQUESTED:
     case GET_ACCOUNT_USERS_REQUESTED:
       return Object.assign({}, state, {
