@@ -57,7 +57,7 @@ function* grantAccessRequested({ params }) {
 function* declineAccessRequested({ params }) {
   try {
     const payload = yield call(declineAccess, params);
-    yield put({ type: DECLINE_ACCESS_SUCCESS, payload });
+    yield put({ type: DECLINE_ACCESS_SUCCESS, payload, params });
     yield put({
       type: ADD_NOTIFICATION_REQUESTED,
       data: {
@@ -68,7 +68,7 @@ function* declineAccessRequested({ params }) {
       }
     });
   } catch (e) {
-    yield put({ type: DECLINE_ACCESS_FAILED, payload: e });
+    yield put({ type: DECLINE_ACCESS_FAILED, payload: e, params });
     yield put({
       type: ADD_NOTIFICATION_REQUESTED,
       data: {

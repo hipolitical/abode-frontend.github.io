@@ -102,6 +102,7 @@ function CustomRow(props) {
       });
     } else if (type === 'account_requests') {
       onOpenDeclineModal({
+        declineId: row?.id,
         targetId: row?.target_id,
         requestedById: row?.admin_id,
         targetName: row?.legal_name,

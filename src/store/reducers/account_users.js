@@ -6,9 +6,9 @@ import {
   GET_ALL_USERS_FAILED,
   GET_ALL_USERS_SUCCESS,
   GRANT_ACCESS_SUCCESS,
+  DECLINE_ACCESS_SUCCESS,
 } from "../types";
 import {
-  STATUS_DENIED,
   STATUS_REQUESTED,
 } from '../../utils/consts';
 
@@ -24,10 +24,16 @@ function accountUsersReducer(state = initialState, action) {
     case GRANT_ACCESS_SUCCESS:
       return Object.assign({}, state, {
         account_users: [...state.account_users, {
-          id: action.params.requeaccount_usersstedById,
+          id: action.params.requestedById,
           display_name: action.params.requesterName,
           status: STATUS_REQUESTED,
         }],
+      });
+    case DECLINE_ACCESS_SUCCESS:
+      return Object.assign({}, state, {
+        account_users: state.account_users.filter((account) =>
+          account.id !== action.params.declineId
+        ),
       });
     case GET_ALL_USERS_REQUESTED:
     case GET_ACCOUNT_USERS_REQUESTED:
