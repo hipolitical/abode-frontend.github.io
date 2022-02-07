@@ -96,8 +96,11 @@ const Navbar = () => {
             sx={{ borderTop: '1px solid rgba(76, 175, 80, .1)', borderRadius: 0, alignItems: 'center' }}
           >
             <AlertTitle>
-              <Typography variant="caption">{notification.date}</Typography> 
-              <Typography>{notification.message}</Typography> 
+              <Typography variant="caption">{notification.date}</Typography><br/>
+              <Typography variant="caption">{notification.message}</Typography><br/>
+              {notification?.targetName && (
+                <Typography variant="caption">{notification.targetName}</Typography>
+              )}
             </AlertTitle>
           </Alert>
         ))}
