@@ -35,6 +35,7 @@ function* createRequestHandler({ params }) {
       type: ADD_NOTIFICATION_REQUESTED,
       data: {
         message: 'Create access success',
+        targetName: params.targetName,
         date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
         isRead: false,
         type: 'info',
@@ -46,6 +47,7 @@ function* createRequestHandler({ params }) {
       type: ADD_NOTIFICATION_REQUESTED,
       data: {
         message: 'Create access failed',
+        targetName: params.targetName,
         date: format(new Date(), 'HH:mm:ss MM/dd/yyyy'),
         isRead: false,
         type: 'error',
